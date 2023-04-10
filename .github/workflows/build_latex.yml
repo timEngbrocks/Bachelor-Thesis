@@ -29,3 +29,12 @@ jobs:
           root_file: bt_engbrocks.tex
           compiler: pdflatex
           args: -interaction=nonstopmode -shell-escape
+      - name: Gather build artifacts
+        run: |
+          mkdir build
+          mv *.pdf build/
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with: 
+          name: build
+          path: build
