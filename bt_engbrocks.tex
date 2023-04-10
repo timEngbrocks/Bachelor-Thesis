@@ -14,21 +14,39 @@
 % After changes in glossary you need to execute the following command 
 % to use the new acronyms
 %
-% pdflatex name_btmt.tex
-% makeglossaries name_btmt
-% pdflatex name_btmt.tex
-% bibtex name_btmt
-% pdflatex name_btmt.tex
-% pdflatex name_btmt.tex
+% pdflatex bt_engbrocks.tex
+% makeglossaries bt_engbrocks
+% pdflatex bt_engbrocks.tex
+% bibtex bt_engbrocks
+% pdflatex bt_engbrocks.tex
+% pdflatex bt_engbrocks.tex
 %
 % After changes in literature you need to execute the following command
 % to use the new reference
 %
-% bibtex name_btmt
+% bibtex bt_engbrocks
 %
 %==============================================================================
 
-% TODO set author and title in header settings
+%==============================================================================
+% Moved here from header to be compatible with the VSCode Extension: Latex Workshop
+\documentclass[
+	pdftex,				% PDFTex verwenden da ausschliesslich ein PDF erzeugt wird.
+	a4paper, %twoside,	% Verwenden von DIN A4 Papier.
+	11pt,				% Grosse Schrift, besser geeignet für A4.
+	parskip=half,		% Halbe Zeile Abstand zwischen Absätzen.
+	numbers=noenddot,	% Keine Punkte hinter Nummern
+	pagesize,           % Schreibt die Papiergroesse in die Datei 
+	BCOR=10mm,			% Bindekorrektur
+	DIV=13,				% Alternativ 12 oder 14
+	headinclude,		% Kopfzeile in den Textbereich
+	headsepline,		% Linie nach Kopfzeile.
+	titlepage,
+	headings=small,
+	bibliography=totocnumbered,	% Bibliographie im TOC nummeriert
+]{scrbook}
+%==============================================================================
+
 \input{header}
 
 \pgfplotsset{compat=1.16} 
