@@ -1,0 +1,309 @@
+
+%==============================================================================
+% Dokument einrichten und Pakete laden
+%==============================================================================
+
+\documentclass[
+	pdftex,				% PDFTex verwenden da ausschliesslich ein PDF erzeugt wird.
+	a4paper, %twoside,	% Verwenden von DIN A4 Papier.
+	11pt,				% Grosse Schrift, besser geeignet für A4.
+	parskip=half,		% Halbe Zeile Abstand zwischen Absätzen.
+	numbers=noenddot,	% Keine Punkte hinter Nummern
+	pagesize,           % Schreibt die Papiergroesse in die Datei 
+	BCOR=10mm,			% Bindekorrektur
+	DIV=13,				% Alternativ 12 oder 14
+	headinclude,		% Kopfzeile in den Textbereich
+	headsepline,		% Linie nach Kopfzeile.
+	titlepage,
+	headings=small,
+	bibliography=totocnumbered,	% Bibliographie im TOC nummeriert
+]{scrbook}
+
+\usepackage{setspace}\setstretch{1.2} 
+%\usepackage{titlesec}
+\usepackage{longtable}
+
+%\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+%\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+%\titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+
+\usepackage{scrhack}
+\usepackage{tabularx}
+
+\usepackage[printonlyused]{acronym}
+\usepackage{multicol}
+
+\usepackage[table]{xcolor}
+
+\usepackage{comment}
+
+%
+% Zeichenkodieruung und Sprache
+%
+
+\usepackage[utf8]{inputenc} % Dokument
+\usepackage[T1]{fontenc} % Schrift
+\usepackage[ngerman, english]{babel}
+
+\usepackage{eurosym}
+
+%
+% PDF-Metadaten setzen
+%
+
+\usepackage{pdfpages}
+\usepackage[
+	% Titel des PDF Dokuments
+	pdftitle={BT Engbrocks: Development of a Concept for the Monitoring of Decentralized Identity Solutions Based on DevOps Concepts},
+	% Autor des PDF Dokuments
+	pdfauthor={Tim Engbrocks},
+	% Thema des PDF Dokuments
+	pdfsubject={Bachelor thesis},
+	% Erzeuger des PDF Dokuments
+	pdfcreator={Tim Engbrocks},
+	% Schlüsselwörter für das PDF
+	pdfkeywords={},
+	% Dokumenttitel statt Dateiname anzeigen
+	pdfdisplaydoctitle=true,																% Sprache des Dokuments
+	pdflang=en,
+	bookmarksopen=true,
+	bookmarksdepth=1,
+	colorlinks,
+	linkcolor = black,
+	citecolor=black,
+	urlcolor=black,
+]{hyperref}
+
+%
+%  Zusätzliche Pakete laden
+%
+
+% Anführungszeichen
+\usepackage[style=american]{csquotes}
+
+% erweiterte Tabelleneigenschaftn
+\usepackage{array, ragged2e}
+
+% Einbinden von Grafiken
+\usepackage{graphicx}	
+
+% mathematischer Textsatz
+%\usepackage{amsmath}
+%\usepackage{amssymb}
+%\usepackage{dsfont}
+
+% Textteile drehen
+%\usepackage{rotating}	
+
+% Farbpakete
+%\usepackage{color}
+
+% Quellcode sauber formatieren
+\usepackage{listings}	
+
+% Font 'Latin Modern Family' verwenden
+\usepackage{microtype}
+\usepackage{helvet}
+\usepackage{mathptmx}
+
+%==============================================================================
+% Einstellungen und Definitionen
+%==============================================================================
+
+% Farben definieren
+
+\definecolor{light-gray}{gray}{0.95}
+%\definecolor{LinkColor}{rgb}{0,0,0.5}
+%\definecolor{ListingBackground}{rgb}{0.85,0.85,0.85}
+%\definecolor{CommentColor}{rgb}{0, 0.5, 0}
+%\definecolor{StringColor}{rgb}{0.63, 0.09, 0.09}
+
+% KOMA-Script Option, Zeilenumbruch bei Bildbeschreibungen.
+\setcapindent{1em}
+
+% Stil der Kopf- und Fusszeilen.
+\usepackage[headsepline,automark,pagestyleset=KOMA-Script, markcase=ignoreuppercase]{scrlayer-scrpage}
+\pagestyle{scrheadings}
+
+% Stil der Überschriften auf normale Schrift.
+
+%\setkomafont{sectioning}{\normalfont\bfseries}		 % Titel mit Normalschrift
+\setkomafont{captionlabel}{\normalfont\bfseries}	 % Fette Beschriftungen 
+%\setkomafont{pageheadfoot}{\normalfont\itshape}     % Kursive Seitentitel
+\setkomafont{descriptionlabel}{\normalfont\bfseries} % Fette Beschreibungstitel
+
+% Codelisting korrekt bezeichnet ausgeben
+%\renewcommand\lstlistingname{Source code}
+
+%==============================================================================
+% Listings
+%==============================================================================
+
+\lstloadlanguages{% Check Dokumentation for further languages ...
+  XML,
+  HTML,
+  Java,
+  Tex
+}
+
+
+\lstset{
+  %basicstyle=\scriptsize\ttfamily, % Standardschrift
+	basicstyle=\footnotesize\ttfamily,
+  %numbers=left, % Ort der Zeilennummern
+  %numberstyle=\tiny, % Stil der Zeilennummern
+  %stepnumber=2, % Abstand zwischen den Zeilennummern
+	%numberblanklines=false,
+  numbersep=5pt, % Abstand der Nummern zum Text
+  tabsize=2, % Groesse von Tabs
+  extendedchars=true, %
+  breaklines=true, % Zeilen werden Umgebrochen
+  %keywordstyle=\color{red},
+  frame=b,
+  % keywordstyle=[1]\textbf, % Stil der Keywords
+  % keywordstyle=[2]\textbf, %
+  % keywordstyle=[3]\textbf, %
+  % keywordstyle=[4]\textbf, \sqrt{\sqrt{}} %
+  %stringstyle=\color{white}\ttfamily, % Farbe der String
+  showspaces=false, % Leerzeichen anzeigen ?
+  showtabs=false, % Tabs anzeigen ?
+  xleftmargin=17pt,
+	xrightmargin=17pt,
+  framexleftmargin=17pt,
+  framexrightmargin=17pt,
+  framexbottommargin=4pt,
+  backgroundcolor=\color{white},
+  showstringspaces=false % Leerzeichen in Strings anzeigen ?
+}
+
+\lstset{literate=%
+    {Ö}{{\"O}}1
+    {Ä}{{\"A}}1
+    {Ü}{{\"U}}1
+    {ß}{{\ss}}1
+    {ü}{{\"u}}1 
+    {ä}{{\"a}}1
+    {ö}{{\"o}}1
+    {~}{{\textasciitilde}}1
+}
+
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox[cmyk] {0.43, 0.35, 0.35,0.01}{\parbox{\textwidth-2\fboxsep-2\fboxrule-0pt} {\hspace{15pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=plain, labelfont=bf}
+%\captionsetup[lstlisting]{format=listing,labelfont=white, textfont=white,singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
+
+%
+% code listing style
+%
+
+\lstdefinestyle{kit-cm}{
+  backgroundcolor=\color{light-gray},
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=single,
+  framexleftmargin=15pt,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily, 
+  numbers=left,                    
+  numbersep=7pt,                
+  numberstyle=\tiny\color{black},
+  captionpos=b,
+  keywordstyle=\color{blue}
+}
+
+\lstdefinelanguage{Swift}{
+  keywords={associatedtype, class, deinit, enum, extension, func, import, init, inout, internal, let, operator, private, protocol, public, static, struct, subscript, typealias, var, break, case, continue, default, defer, do, else, fallthrough, for, guard, if, in, repeat, return, switch, where, while, as, catch, dynamicType, false, is, nil, rethrows, super, self, Self, throw, throws, true, try, associativity, convenience, dynamic, didSet, final, get, infix, indirect, lazy, left, mutating, none, nonmutating, optional, override, postfix, precedence, prefix, Protocol, required, right, set, Type, unowned, weak, willSet},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{Gherkin}{
+	morekeywords = {
+		Given,
+		When,
+		Then,
+		And,
+		Scenario,
+		Feature,
+		But,
+		Background,
+		Scenario Outline,
+		Examples
+	},
+	sensitive=true,
+	morecomment=[l]{\#},
+	morestring=[b]",
+	morestring=[b]'
+}
+
+
+\lstdefinelanguage{json}{
+     string=[s]{"}{"},
+    stringstyle=\color{blue},
+    comment=[l]{:},
+    commentstyle=\color{black},
+}
+
+\DeclareCaptionFont{black}{\color{black}} 
+\DeclareCaptionFormat{listing}
+  {\colorbox{white}
+     {\parbox{\dimexpr\textwidth-2\fboxsep}{\centering #1#2#3}}}
+% \captionsetup[lstlisting]{format=listing,labelfont=black,textfont=black}
+
+\usepackage{hyperref}
+\usepackage{paralist}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{caption}
+
+%
+% todo notes
+%
+
+\usepackage{todonotes}
+%\usepackage[disable]{todonotes}	% hide all todo notes
+%\presetkeys{todonotes}{inline}{}	% show all defined todos as inline
+
+%
+% glossary
+%
+
+%\usepackage[acronym,numberedsection,automake]{glossaries}
+%\setacronymstyle{long-short}
+%\loadglsentries{chapters/glossar.tex} %Removed because no more glossar needed
+%\makeglossaries
+%\glsdisablehyper
+%
+% load additional packages
+%
+
+\usepackage{calc}
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{amsmath} 
+\usepackage{amssymb}
+\usepackage{wasysym}
+\usepackage{rotating}
+\usepackage{pgfplots}
+\usepackage{longtable}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{threeparttablex}
+\usepackage{longtable,lscape}
+\usepackage{tablefootnote}
+\usetikzlibrary{patterns}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{esvect}
+\floatname{algorithm}{Algorithmus}

@@ -1,0 +1,85 @@
+%==============================================================================
+% short introduction to get template running on WINDOWS
+% further explanation can be found in the pptx
+% can be removed after first compilation 
+%
+% install MikTeX (http://www.miktex.org) - activate auto-install of packages
+% install ActivePerl (https://www.perl.org/) - add to HOME
+% system reboot
+%
+% use command-line or IDE in admin-mode to execute the  following commands
+% in the specified order (pdflatex used because we want the PDF in the end)
+% 
+%
+% After changes in glossary you need to execute the following command 
+% to use the new acronyms
+%
+% pdflatex name_btmt.tex
+% makeglossaries name_btmt
+% pdflatex name_btmt.tex
+% bibtex name_btmt
+% pdflatex name_btmt.tex
+% pdflatex name_btmt.tex
+%
+% After changes in literature you need to execute the following command
+% to use the new reference
+%
+% bibtex name_btmt
+%
+%==============================================================================
+
+% TODO set author and title in header settings
+\input{header}
+
+\pgfplotsset{compat=1.16} 
+\begin{document}
+
+%==============================================================================
+
+%
+% add title pages
+%
+
+\frontmatter
+\setcounter{secnumdepth}{3}
+\include{chapters/0-1_titlepage}
+\include{chapters/0-2_authorship}
+\include{chapters/0-3_editing_history}
+\tableofcontents
+
+\include{chapters/0-4_unorganized_text}
+
+%
+% add content
+%
+
+\mainmatter
+\include{chapters/1_introduction}
+
+\include{chapters/2_foundations}
+
+\include{chapters/3_state_of_the_art}
+
+\include{chapters/4_overall_concept}
+
+\include{chapters/5_technical_foundation}
+
+\include{chapters/6_first_solution}
+
+\include{chapters/7_second_solution}
+
+\include{chapters/8_practical_task}
+
+\include{chapters/9_project_team_work}
+
+\include{chapters/10_summary_outlook}
+
+%
+% add appendix
+%
+
+\include{chapters/appendix}
+
+%==============================================================================
+
+\end{document}
