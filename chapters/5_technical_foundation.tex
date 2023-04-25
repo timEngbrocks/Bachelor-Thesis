@@ -7,3 +7,74 @@
 % General description of concepts or solutions are NOT part of this chapter, but should be transferred to other chapters of the thesis (e.g., Chapter 1 or Chapter 2). This also holds for the description of concrete solutions which are NOT to be described in Chapter 5 but in the following chapters. The focus of Chapter 5 is to make clear what is missing in the current technical solution in order to motivate the work which will be carried in this thesis (and which will be further described in the following chapters).
 
 % Relevant sources for the content of Chapter 5 are: (i) WASA lecture, (ii) latest Bachelor/Master/PhD theses, (iii) latest publication. The WASA lecture contains the current and, therefore, the ``valid version'' of concepts and solutions. So this content should be trusted if there is a mismatch between WASA lecture and theses or publications.
+
+\section{Monitoring}
+
+The three pillars of observability \cite{9837035}
+\begin{itemize}
+    \item Metrics
+    \item Logs
+    \item Traces
+\end{itemize}
+
+Because of the scope of this work, only the pillar of Metrics is considered.
+
+\begin{quote}
+\textit{``Metrics are numerical representations of data that Ops teams use to determine the overall behavior of a system, service, or network component over time.'', \cite{9837035}}
+\end{quote}
+
+The four golden signals \cite{Beyer2016-xi}
+\begin{itemize}
+    \item Latency: time to service a request
+    \item Traffic: requests per second
+    \item Errors: rate of failed requests
+    \item Saturation: how saturated are constrained resources like memory or I/O
+\end{itemize}
+
+White-box vs. Black-box Monitoring \cite{Beyer2016-xi}
+\begin{itemize}
+    \item White-box: Monitoring based on internal system metrics.
+    \item Black-box: Monitoring based on externally visible behavior.
+\end{itemize}
+
+Internal vs. External resources in a monitoring context:
+Internal resources describe resources that allow direct access to their internals.
+An example of an internal resource is a self-hosted microservice.
+External resources describe resources that do not allow direct access to their internals.
+An example of an external resource is a Software-as-a-Service (SaaS) product which is used in a context that should be monitored.
+
+External resources can, because of their nature, only be monitored using the Black-box approach.
+Internal resources however can be monitored with both the White-box and Black-box approach.
+
+Motivations for monitoring cloud applications \cite{6483656}
+\begin{itemize}
+    \item Capacity and Resource Planning
+    \item Capacity and Resource Management
+    \item Data Center Management
+    \item SLA Management
+    \item Billing
+    \item Troubleshooting
+    \item Performance Management
+    \item Security Management
+\end{itemize}
+
+\todo{Capacity and Resource Planning}
+
+\todo{Capacity and Resource Management}
+
+Data Center Management is mainly concerned with the efficient usage of resources.
+One key measurement of the efficiency of a data center is its energy efficiency.
+
+SLA Management refers to the monitoring of parameters, which are defined in Service Level Agreements (SLA).
+These parameters must be within set bounds for an SLA to be considered fulfilled.
+
+Billing refers to the monitoring of parameters that influence the cost of running an application.
+When an application is hosted on a cloud provider's Infrastructure-as-a-Service (IaaS) system,
+one of those parameters might be the number of compute instances that an application uses.
+
+While Troubleshooting usually refers to the tracing of requests and failures to provide a dataset for analyzing and fixing issues in an application,
+Monitoring can also be used to aid in troubleshooting by recording the number of failed requests and their context.
+
+\todo{Performance Management}
+
+\todo{Security Management}
