@@ -1,6 +1,10 @@
 \chapter{Foundations}
 \label{cha:foundations}
 
+\todo{Add chapter introduction}
+
+\todo{Section: Why should a k8s cluster be used}
+
 \section{Use Case Motivation}
 
 The company BestRental wants to develop a monitoring solution for its BestRentalPoC system
@@ -41,15 +45,10 @@ for metrics.
 
 \section{Use Case Descriptions}
 
-% \begin{figure}[h]
-% 	\centering
-% 	\includegraphics[width=\textwidth]{figures/use_case_monitoring_bestrental.png}
-% 	\caption{Use Case: Monitoring BestRental}
-% 	\label{fig:use_case_monitoring_best_rental}
-% \end{figure}
+\todo{This looks horrible and needs some explanation}
 
 \vspace{0.5cm}
-\begin{lstlisting}[caption = {Use Case Description: Monitoring BestRental}, label = {lis:use_case_description_monitoring_bestrental}, style = kit-cm, language=] 
+\begin{lstlisting}[caption = {Use Case Description: A developer creates metrics and dashboards}, label = {lis:use_case_description_developer}, style = kit-cm, language=] 
 Title: A Developer creates metrics and dashboards for BestRentalPoC
 
 Primary Actors: Developer
@@ -233,3 +232,55 @@ Information Requirements:
 - New values for the metric "average memory usage per service"
 - New values for the metric "total failed requests"
 \end{lstlisting}
+
+\pagebreak
+\section{Use Case Diagrams}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{figures/use_case_monitoring_system.png}
+	\caption{Use Case: The MonitoringSystem collects metrics from BestRentalPoC}
+	\label{fig:use_case_monitoring_system}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{figures/use_case_user.png}
+	\caption{Use Case: A user monitors BestRentalPoC}
+	\label{fig:use_case_user}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{figures/use_case_developer.png}
+	\caption{Use Case: A developer creates metrics and dashboards}
+	\label{fig:use_case_developer}
+\end{figure}
+
+\pagebreak
+\section{Monitoring Systems}
+A complete monitoring system requires three main parts: Data sources, data sinks, and the ability
+to analyze/visualize the collected data. 
+The collected data can be split into three different types: Metrics, Logs, and Traces.
+This work only provides a monitoring solution for metrics but logs and traces are still considered
+in the development so that they can be added later.
+
+Data sources are the origin of the collected metrics and can be split into two different types
+based on how they acquire metrics. The first type is data sources that perform manual instrumentation.
+This means that the application source code is amended by code that collects metrics and emits them.
+Manual instrumentation is useful for application-specific metrics, like for example, how often a user
+uses a certain feature in the application.
+The second type is data sources that perform automatic instrumentation.
+These data sources collect metrics from applications or the environment without changing any source code.
+In contrast to manual instrumentation, automatic instrumentation is limited to collecting
+common metrics that are provided by an application and its environment like CPU or memory usage.
+
+Data sinks store the metrics that were collected by the data sources.
+It is important to note that some data sinks specialize in which type of data they store
+to increase efficiency. The last part is the analysis and visualization of the collected metrics.
+
+Optionally, a monitoring system might employ additional components such as data transformers or collectors.
+Data transformers can be used to transform data into different formats, enrich it with additional information
+or aggregate it.
+Data collectors can be used to buffer metrics that were sent by data sources before they are stored in a data sink,
+which decreases the load on the data sink.

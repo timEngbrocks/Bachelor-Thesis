@@ -1,5 +1,7 @@
 \chapter{First Solution (Chapter Title is to be Adapted)}
 
+\todo{Add chapter introduction}
+
 % This is the third result chapter which presents the first solution of the thesis. 
 % The solution is integrated into the overall concept introduced in Chapter 4 and 
 % it is technically based on the foundation described in Chapter 5.
@@ -17,34 +19,8 @@
 % Explanation of solution pipeline
 % Extensibility and Scalability
 
-A complete monitoring system requires three main parts: Data sources, data sinks, and the ability
-to analyze/visualize the collected data. 
-The collected data can be split into three different types: Metrics, Logs, and Traces.
-This work only provides a monitoring solution for metrics but logs and traces are still considered
-in the development so that they can be added later.
-
-Data sources are the origin of the collected metrics and can be split into two different types
-based on how they acquire metrics. The first type is data sources that perform manual instrumentation.
-This means that the application source code is amended by code that collects metrics and emits them.
-Manual instrumentation is useful for application-specific metrics, like for example, how often a user
-uses a certain feature in the application.
-The second type is data sources that perform automatic instrumentation.
-These data sources collect metrics from applications or the environment without changing any source code.
-In contrast to manual instrumentation, automatic instrumentation is limited to collecting
-common metrics that are provided by an application and its environment like CPU or memory usage.
-
-Data sinks store the metrics that were collected by the data sources.
-It is important to note that some data sinks specialize in which type of data they store
-to increase efficiency.
-
-The last part is the analysis and visualization of the collected metrics.
-
-Optionally, a monitoring system might employ additional components like data transformers or collectors.
-Data transformers can be used to transform data into different formats, enrich it with additional information
-or aggregate it.
-Data collectors can be used to buffer metrics that were sent by data sources before they are stored in a data sink,
-which decreases the load on the data sink.
-
+\todo{Write new beginning}
+\todo{Add license model as requirement}
 \begin{table}[]
 \begin{tabular}{l|l}
 	& Requirement       			\\
@@ -62,7 +38,7 @@ R7 	& Integration of Azure data
 \end{table}
 
 The components that will be chosen for the monitoring solution must fulfill a few requirements.
-These requirements are listed in \ref{tab:requirements}.
+These requirements are listed in Table \ref{tab:requirements}.
 Firstly the solution should be scaleable to an arbitrary amount of monitored services and instances.
 Secondly, it should be possible to add new and different services in the future.
 This means that adding a new service should only require configuration changes and adding new visualizations for the service.
@@ -77,6 +53,7 @@ Lastly, it has to be possible to integrate data from Azure into the monitoring s
 This requirement is the result of the underlying use case and the developed demonstrator,
 which utilizes Azure.
 
+\todo{List Tools with the requirements}
 \begin{table}[]
 \begin{tabular}{l|l}
 Name 					& Purpose 			\\
@@ -95,7 +72,7 @@ Apache SkyWalking 		& All-in-one
 \label{tab:potential_tools}
 \end{table}
 
-The tools that were considered for the monitoring solution are listed in \ref{tab:potential_tools}.
+The tools that were considered for the monitoring solution are listed in Table \ref{tab:potential_tools}.
 
 Jaeger can immediately be ruled out as it only supports traces.
 With the same reasoning, Prometheus can also be ruled out as it only supports metrics.
@@ -123,18 +100,11 @@ As per the recommendations of the OpenSearch project, the OpenSearch Collector w
 in the monitoring solution. The OpenSearch Collector acts as a buffer between the data sources
 and the data sink. It can also be used for certain automatic instrumentation tasks.
 
-The resulting SystemPlusSoftware architecture can be seen in \ref{fig:sps_monitoring_mvp}.
+The resulting SystemPlusSoftware architecture can be seen in Figure \ref{fig:sps_monitoring_mvp}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{figures/sps_monitoring_mvp.png}
 	\caption{SystemPlusSoftware Monitoring MVP}
 	\label{fig:sps_monitoring_mvp}
-\end{figure}
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth]{figures/lgtm_stack.png}
-	\caption{LGTM Stack}
-	\label{fig:lgtm_stack}
 \end{figure}
