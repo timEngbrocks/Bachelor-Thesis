@@ -3,284 +3,220 @@
 
 \todo{Add chapter introduction}
 
-\todo{Section: Why should a k8s cluster be used}
+\section{Decentralized Identities}
 
-\section{Use Case Motivation}
+\todo{Explain Decentralized Identities}
 
-The company BestRental wants to develop a monitoring solution for its BestRentalPoC system
-to collect metrics that are meant to assist the company in operating the BestRentalPoC.
-The system will be operated by QA Engineers, system operators, and a project manager.
-Before developing the monitoring solution, the team tasked with developing the solution,
-interview the different roles to find out how they will use the solution
-and what their tasks and responsibilities are.
-QA Engineers are responsible for the reliability of BestRentalPoC.
-To ensure the reliability of the system, they want to know when requests to the system fail and
-trigger errors, so that they can fix them.
-For them to better understand errors, they want to know how often errors occur and from which services,
-inside of BestRentalPoC, they originate.
-The system operators run the BestRentalPoC. They need to make sure that at any point in time
-BestRentalPoC has enough instances of all of its services available to serve all incoming requests.
-Because BestRental wants to operate profitably, they can't just create as many instances as they like,
-and they need to shut down instances when they are not needed.
-To assist them with their task, they want to know how high the resource usage of each instance is
-and how many requests are coming into the system. The resources that they want to track for each
-instance are the instance's CPU and memory usage.
-The project manager's yearly bonus is tied to how profitable the BestRentalPoC operates.
-To ensure that he gets his bonus, the project manager wants to track the operating costs of the complete system.
-Additionally, he needs to how high the operating costs of each service are, so that he can
-allocate development time to increase the efficiency of a service, making it more profitable.
-After the interviews, the development notes that all types of users of the monitoring solution
-want to be able to do five different things.
-Firstly, they want to be able to create a dashboard for a metric that displays its current and historic values.
-When viewing a dashboard they also want to be able to run queries on the metric to, for example, get
-its value at a specific point in time.
-Because the users can't constantly watch all of their dashboards, they want to be able to create
-alerts for a metric that will be triggered when the metric exceeds a set value.
-When a metric exceeds a value set for an alert, the users want to receive the alert so that they can act on it.
-The developers also know that the solution needs to be able to do three main things to accomplish
-the requested features.
-Firstly, the solution needs to collect metrics from BestRentalPoC,
-it then needs to analyze the collected data, and lastly, it needs to conditionally send out alerts
-for metrics.
+\section{BestRentalPoC}
 
-\section{Use Case Descriptions}
+The BestRentalPoC is a proof of concept for the usage of decentralized identities.
+BestRental is a fictive car rental company, which requires customers to have a valid driver's license
+when renting a car.
+For this purpose, the driving license authority can issue a customer, called Alice, a verifiable credential (VC).
+The VC is stored in Alice's digital wallet.
+When renting a car, Alice can present her VC to BestRental, who can then verify the validity of Alice's driver's license.
 
-\todo{This looks horrible and needs some explanation}
+The BestRentalPoC consists of three parts: The BestRental application, the DrivingLicenseAuthority application
+and the decentralized identity system.
+The BestRental application allows Alice to rent a car and present her VC.
+The DrivingLicenseAuthority application allows the issuance of a VC to Alice.
+Finally, the decentralized identity system provides the functionality of issuing and verifying VCs.
 
-\vspace{0.5cm}
-\begin{lstlisting}[caption = {Use Case Description: A developer creates metrics and dashboards}, label = {lis:use_case_description_developer}, style = kit-cm, language=] 
-Title: A Developer creates metrics and dashboards for BestRentalPoC
+The BestRental application consists of a browser-based frontend and a microservice, which handles the required
+business logic. In the same way, the DrivingLicenseAuthority application consists of a frontend and a microservice.
+Additionally, both applications have tenants in Microsoft Azure which include an Azure Active Directory and
+a Key Vault called VerifiedIDVault.
 
-Primary Actors: Developer
-Secondary Actors: MonitoringSystem
+The decentralized identity system consists of Microsoft Entra Verified ID and the Trust System called DidWeb.
+This proof of concept utilizes Microsoft Entra Verified ID to implement decentralized identities.
+Entra provides all services which are required for this. This includes services to issues and to verify VCs.
 
-Preconditions:
-- The Developer has a valid account for the monitoring system
-Postconditions:
-- The metrics "total accumulated cost", "average CPU usage per service", "average memory usage per service", and "total failed requests" have been created
-- Dashboards for the new metrics have been created
+Figure \ref{fig:sps_architecture_bestrental} shows the SystemPlusSoftware Architecture of the Demonstrator BestRental.
 
-
-Flow:
-1. The Developer sets up a new metric "total accumulated cost"
-2. The Developer sets up a new metric "average CPU usage per service"
-3. The Developer sets up a new metric "average memory usage per service"
-4. The Developer sets up a new metric "total failed requests"
-5. The Developer logs into the monitoring system
-6. The Developer creates a dashboard for the metric "total accumulated cost"
-7. The Developer creates a dashboard for the metric "average CPU usage per service"
-8. The Developer creates a dashboard for the metric "average memory usage per service"
-9. The Developer creates a dashboard for the metric "total failed requests"
-10. The Developer logs out of the monitoring system
-
-\end{lstlisting}
-
-\vspace{0.5cm}
-\begin{lstlisting}[caption = {Use Case Description: A project manager monitors the cost of BestRentalPoC}, label = {lis:use_case_description_project_manager}, style = kit-cm, language=] 
-Title: A project manager monitors the cost of BestRentalPoC
-
-Primary Actors: Project Manager
-Secondary Actors: MonitoringSystem
-
-Preconditions:
-- The Project Manager has a valid account for the monitoring system
-- The metric "total accumulated cost" has been set up
-- A dashboard for the metric "total accumulated cost" exists
-Postconditions:
-- The Project Manager received an alert for the metric "total accumulated cost" via email
-
-Flow:
-1. The Project Manager logs into the monitoring system
-2. The Project Manager views the dashboard for the metric "total accumulated cost"
-3. The Project Manager creates an alert for the metric "total accumulated cost" when the value exceeds 10,000
-4. The Project Manager runs a query on the metric "total accumulated cost" to see its value one month ago
-5. The Project Manager logs out of the monitoring system
-6. The MonitoringSystem detects that the value of the metric "total accumulated cost" exceeds 10,000
-7. The MonitoringSystem sends the Project Manager an alert via email
-8. The Project Manager receives an alert for the metric "total accumulated cost" via email
-
-Alternative flows:
-7a. The value of the metric "total accumulated cost" does not exceed 10,000
-	7a1. The MonitoringSystem does not send out an alert for the metric "total accumulated cost" via email
-8a. The value of the metric "total accumulated cost" does not exceed 10,000
-	8a1. The Project Manager does not receive an alert for the metric "total accumulated cost" via email
-
-Information requirements:
-- Values for the metric "total accumulated cost" reaching back at least one month
-\end{lstlisting}
-
-\vspace{0.5cm}
-\begin{lstlisting}[caption = {Use Case Description: A system operator monitors the cost of BestRentalPoC}, label = {lis:use_case_description_system_operator}, style = kit-cm, language=] 
-Title: A system operator monitors the cost of BestRentalPoC
-
-Primary Actors: System Operator
-Secondary Actors: MonitoringSystem
-
-Preconditions:
-- The System Operator has a valid account for the monitoring system
-- The metric "average CPU usage per service" has been set up
-- The metric "average memory usage per service" has been set up
-- A dashboard for the metric "average CPU usage per service" exists
-- A dashboard for the metric "average memory usage per service" exists
-Postconditions:
-- The System Operator received an alert for the metric "average CPU usage per service" via email
-- The System Operator received an alert for the metric "average memory usage per service" via email
-
-Flow:
-1. The System Operator logs into the monitoring system
-2. The System Operator views the dashboard for the metric "average CPU usage per service"
-3. The System Operator creates an alert for the metric "average CPU usage per service" when the value exceeds 95%
-4. The System Operator runs a query on the metric "average CPU usage per service" to see its value one month ago
-5. The System Operator views the dashboard for the metric "average memory usage per service"
-6. The System Operator creates an alert for the metric "average memory usage per service" when the value falls below 10%
-7. The System Operator runs a query on the metric "average memory usage per service" to see its value one month ago
-8. The System Operator logs out of the monitoring system
-9. The MonitoringSystem detects that the value of the metric "average CPU usage per service" exceeds 95%
-10. The MonitoringSystem sends the Project Manager an alert for the metric "average CPU usage per service" via email
-11. The Project Manager receives an alert for the metric "average CPU usage per service" via email
-12. The MonitoringSystem detects that the value of the metric "average memory usage per service" is below 10%
-13. The MonitoringSystem sends the Project Manager an alert for the metric "average memory usage per service" via email
-14. The Project Manager receives an alert for the metric "average memory usage per service" via email
-
-Alternative flows:
-10a. The value of the metric "average CPU usage per service" does not exceed 95%
-	10a1. The MonitoringSystem does not send out an alert for the metric "average CPU usage per service" via email
-11a. The value of the metric "average CPU usage per service" does not exceed 95%
-	11a1. The System Operator does not receive an alert for the metric "average CPU usage per service" via email
-13a. The value of the metric "average memory usage per service" is not below 10%
-	13a1. The MonitoringSystem does not send out an alert for the metric "average memory usage per service" via email
-14a. The value of the metric "average memory usage per service" is not below 10%
-	14a1. The System Operator does not receive an alert for the metric "average memory usage per service" via email
-
-Information requirements:
-- Values for the metric "average CPU usage per service" reaching back at least one month
-- Values for the metric "average memory usage per service" reaching back at least one month
-\end{lstlisting}
-
-\vspace{0.5cm}
-\begin{lstlisting}[caption = {Use Case Description: A QA engineer monitors the cost of BestRentalPoC}, label = {lis:use_case_description_qa_engineer}, style = kit-cm, language=] 
-Title: A QA engineer monitors the cost of BestRentalPoC
-
-Primary Actors: QA Engineer
-Secondary Actors: MonitoringSystem
-
-Preconditions:
-- The QA Engineer has a valid account for the monitoring system
-- The metric "total failed requests" has been set up
-- A dashboard for the metric "total failed requests" exists
-Postconditions:
-- The System Operator received an alert for the metric "total failed requests" via email
-
-Flow:
-1. The QA Engineer logs into the monitoring system
-2. The QA Engineer views the dashboard for the metric "total failed requests"
-3. The QA Engineer creates an alert for the metric "total failed requests" when the value exceeds 100
-4. The QA Engineer runs a query on the metric "total failed requests" to see its value one month ago
-5. The QA Engineer logs out of the monitoring system
-6. The MonitoringSystem detects that the value of the metric "total failed requests" exceeds 100
-7. The MonitoringSystem sends the System Operator an alert via email
-8. The System Operator receives an alert for the metric "total failed requests" via email
-
-Alternative flows:
-7a. The value of the metric "total failed requests" does not exceed 100
-	7a1. The MonitoringSystem does not send out an alert for the metric "total failed requests"
-8a. The value of the metric "total failed requests" does not exceed 100
-	7a1. The System Operator does not receive an alert for the metric "total failed requests" via email
-
-Information requirements:
-- Values for the metric "total failed requests" reaching back at least one month
-\end{lstlisting}
-
-
-\vspace{0.5cm}
-\begin{lstlisting}[caption = {Use Case Description: The MonitoringSystem collects metrics from BestRentalPoC}, label = {lis:use_case_description_monitoring_system}, style = kit-cm, language=] 
-Title: The MonitoringSystem collects metrics from BestRentalPoC
-
-Primary Actors: MonitoringSystem
-Secondary Actors: BestRentalPoC
-
-Preconditions:
-- The MonitoringSystem is configured to collect the metric "total accumulated cost"
-- The MonitoringSystem is configured to collect the metric "average CPU usage per service"
-- The MonitoringSystem is configured to collect the metric "average memory usage per service"
-- The MonitoringSystem is configured to collect the metric "total failed requests"
-Postconditions:
-- The MonitoringSystem has the latest value for the metric "total accumulated cost" stored
-- The MonitoringSystem has the latest values for the metric "average CPU usage per service" stored
-- The MonitoringSystem has the latest values for the metric "average memory usage per service" stored
-- The MonitoringSystem has the latest value for the metric "total failed requests" stored
-
-Flow:
-1. The MonitoringSystem requests the latest value for the metric "total accumulated cost" from each service
-2. Each service from BestRentalPoC sends its latest value for the metric "total accumulated cost" to the MonitoringSystem
-3. The MonitoringSystem combines the values for the metric "total accumulated cost" from each service into one value
-4. The MonitoringSystem stores the latest value for the metric "total accumulated cost"
-5. The MonitoringSystem requests the latest value for the metric "average CPU usage per service" from each service
-6. Each service from BestRentalPoC sends its latest value for the metric "average CPU usage per service" to the MonitoringSystem
-7. The MonitoringSystem stores the latest values for the metric "average CPU usage per service"
-8. The MonitoringSystem requests the latest value for the metric "average memory usage per service" from each service
-9. Each service from BestRentalPoC sends its latest value for the metric "average memory usage per service" to the MonitoringSystem
-10. The MonitoringSystem stores the latest values for the metric "average memory usage per service"
-11. The MonitoringSystem requests the latest value for the metric "total failed requests" from each service
-12. Each service from BestRentalPoC sends its latest value for the metric "total failed requests" to the MonitoringSystem
-13. The MonitoringSystem combines the values for the metric "total failed requests" from each service into one value
-14. The MonitoringSystem stores the latest value for the metric "total failed requests"
-	
-Information Requirements: 
-- New values for the metric "total accumulated cost"
-- New values for the metric "average CPU usage per service"
-- New values for the metric "average memory usage per service"
-- New values for the metric "total failed requests"
-\end{lstlisting}
-
-\pagebreak
-\section{Use Case Diagrams}
-
-\begin{figure}[h]
+\begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{figures/use_case_monitoring_system.png}
-	\caption{Use Case: The MonitoringSystem collects metrics from BestRentalPoC}
-	\label{fig:use_case_monitoring_system}
+	\includegraphics[width=\textwidth]{figures/sps_BestRentalPOC.png}
+	\caption{SystemPlusSoftware Architecture BestRental}
+	\label{fig:sps_architecture_bestrental}
 \end{figure}
 
-\begin{figure}[h]
+\section{Monitoring}
+
+\todo{Cleanup and actually write this section}
+
+According to \cite{9837035}, observability consists of three pillars: Metrics, Logs, and Traces.
+Metrics.
+Logs are streams of textual information emitted by an application. They can contain information about important
+events, like an incoming request, or provide details about the occurrence of exceptions.
+Traces are a way of tracking the path of requests through a system. A trace contains detailed information
+about all the services that were called during the processing of a request and can be thought of
+as a stack trace for microservices.
+
+Because of the scope of this work, only Metrics will be used. Logs and Traces will still be considered
+in the development of a solution so that they may be added in the future.
+
+Because of the scope of this work, only the pillar of Metrics is considered.
+
+\begin{quote}
+\textit{``Metrics are numerical representations of data that Ops teams use to determine the overall behavior of a system, service, or network component over time.'', \cite{9837035}}
+\end{quote}
+
+The four golden signals \cite{Beyer2016-xi}
+\begin{itemize}
+    \item Latency: time to service a request
+    \item Traffic: requests per second
+    \item Errors: rate of failed requests
+    \item Saturation: how saturated are constrained resources like memory or I/O
+\end{itemize}
+
+White-box vs. Black-box Monitoring \cite{Beyer2016-xi}
+\begin{itemize}
+    \item White-box: Monitoring based on internal system metrics.
+    \item Black-box: Monitoring based on externally visible behavior.
+\end{itemize}
+
+Internal vs. External resources in a monitoring context:
+Internal resources describe resources that allow direct access to their internals.
+An example of an internal resource is a self-hosted microservice.
+External resources describe resources that do not allow direct access to their internals.
+An example of an external resource is a Software-as-a-Service (SaaS) product which is used in a context that should be monitored.
+
+External resources can, because of their nature, only be monitored using the Black-box approach.
+Internal resources however can be monitored with both the White-box and Black-box approach.
+
+Motivations for monitoring cloud applications \cite{6483656}
+\begin{itemize}
+    \item Capacity and Resource Planning
+    \item Capacity and Resource Management
+    \item Data Center Management
+    \item SLA Management
+    \item Billing
+    \item Troubleshooting
+    \item Performance Management
+    \item Security Management
+\end{itemize}
+
+\todo{Capacity and Resource Planning}
+
+\todo{Capacity and Resource Management}
+
+Data Center Management is mainly concerned with the efficient usage of resources.
+One key measurement of the efficiency of a data center is its energy efficiency.
+
+SLA Management refers to the monitoring of parameters, which are defined in Service Level Agreements (SLA).
+These parameters must be within set bounds for an SLA to be considered fulfilled.
+
+Billing refers to the monitoring of parameters that influence the cost of running an application.
+When an application is hosted on a cloud provider's Infrastructure-as-a-Service (IaaS) system,
+one of those parameters might be the number of compute instances that an application uses.
+
+While Troubleshooting usually refers to the tracing of requests and failures to provide a dataset for analyzing and fixing issues in an application,
+Monitoring can also be used to aid in troubleshooting by recording the number of failed requests and their context.
+
+\todo{Performance Management}
+
+\todo{Security Management}
+
+\section{Use Cases}
+
+\subsection{Motivation}
+The DrivingLicenseAuthorityKarlsruhe (DLAKa) wants to provide citizens with digital driving licenses,
+which can, for example, be used to prove to a car rental company that they possess a valid driving license.
+They hire the company ServiceProvider (SP) to develop and operate the system necessary for issuing and verifying
+digital driving licenses. The contract specifies an initial payment for the development of the system
+and afterward a yearly fee for the operation of the system.
+After receiving the contract from DLAKa, SP starts designing the system
+for DLAKa. Because SP has to operate the system on a fixed yearly budget,
+they want to monitor the performance of the system to identify parts with excessive resource usage, which
+incur additional costs. They identify the CPU and memory usage of the system as two technical metrics that should be monitored.
+Additionally, DLAKa has asked them to provide the capability of monitoring business metrics for them.
+DLAKa wants to know how many digital driving licenses are being issued and how often the issuance of a digital
+driving license fails. To monitor both technical and business metrics, SP designs the ServiceProviderMonitor (SPMonitor) as a part
+of the system for DLAKa which will provide all functionality for monitoring the specified metrics.
+
+BestRental, a car rental company, has heard of DLAKa's plans for digital driving licenses
+and wants to integrate them into its online rental system. Contrary to DLAKa, BestRental develops its
+system in-house. Similarly to DLAKa, BestRental is interested in obtaining business metrics from its system.
+They want to use these metrics to make business decisions like if they should increase the capacity of their fleet in the future.
+For this purpose, BestRental designs an additional application called BestMonitor that will provide all the monitoring functionality.
+In the beginning, they are only interested in one metric: How many active rentals are there?
+
+For the design of SPMonitor, SP created two use cases: Present Metric and Collect Metric.
+The relation of these use cases can be seen in the Use Case Diagram in Figure \ref{fig:use_case_monitoring_dlakaapp}.
+Present Metric handles the use case of presenting the collected metrics to a user, this is described in Listing \ref{lis:use_case_description_present_metric}.
+Collect Metric is concerned with how SPMonitor receives metrics for later presentation to a user, this is described in Listing \ref{lis:use_case_description_collect_metric}.
+
+The metrics that will initially be monitored by SPMonitor are the number of issued digital driving licenses (NumDDL)
+and the memory usage of the DLAKaApp (MemUse). The NumDDL metric is a business metric for DLAKa, while MemUse is
+a technical metric that allows SP to monitor the performance of DLAKaApp.
+
+\begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{figures/use_case_user.png}
-	\caption{Use Case: A user monitors BestRentalPoC}
-	\label{fig:use_case_user}
+	\includegraphics[width=\textwidth]{figures/2.1_use_case_spmonitor.png}
+	\caption{Use Case Diagram: SPMonitor}
+	\label{fig:use_case_monitoring_dlakaapp}
 \end{figure}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth]{figures/use_case_developer.png}
-	\caption{Use Case: A developer creates metrics and dashboards}
-	\label{fig:use_case_developer}
-\end{figure}
+\subsection{Use Case Present Metric}
+\todo{Elaborate}
 
-\pagebreak
-\section{Monitoring Systems}
-A complete monitoring system requires three main parts: Data sources, data sinks, and the ability
-to analyze/visualize the collected data. 
-The collected data can be split into three different types: Metrics, Logs, and Traces.
-This work only provides a monitoring solution for metrics but logs and traces are still considered
-in the development so that they can be added later.
+\begin{lstlisting}[caption = {Use Case Description: Present Metric}, label = {lis:use_case_description_present_metric}, style = kit-cm, language=] 
+Title: Present Metric
 
-Data sources are the origin of the collected metrics and can be split into two different types
-based on how they acquire metrics. The first type is data sources that perform manual instrumentation.
-This means that the application source code is amended by code that collects metrics and emits them.
-Manual instrumentation is useful for application-specific metrics, like for example, how often a user
-uses a certain feature in the application.
-The second type is data sources that perform automatic instrumentation.
-These data sources collect metrics from applications or the environment without changing any source code.
-In contrast to manual instrumentation, automatic instrumentation is limited to collecting
-common metrics that are provided by an application and its environment like CPU or memory usage.
+Primary Actors: DLAKa Clerk
 
-Data sinks store the metrics that were collected by the data sources.
-It is important to note that some data sinks specialize in which type of data they store
-to increase efficiency. The last part is the analysis and visualization of the collected metrics.
+Preconditions:
+- SPMonitor has the NumDDL metric configured
 
-Optionally, a monitoring system might employ additional components such as data transformers or collectors.
-Data transformers can be used to transform data into different formats, enrich it with additional information
-or aggregate it.
-Data collectors can be used to buffer metrics that were sent by data sources before they are stored in a data sink,
-which decreases the load on the data sink.
+Flow:
+1. DLAKa Clerk opens the dashboard for the NumDDL metric
+2. SPMonitor retrieves all stored values for the NumDDL metric
+3. SPMonitor displays the values in a graph
+
+Alternative Flows:
+2a. SPMonitor has no values stored for the NumDDL metric
+2a1. SPMonitor displays a message that the NumDDL metric has no stored values
+
+Information Requirements:
+- Values for the NumDDL metric
+\end{lstlisting}
+
+\subsection{Use Case Collect Metric}
+\todo{Elaborate}
+
+\begin{lstlisting}[caption = {Use Case Description: Collect Metric}, label = {lis:use_case_description_collect_metric}, style = kit-cm, language=] 
+Title: Collect Metric
+
+Secondary Actors: DLAKaApp, DLAKaCluster
+
+Preconditions:
+- DLAKaApp is set up to collect the NumDDL metric
+- DLAKaCluster is set up to collect the MemUse metric
+- DLAKaApp is running inside of the DLAKaCluster
+Postconditions:
+- SPMonitor has values stored for NumDDL and MemUse
+
+Flow:
+1. SPMonitor sends a request to DLAKaApp for the NumDDL metric
+2. DLAKaApp replies with a value for the NumDDL metric
+3. SPMonitor receives the reply
+4. SPMonitor stores the value for the NumDDL metric
+5. SPMonitor sends a request to DLAKaCluster for the MemUse metric
+6. DLAKaCluster replies with a value for the MemUse metric
+7. SPMonitor receives the reply
+8. SPMonitor stores the value for the MemUse metric
+
+Alternative Flows:
+2a. DLAKaApp replies with an error message
+2a1. SPMonitor receives the error message
+2a2. SPMonitor retries to request the NumDDL metric
+6a. DLAKaCluster replies with an error message
+6a1. SPMonitor receives the error message
+6a2. SPMonitor retries to request the MemUse metric
+
+Information Requirements:
+- Value for the NumDDL metric
+- Value for the MemUse metric
+\end{lstlisting}
+
+\section{DevOps}

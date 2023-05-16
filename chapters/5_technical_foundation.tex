@@ -32,113 +32,44 @@
 % The WASA lecture contains the current and, therefore, the ``valid version'' of concepts and solutions. 
 % So this content should be trusted if there is a mismatch between WASA lecture and theses or publications.
 
-\section{BestRentalPoC}
+\section{Monitoring System}
+\todo{Finish}
+A complete monitoring system requires three main parts: Data sources, data sinks, and the ability
+to analyze/visualize the collected data.
+The collected data can be split into three different types: Metrics, Logs, and Traces.
+This work only provides a monitoring solution for metrics.
 
-The BestRentalPoC is a proof of concept for the usage of decentralized identities.
-BestRental is a fictive car rental company, which requires customers to have a valid driver's license
-when renting a car.
-For this purpose, the driving license authority can issue a customer, called Alice, a verifiable credential (VC).
-The VC is stored in Alice's digital wallet.
-When renting a car, Alice can present her VC to BestRental, who can then verify the validity of Alice's driver's license.
+Data sources are the origin of the collected metrics and can be split into two different types
+based on how they acquire metrics. The first type is data sources that perform manual instrumentation.
+This means that the application source code is amended by code that collects metrics and emits them.
+Manual instrumentation is useful for application-specific metrics, like for example, how often a user
+uses a certain feature in the application.
+The second type is data sources that perform automatic instrumentation.
+These data sources collect metrics from applications or the environment without changing any source code.
+In contrast to manual instrumentation, automatic instrumentation is limited to collecting
+common metrics that are provided by an application and its environment like CPU or memory usage.
 
-The BestRentalPoC consists of three parts: The BestRental application, the DrivingLicenseAuthority application
-and the decentralized identity system.
-The BestRental application allows Alice to rent a car and present her VC.
-The DrivingLicenseAuthority application allows the issuance of a VC to Alice.
-Finally, the decentralized identity system provides the functionality of issuing and verifying VCs.
+Data sinks store the metrics that were collected by the data sources.
+It is important to note that some data sinks specialize in which type of data they store
+to increase efficiency. The last part is the analysis and visualization of the collected metrics.
 
-The BestRental application consists of a browser-based frontend and a microservice, which handles the required
-business logic. In the same way, the DrivingLicenseAuthority application consists of a frontend and a microservice.
-Additionally, both applications have tenants in Microsoft Azure which include an Azure Active Directory and
-a Key Vault called VerifiedIDVault.
+Optionally, a monitoring system might employ additional components such as data transformers or collectors.
+Data transformers can be used to transform data into different formats, enrich it with additional information
+or aggregate it.
+Data collectors can be used to buffer metrics that were sent by data sources before they are stored in a data sink,
+which decreases the load on the data sink.
 
-The decentralized identity system consists of Microsoft Entra Verified ID and the Trust System called DidWeb.
-This proof of concept utilizes Microsoft Entra Verified ID to implement decentralized identities.
-Entra provides all services which are required for this. This includes services to issues and to verify VCs.
+\section{Grafana}
+\todo{Write}
 
-Figure \ref{fig:sps_architecture_bestrental} shows the SystemPlusSoftware Architecture of the Demonstrator BestRental.
+\section{Prometheus}
+\todo{Write}
 
-\todo{Include latest SPS Diagram}
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{pdfs/sps_achitecture_bestrental.pdf}
-	\caption{SystemPlusSoftware Architecture BestRental}
-	\label{fig:sps_architecture_bestrental}
-\end{figure}
+\section{Grafana Mimir}
+\todo{Write}
 
-\section{Decentralized Identities}
+\section{MinIO}
+\todo{Write}
 
-\section{Monitoring}
-
-According to \cite{9837035}, observability consists of three pillars: Metrics, Logs, and Traces.
-Metrics.
-Logs are streams of textual information emitted by an application. They can contain information about important
-events, like an incoming request, or provide details about the occurrence of exceptions.
-Traces are a way of tracking the path of requests through a system. A trace contains detailed information
-about all the services that were called during the processing of a request and can be thought of
-as a stack trace for microservices.
-
-Because of the scope of this work, only Metrics will be used. Logs and Traces will still be considered
-in the development of a solution so that they may be added in the future.
-
-Because of the scope of this work, only the pillar of Metrics is considered.
-
-\begin{quote}
-\textit{``Metrics are numerical representations of data that Ops teams use to determine the overall behavior of a system, service, or network component over time.'', \cite{9837035}}
-\end{quote}
-
-The four golden signals \cite{Beyer2016-xi}
-\begin{itemize}
-    \item Latency: time to service a request
-    \item Traffic: requests per second
-    \item Errors: rate of failed requests
-    \item Saturation: how saturated are constrained resources like memory or I/O
-\end{itemize}
-
-White-box vs. Black-box Monitoring \cite{Beyer2016-xi}
-\begin{itemize}
-    \item White-box: Monitoring based on internal system metrics.
-    \item Black-box: Monitoring based on externally visible behavior.
-\end{itemize}
-
-Internal vs. External resources in a monitoring context:
-Internal resources describe resources that allow direct access to their internals.
-An example of an internal resource is a self-hosted microservice.
-External resources describe resources that do not allow direct access to their internals.
-An example of an external resource is a Software-as-a-Service (SaaS) product which is used in a context that should be monitored.
-
-External resources can, because of their nature, only be monitored using the Black-box approach.
-Internal resources however can be monitored with both the White-box and Black-box approach.
-
-Motivations for monitoring cloud applications \cite{6483656}
-\begin{itemize}
-    \item Capacity and Resource Planning
-    \item Capacity and Resource Management
-    \item Data Center Management
-    \item SLA Management
-    \item Billing
-    \item Troubleshooting
-    \item Performance Management
-    \item Security Management
-\end{itemize}
-
-\todo{Capacity and Resource Planning}
-
-\todo{Capacity and Resource Management}
-
-Data Center Management is mainly concerned with the efficient usage of resources.
-One key measurement of the efficiency of a data center is its energy efficiency.
-
-SLA Management refers to the monitoring of parameters, which are defined in Service Level Agreements (SLA).
-These parameters must be within set bounds for an SLA to be considered fulfilled.
-
-Billing refers to the monitoring of parameters that influence the cost of running an application.
-When an application is hosted on a cloud provider's Infrastructure-as-a-Service (IaaS) system,
-one of those parameters might be the number of compute instances that an application uses.
-
-While Troubleshooting usually refers to the tracing of requests and failures to provide a dataset for analyzing and fixing issues in an application,
-Monitoring can also be used to aid in troubleshooting by recording the number of failed requests and their context.
-
-\todo{Performance Management}
-
-\todo{Security Management}
+\section{Grafana Agent}
+\todo{Write}

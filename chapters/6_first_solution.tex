@@ -1,4 +1,4 @@
-\chapter{First Solution (Chapter Title is to be Adapted)}
+\chapter{SPMonitor}
 
 \todo{Add chapter introduction}
 
@@ -8,103 +8,94 @@
 
 % A thesis should provide at least two such solutions. 
 
-\section{Monitoring MVP}
+\section{Analysis}
+The components that will be chosen for SPMonitor must fulfill a few requirements.
+These requirements are listed in Table \ref{tab:requirements}.
+Firstly, the solution should be scaleable to an arbitrary amount of monitored instances, and different workload sizes.
+Secondly, it should be possible to add new and different services in the future. This means that SPMonitor should be extensible.
+Thirdly, the components license model must permit free commercial use.
+Additionally, the components should be cloud agnostic, meaning that they are not bound to one vendor's specific cloud environment.
+Similarly, the components should not depend upon specific choices for the other components, so that the whole system can be freely designed.
 
-% Sketch
-% Which parts are required for a complete solution?
-% -> Source, (Collector, Transformer), Sink, Analytics/Visualization
-% What requirements have to be fulfilled by a complete solution?
-% Which options exist for each part and how do they work together?
-% Why were these parts chosen?
-% Explanation of solution pipeline
-% Extensibility and Scalability
-
-\todo{Write new beginning}
-\todo{Add license model as requirement}
-\begin{table}[]
+\begin{table}[h]
 \begin{tabular}{l|l}
 	& Requirement       			\\
 \hline
 R1 	& Scalability 					\\
 R2 	& Extensibility       			\\
-R3 	& Data Types 					\\
-R4 	& Open-source       			\\
-R5 	& Free commercial use  			\\
-R6 	& Cloud agnostic       			\\
-R7 	& Integration of Azure data
+R3 	& License			  			\\
+R4 	& Agnostic       				\\
 \end{tabular}
-\caption{Requirements for a Monitoring Solution}
+\caption{Requirements for SPMonitor}
 \label{tab:requirements}
 \end{table}
 
-The components that will be chosen for the monitoring solution must fulfill a few requirements.
-These requirements are listed in Table \ref{tab:requirements}.
-Firstly the solution should be scaleable to an arbitrary amount of monitored services and instances.
-Secondly, it should be possible to add new and different services in the future.
-This means that adding a new service should only require configuration changes and adding new visualizations for the service.
-Thirdly, although only metrics are implemented in this solution, it should be possible to extend
-the monitoring in the future to also include logs and traces.
-Additionally, tools are preferred that are open-source, not bound to a vendor's specific cloud,
-and that offer a license for free commercial use.
-Overall the solution aims to be as slim as possible. Meaning that it should consist of as few services as possible.
-While it is for example possible to use components that specialize in each of the three different data types,
-components that support multiple or all three data types are preferred.
-Lastly, it has to be possible to integrate data from Azure into the monitoring solution.
-This requirement is the result of the underlying use case and the developed demonstrator,
-which utilizes Azure.
+\todo{Capabilities?}
+\todo{Access Control/Roles/Security?}
 
-\todo{List Tools with the requirements}
-\begin{table}[]
-\begin{tabular}{l|l}
-Name 					& Purpose 			\\
-\hline
-Grafana 				& Visualization		\\
-Kibana 					& Visualization		\\
-OpenSearch Dashboard 	& Visualization		\\
-Prometheus 				& Data sink			\\
-ElasticSearch 			& Data sink			\\
-OpenSearch 				& Data sink			\\
-OpenTelemetry 			& Data source		\\
-Jaeger 					& All-in-one		\\
-Apache SkyWalking 		& All-in-one
-\end{tabular}
-\caption{Potential Tools for the monitoring solution}
-\label{tab:potential_tools}
-\end{table}
+\section{Design}
 
-The tools that were considered for the monitoring solution are listed in Table \ref{tab:potential_tools}.
+Note that the components are analyzed regarding their intended use.
+The result is, that a component might be listed as not fulfilling a requirement even though it would be possible
+to use the component in a way that fulfills the requirement. This is an important consideration for components
+that are part of a complete monitoring stack that offers components for all three types of components.
+Without this consideration, the fourth requirement would be violated.
 
-Jaeger can immediately be ruled out as it only supports traces.
-With the same reasoning, Prometheus can also be ruled out as it only supports metrics.
-ElasticSearch was up until recently commercially free to use which is no longer the case.
-OpenSearch is being developed as an open-source, free-to-use alternative with the goal
-of offering the same feature set. Kibana is a visualization tool specifically developed for
-ElasticSearch, which means that it is also being ruled out as ElasticSearch won't be used.
-While Apache SkyWalking offers an all-in-one solution from data source to visualization,
-it does not seem like it can integrate the monitoring data from Azure.
-This leaves only Grafana, OpenSearch, and OpenTelemetry.
-Between the OpenSearch Dashboard and Grafana, Grafana is chosen as it offers a wide range
-of plugins to connect to different data sources in the future. One of these plugins also
-directly allows the integration of data from Azure.
-In conclusion, Grafana will be used for visualization and analysis, OpenSearch as the data sink without its Dashboard,
-and OpenTelemetry as the data source.
+\todo{Finish analysis of components}
+% \begin{table}[]
+% \begin{tabular}{l|c|c|c|c|l}
+% Name 					& R1 & R2 & R3 & R4	& Note \\
+% \hline
+% Grafana 				& \cmark & \cmark & \cmark & \cmark & - \\
+% Kibana 					& \cmark & \cmark & \cmark & \xmark & Part of the ElasticStack \\
+% OpenSearch Dashboard 	& \cmark & \cmark & \cmark & \xmark & Part of the OpenSearch Project \\
+% Apache SkyWalking 		& \cmark & \cmark & \cmark & \xmark & All-in-one solution 
+% \end{tabular}
+% \caption{Visualization Components}
+% \label{tab:potential_visualization}
+% \end{table}
 
-Because OpenTelemetry exports metrics in its OpenTelemetry Protocol format,
-which is not yet supported for direct ingestion by OpenSearch,
-an additional tool, called Data Prepper has to be employed.
-Data Prepper is a data transformer and part of the OpenSearch project that can convert
-data from OpenTelemetry into a format that can be ingested into OpenSearch.
-In the future, when OpenSearch supports the OpenTelemetry Protocol, this component can be removed.
+% \begin{table}[]
+% \begin{tabular}{l|c|c|c|c|l}
+% Name 					& R1 & R2 & R3 & R4	& Note \\
+% \hline
+% Grafana Agent			& \cmark & \cmark & \cmark & \cmark & - \\
+% Prometheus 				& \cmark & \cmark & \cmark & \cmark & - \\
+% OpenSearch 				& \cmark & \cmark & \cmark & \cmark & - \\
+% OpenTelemetry 			& \cmark & \cmark & \cmark & \cmark & - \\
+% Apache SkyWalking 		& \cmark & \cmark & \cmark & \cmark & - 
+% \end{tabular}
+% \caption{Data Sources}
+% \label{tab:potential_sources}
+% \end{table}
 
-As per the recommendations of the OpenSearch project, the OpenSearch Collector will also be used
-in the monitoring solution. The OpenSearch Collector acts as a buffer between the data sources
-and the data sink. It can also be used for certain automatic instrumentation tasks.
+% \begin{table}[]
+% \begin{tabular}{l|c|c|c|c|l}
+% Name 					& R1 & R2 & R3 & R4 & Note	\\
+% \hline
+% Prometheus 				& \cmark & \cmark & \cmark & \xmark & - \\
+% ElasticSearch 			& \cmark & \cmark & \xmark & \xmark & - \\
+% OpenSearch 				& \cmark & \cmark & \cmark & \xmark & - \\
+% Apache SkyWalking 		& \cmark & \cmark & \cmark & \xmark & - 
+% \end{tabular}
+% \caption{Data Sinks}
+% \label{tab:potential_sinks}
+% \end{table}
 
-The resulting SystemPlusSoftware architecture can be seen in Figure \ref{fig:sps_monitoring_mvp}.
+The components that were chosen in the end, can be seen in Figure \ref{fig:sps_spmonitor}.
+Grafana was chosen as the component for visualization together with Prometheus as the data source/sink.
+The combination of Grafana with Prometheus is an industry-standard solution that offers a lot of flexibility
+and functionality.
+Because Prometheus only stores metrics in memory and does not provide long-term storage,
+Grafana Mimir, with MinIO as a storage backend, was added to resolve this issue.
+The Grafana Agent was added as an additional data source because it provides an easy method
+of scraping performance metrics from Kubernetes Pods, which are then written to Prometheus for storage and analysis.
 
-\begin{figure}[h]
+\begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{figures/sps_monitoring_mvp.png}
-	\caption{SystemPlusSoftware Monitoring MVP}
-	\label{fig:sps_monitoring_mvp}
+	\includegraphics[width=\textwidth]{figures/sps_spmonitor.png}
+	\caption{SystemPlusSoftware SPMonitor}
+	\label{fig:sps_spmonitor}
 \end{figure}
+
+\section{Implementation}
