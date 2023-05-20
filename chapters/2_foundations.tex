@@ -5,40 +5,32 @@
 
 \section{Decentralized Identities}
 
-\todo{Explain Decentralized Identities}
+Decentralized Identities are best explained with an example of how and where they are used.
+Alice is a citizen who wants to rent a car. Alice has a decentralized identifier (DID) which is a digital identity
+that uniquely identifies her. She also has a digital wallet associated with her DID that she can use
+to store digital credentials. Bob is a clerk for a driving license authority.
+In order for Alice to be able to rent a car online, she needs a method of proving that she has a valid
+driver's license. She goes to Bob and asks him to issue her a Verifiable Credential (VC) for her driving
+license, which she could use as proof of her possessing a valid driver's license.
+Bob verifies that Alice has a valid driver's license and then issues her the VC using her DID.
+The VC is stored in Alice's digital wallet which only she has access to.
+When she now goes through the process of renting a car online, the rental company
+can ask her to provide a VC to prove that she has a valid driver's license.
+Alice can then share her VC from her wallet with the rental company, which can then be
+verified through the Trust System. The rental company now knows that Alice has a valid driving license
+because they could verify that the VC was valid and associated with Alice's DID.
+Alice can now proceed with renting a car online from the rental company.
 
-\section{BestRentalPoC}
+Throughout this entire process, Alice was in charge of her personal information while
+the rental company was still able to verify her possession of a driving license. This is because
+the rental company trusts the driving license authority and the Trust System.
+An identity system like this that is based upon trust towards certain entities which uses DID's and VC's is called
+a decentralized identity system.
 
-The BestRentalPoC is a proof of concept for the usage of decentralized identities.
-BestRental is a fictive car rental company, which requires customers to have a valid driver's license
-when renting a car.
-For this purpose, the driving license authority can issue a customer, called Alice, a verifiable credential (VC).
-The VC is stored in Alice's digital wallet.
-When renting a car, Alice can present her VC to BestRental, who can then verify the validity of Alice's driver's license.
+The World Wide Web Consortium (W3C) provides a standard for this type of system in their Decentralized Identifiers (DIDs) v1.0
+Standard along with the Verifiable Credentials Data Model v1.1 Standard.
 
-The BestRentalPoC consists of three parts: The BestRental application, the DrivingLicenseAuthority application
-and the decentralized identity system.
-The BestRental application allows Alice to rent a car and present her VC.
-The DrivingLicenseAuthority application allows the issuance of a VC to Alice.
-Finally, the decentralized identity system provides the functionality of issuing and verifying VCs.
-
-The BestRental application consists of a browser-based frontend and a microservice, which handles the required
-business logic. In the same way, the DrivingLicenseAuthority application consists of a frontend and a microservice.
-Additionally, both applications have tenants in Microsoft Azure which include an Azure Active Directory and
-a Key Vault called VerifiedIDVault.
-
-The decentralized identity system consists of Microsoft Entra Verified ID and the Trust System called DidWeb.
-This proof of concept utilizes Microsoft Entra Verified ID to implement decentralized identities.
-Entra provides all services which are required for this. This includes services to issues and to verify VCs.
-
-Figure \ref{fig:sps_architecture_bestrental} shows the SystemPlusSoftware Architecture of the Demonstrator BestRental.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{figures/sps_BestRentalPOC.png}
-	\caption{SystemPlusSoftware Architecture BestRental}
-	\label{fig:sps_architecture_bestrental}
-\end{figure}
+\todo{continue writing}
 
 \section{Monitoring}
 
@@ -117,106 +109,6 @@ Monitoring can also be used to aid in troubleshooting by recording the number of
 
 \todo{Security Management}
 
-\section{Use Cases}
-
-\subsection{Motivation}
-The DrivingLicenseAuthorityKarlsruhe (DLAKa) wants to provide citizens with digital driving licenses,
-which can, for example, be used to prove to a car rental company that they possess a valid driving license.
-They hire the company ServiceProvider (SP) to develop and operate the system necessary for issuing and verifying
-digital driving licenses. The contract specifies an initial payment for the development of the system
-and afterward a yearly fee for the operation of the system.
-After receiving the contract from DLAKa, SP starts designing the system
-for DLAKa. Because SP has to operate the system on a fixed yearly budget,
-they want to monitor the performance of the system to identify parts with excessive resource usage, which
-incur additional costs. They identify the CPU and memory usage of the system as two technical metrics that should be monitored.
-Additionally, DLAKa has asked them to provide the capability of monitoring business metrics for them.
-DLAKa wants to know how many digital driving licenses are being issued and how often the issuance of a digital
-driving license fails. To monitor both technical and business metrics, SP designs the ServiceProviderMonitor (SPMonitor) as a part
-of the system for DLAKa which will provide all functionality for monitoring the specified metrics.
-
-BestRental, a car rental company, has heard of DLAKa's plans for digital driving licenses
-and wants to integrate them into its online rental system. Contrary to DLAKa, BestRental develops its
-system in-house. Similarly to DLAKa, BestRental is interested in obtaining business metrics from its system.
-They want to use these metrics to make business decisions like if they should increase the capacity of their fleet in the future.
-For this purpose, BestRental designs an additional application called BestMonitor that will provide all the monitoring functionality.
-In the beginning, they are only interested in one metric: How many active rentals are there?
-
-For the design of SPMonitor, SP created two use cases: Present Metric and Collect Metric.
-The relation of these use cases can be seen in the Use Case Diagram in Figure \ref{fig:use_case_monitoring_dlakaapp}.
-Present Metric handles the use case of presenting the collected metrics to a user, this is described in Listing \ref{lis:use_case_description_present_metric}.
-Collect Metric is concerned with how SPMonitor receives metrics for later presentation to a user, this is described in Listing \ref{lis:use_case_description_collect_metric}.
-
-The metrics that will initially be monitored by SPMonitor are the number of issued digital driving licenses (NumDDL)
-and the memory usage of the DLAKaApp (MemUse). The NumDDL metric is a business metric for DLAKa, while MemUse is
-a technical metric that allows SP to monitor the performance of DLAKaApp.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{figures/2.1_use_case_spmonitor.png}
-	\caption{Use Case Diagram: SPMonitor}
-	\label{fig:use_case_monitoring_dlakaapp}
-\end{figure}
-
-\subsection{Use Case Present Metric}
-\todo{Elaborate}
-
-\begin{lstlisting}[caption = {Use Case Description: Present Metric}, label = {lis:use_case_description_present_metric}, style = kit-cm, language=] 
-Title: Present Metric
-
-Primary Actors: DLAKa Clerk
-
-Preconditions:
-- SPMonitor has the NumDDL metric configured
-
-Flow:
-1. DLAKa Clerk opens the dashboard for the NumDDL metric
-2. SPMonitor retrieves all stored values for the NumDDL metric
-3. SPMonitor displays the values in a graph
-
-Alternative Flows:
-2a. SPMonitor has no values stored for the NumDDL metric
-2a1. SPMonitor displays a message that the NumDDL metric has no stored values
-
-Information Requirements:
-- Values for the NumDDL metric
-\end{lstlisting}
-
-\subsection{Use Case Collect Metric}
-\todo{Elaborate}
-
-\begin{lstlisting}[caption = {Use Case Description: Collect Metric}, label = {lis:use_case_description_collect_metric}, style = kit-cm, language=] 
-Title: Collect Metric
-
-Secondary Actors: DLAKaApp, DLAKaCluster
-
-Preconditions:
-- DLAKaApp is set up to collect the NumDDL metric
-- DLAKaCluster is set up to collect the MemUse metric
-- DLAKaApp is running inside of the DLAKaCluster
-Postconditions:
-- SPMonitor has values stored for NumDDL and MemUse
-
-Flow:
-1. SPMonitor sends a request to DLAKaApp for the NumDDL metric
-2. DLAKaApp replies with a value for the NumDDL metric
-3. SPMonitor receives the reply
-4. SPMonitor stores the value for the NumDDL metric
-5. SPMonitor sends a request to DLAKaCluster for the MemUse metric
-6. DLAKaCluster replies with a value for the MemUse metric
-7. SPMonitor receives the reply
-8. SPMonitor stores the value for the MemUse metric
-
-Alternative Flows:
-2a. DLAKaApp replies with an error message
-2a1. SPMonitor receives the error message
-2a2. SPMonitor retries to request the NumDDL metric
-6a. DLAKaCluster replies with an error message
-6a1. SPMonitor receives the error message
-6a2. SPMonitor retries to request the MemUse metric
-
-Information Requirements:
-- Value for the NumDDL metric
-- Value for the MemUse metric
-\end{lstlisting}
-
 \section{DevOps}
+
+\todo{Explain DevOps}
