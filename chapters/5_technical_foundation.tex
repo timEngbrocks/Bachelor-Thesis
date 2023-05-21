@@ -1,4 +1,5 @@
 \chapter{Technical Foundation}
+\label{cha:technical_foundation}
 
 \todo{Add chapter introduction}
 
@@ -32,12 +33,15 @@
 % The WASA lecture contains the current and, therefore, the ``valid version'' of concepts and solutions. 
 % So this content should be trusted if there is a mismatch between WASA lecture and theses or publications.
 
+\section{Crossplane}
+
 \section{Monitoring System}
 \todo{Finish}
 A complete monitoring system requires three main parts: Data sources, data sinks, and the ability
 to analyze/visualize the collected data.
-The collected data can be split into three different types: Metrics, Logs, and Traces.
-This work only provides a monitoring solution for metrics.
+The collected data can be split into three different types
+according to the three pillars of observability: Metrics, Logs, and Traces.
+Because this work only focuses on metrics, logs and traces will be ignored for this explanation of monitoring systems.
 
 Data sources are the origin of the collected metrics and can be split into two different types
 based on how they acquire metrics. The first type is data sources that perform manual instrumentation.
@@ -61,6 +65,8 @@ which decreases the load on the data sink.
 
 \section{Grafana}
 \todo{Grafana}
+Grafana is a tool for visualizing and querying time-series data.
+In Grafana you can build dashboards that visualize time-series data
 
 \section{Prometheus}
 \todo{Prometheus}
@@ -79,10 +85,34 @@ Prometheus only stores its data on local disks which is
 Grafana Mimir offers long-term storage for Prometheus data.
 
 \section{MinIO}
-\todo{MinIO}
 MinIO is an object storage that provides the same interface as Amazon Web Service's (AWS) S3 service.
 Object storage system store data as objects with a unique identifier. An object contains the data stored
 data itself and additional metadata. Objects can store arbitrary types of data.
 
-\section{Grafana Agent}
-\todo{Grafana Agent}
+Storage systems can be divided into two categories by the type of data that they store.
+There are systems for structured data like relational or other types of databases.
+Then there are systems for unstructured data which need to be able to store random binary data.
+These systems for unstructured data can be divided into three categories: File storage, Block storage, and Object storage.
+File storage stores files in a hierarchical structure of folders and files.
+Files are identified by their path in the hierarchy and can be accessed by multiple users at a time.
+File storage is commonly used as the default storage system on most operating systems.
+Block storage stores files as chunks of data with a unique identifier. This increases access performance
+and reduces wasted memory from having to layout files contiguously in memory but it also increases complexity.
+Block storage is mostly used for systems that need minimal delay and consistent performance which are also
+able to expend the extra compute time needed for reassembling files from their separate chunks.
+Object storage combines the approaches of File and Block storage. Files are stored as objects that
+contain the file's data and additional metadata. They have a unique identifier for access and are laid out
+contiguously in memory. Object storage is mostly used for static data that needs to be read often but not written.
+This is because Object storage requires the complete retrieval and rewrite of an object when modifying it.
+Object storage reduces the complexity of the storage system compared to File and Block storage and increases
+performance for its specific use cases. One example of the use of object storage is the storage of
+assets for web pages like images or scripts. These assets don't have an overall structure which means
+that an unstructured storage system is best suited for their storage.
+Additionally, these assets need to be accessed more often than they need to be written.
+
+One of the most popular object storage systems for cloud environments is Amazon Web Service's (AWS)
+S3; S3 means Simple Storage Service. AWS S3 is a paid service that implements the S3 interface for object storage.
+Contrary to AWS S3, the S3 interface is an open standard.
+MinIO was built as a free alternative to AWS S3 which implements the same interface.
+This way, MinIO can be used interchangeably with other services that rely on AWS S3 for storage.
+For this work, MinIO is used as part of the data sink for the monitoring solution.

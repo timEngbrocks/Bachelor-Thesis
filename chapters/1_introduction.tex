@@ -11,6 +11,64 @@
 % in this section at a high level of abstraction.
 
 \todo{Introduce topic area}
+\subsection{Story BestRentalPoC}
+Alice is a customer of BestRental and has been renting cars from them.
+However, every time she rented a car, she had to remember to bring her physical driving license.
+Fortunately, DLAKa, the driving license authority DLA in Karlsruhe (Ka), 
+has introduced a digital driving license option. Alice heard the news and decided to go
+to the authority to obtain her digital driving license. Bob, who works at DLAKa,
+first checks that Alice's physical driving license is valid. Then, Bob fills out a digital form
+using the data on Alice's physical driving license. Afterward, Alice scans the QR code on Bob's monitor
+using her authenticator app and grants permission to create her digital driving license.
+As a result, Alice now possesses a digital driving license in the wallet of her authenticator app.
+Alice now can provide digital proof of her valid driving license to anyone who requests it.
+Next, Alice rents a car from BestRental. But this time, she uses her digital driving license
+to prove that she has a valid one. Once Alice opens the website of BestRental,
+she will be prompted to present her digital driving license. Therefore, the website displays a QR Code,
+which Alice scans with her authenticator app. Next, Alice confirms the presentation using
+her authenticator app and decides what information gets shared. 
+Finally, Alice has been verified on BestRental's website and can now rent a car. 
+Alice provides the desired period and location for the car rental.
+On the website, Alice can then browse and choose from available cars.
+Once she has selected a car, BestRental will reserve the car for her.
+
+
+\subsection{Motivation BestRentalPoC}
+The company BestRental wants to develop a monitoring solution for its BestRentalPoC system
+to collect metrics that are meant to assist the company in operating the BestRentalPoC.
+The system will be operated by QA Engineers, system operators, and a project manager.
+Before developing the monitoring solution, the team tasked with developing the solution,
+interview the different roles to find out how they will use the solution
+and what their tasks and responsibilities are.
+QA Engineers are responsible for the reliability of BestRentalPoC.
+To ensure the reliability of the system, they want to know when requests to the system fail and
+trigger errors, so that they can fix them.
+For them to better understand errors, they want to know how often errors occur and from which services,
+inside of BestRentalPoC, they originate.
+The system operators run the BestRentalPoC. They need to make sure that at any point in time
+BestRentalPoC has enough instances of all of its services available to serve all incoming requests.
+Because BestRental wants to operate profitably, they can't just create as many instances as they like,
+and they need to shut down instances when they are not needed.
+To assist them with their task, they want to know how high the resource usage of each instance is
+and how many requests are coming into the system. The resources that they want to track for each
+instance are the instance's CPU and memory usage.
+The project manager's yearly bonus is tied to how profitable the BestRentalPoC operates.
+To ensure that he gets his bonus, the project manager wants to track the operating costs of the complete system.
+Additionally, he needs to how high the operating costs of each service are, so that he can
+allocate development time to increase the efficiency of a service, making it more profitable.
+After the interviews, the development notes that all types of users of the monitoring solution
+want to be able to do five different things.
+Firstly, they want to be able to create a dashboard for a metric that displays its current and historic values.
+When viewing a dashboard they also want to be able to run queries on the metric to, for example, get
+its value at a specific point in time.
+Because the users can't constantly watch all of their dashboards, they want to be able to create
+alerts for a metric that will be triggered when the metric exceeds a set value.
+When a metric exceeds a value set for an alert, the users want to receive the alert so that they can act on it.
+The developers also know that the solution needs to be able to do three main things to accomplish
+the requested features.
+Firstly, the solution needs to collect metrics from BestRentalPoC,
+it then needs to analyze the collected data, and lastly, it needs to conditionally send out alerts
+for metrics.
 
 \section{Research Questions}
 % The first research question should be superior to the following questions ''2 to n'' 

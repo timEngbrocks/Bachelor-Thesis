@@ -10,10 +10,6 @@
 
 \todo{Explain purpose: maybe move motivation here; away from Analysis}
 
-\section{Analysis}
-
-\todo{Introduction to Analysis}
-
 \subsection{Motivation}
 The DrivingLicenseAuthorityKarlsruhe (DLAKa) wants to provide citizens with digital driving licenses,
 which can, for example, be used to prove to a car rental company that they possess a valid driving license.
@@ -44,6 +40,10 @@ Collect Metric is concerned with how SPMonitor receives metrics for later presen
 The metrics that will initially be monitored by SPMonitor are the number of issued digital driving licenses (NumDDL)
 and the memory usage of the DLAKaApp (MemUse). The NumDDL metric is a business metric for DLAKa, while MemUse is
 a technical metric that allows SP to monitor the performance of DLAKaApp.
+
+\section{Analysis}
+
+\todo{Introduction to Analysis}
 
 \begin{figure}
 	\centering
@@ -119,29 +119,64 @@ Information Requirements:
 \section{Design}
 
 \todo{Introduction for Design}
-\todo{Explain criteria and derive from use case}
+
+\subsection{Metrics Definition}
+
+\subsection{Selecting the Tools}
+
+As explained in Chapter \ref{cha:technical_foundation}, a monitoring system consists of three parts:
+The Data Source, Data Sink and a tool for visualization.
+The data source is the core of a monitoring system. It is responsible for collecting the monitoring data
+and dictates the needs for the data sink as well as the possibilities for the visualization.
+Because of its central role, the data source will be the first component of the monitoring system that will be chosen
+and the rest of the monitoring system will be chosen to best fit with and support the data source.
+
+In order for the chosen data source to best fit the needs of SPMonitor, it needs to fulfill some requirements
+which stem from SPMonitor's use cases. The first requirement for the data source is that it should be built
+to support the use cases of SPMonitor. Tools that are built for different purposes but could be used for SPMonitor's
+use cases, will be less preferable than tools that are designed for SPMonitor's use cases.
+Secondly, the data source should be free to use. This requirement mostly stems from the scope of this work
+as a bachelor's thesis without any funding.
+Additionally, the data source needs to be able to collect technical metrics as well as business metrics.
+While technical metrics can be gathered from most cloud environments automatically, business metrics
+require the instrumentation of the source code of the monitored services. Many data sources can in theory
+instrument service but they often use additional tools like OpenTelemetry for this. Because SPMonitor aims
+to be as slim as possible, to reduce complexity, data sources that can instrument services on their own without
+the need for an additional tool, will be preferred over data sources that can not do that.
+Lastly, the data source needs to support two different cloud environments: Kubernetes for the on-premise parts
+of DLAKaApp and Microsoft Azure for the decentralized identity part of DLAKaApp.
+
+These six requirements for the data source are listed in Table \ref{tab:data_source_requirements}.
+Requirements R2 through R6 are hard requirements, meaning that a data source that does not fulfill them
+will not be chosen. Requirement R1 is a soft requirement that is meant as an orientation and does directly
+lead to the elimination of a data source.
 
 \begin{table}[]
+\centering
 \begin{tabular}{c|l}
-Key & Criteria \\
+Key & Requirements \\
 \hline
-C1 & Purpose \\
-C2 & Licensing \\
-C3 & Technical metrics \\
-C4 & Business metrics \\
-C5 & Kubernetes \\
-C6 & Microsoft Azure \\
+R1 & Purpose \\
+R2 & Licensing \\
+R3 & Technical metrics \\
+R4 & Business metrics \\
+R5 & Kubernetes \\
+R6 & Microsoft Azure \\
 \end{tabular}
-\caption{Selection criteria for monitoring tools}
-\label{tab:monitoring_tool_criteria}
+\caption{}
+\label{tab:data_source_requirements}
 \end{table}
 
-% NOTE: Many tools employ OpenTelemetry, especially for Business Metrics
-\todo{Source for these tools}
+The data sources that will be compared according to the requirements in Table \ref{tab:data_source_requirements} stem
+from the paper \enquote{A Survey on Observability of Distributed Edge {\&} Container-Based Microservices}
+by Usman et al. \cite{ToolSurvey}. The list from that survey was supplemented with one additional entry,
+the TICK (Telegraf, InfluxDB, Chronograf, Kapacitor) stack. Any entries that do not support metrics or are purely research projects were eliminated.
+Lastly, the entry for Kibana was changed to ELK for the ELK (ElasticSearch, LogStash, Kibana) stack.
+The complete overview of all analyzed tools can be seen in Table \ref{tab:data_source_comparison}.
 
 \begin{table}[]
 \begin{tabular}{l|c|c|c|c|c|c}
-Name & C1 & C2 & C3 & C4 & C5 & C6 \\
+Name & R1 & R2 & R3 & R4 & R5 & R6 \\
 \hline
 Apache SkyWalking		 & Performance & Free & \cmark & \cmark & \cmark & \xmark \\
 Cilium					 & Networking & Free & \cmark & \xmark & \cmark & \cmark \\
@@ -152,66 +187,65 @@ Honeycomb				 & Debugging & Paid & \cmark & \cmark & \cmark & \cmark \\
 Instana					 & Incidence Management & Paid & \cmark & \xmark & \cmark & \cmark \\
 Monasca					 & MaaS & Free & \cmark & \xmark & \cmark & \xmark \\
 New Relic				 & PaaS & Paid & \cmark & \cmark & \cmark & \cmark \\
-OpenSearch				 & Searching & Free & \cmark & \cmark & \cmark & \cmark \\
+\rowcolor{lightgray}
 OpenTelemetry			 & Monitoring & Free & \cmark & \cmark & \cmark & \cmark \\
-Prometheus/Grafana		 & Monitoring & Free/Paid & \cmark & \cmark & \cmark & \cmark \\
+\rowcolor{lightgray}
+Prometheus				 & Monitoring & Free/Paid & \cmark & \cmark & \cmark & \cmark \\
 Scalyr					 & PaaS & Paid & \cmark & \xmark & \cmark & \xmark \\
 SolarWinds				 & PaaS & Paid & \cmark & \xmark & \cmark & \cmark \\
 Splunk					 & Resilience & Paid & \cmark & \cmark & \cmark & \cmark \\
 Sumo Logic				 & Analytics & Paid & \cmark & \cmark & \cmark & \cmark \\
+\rowcolor{lightgray}
 TICK					 & Time Series Data & Free/Paid & \cmark & \cmark & \cmark & \cmark \\
 \end{tabular}
-\caption{Comparison of monitoring tools}
-\label{tab:monitoring_tool_comparison}
+\caption{Comparison of data sources}
+\label{tab:data_source_comparison}
 \end{table}
 
-\todo{Elaborate final selection}
+The three final candidates for use in SPMonitor can be seen highlighted in Table \ref{tab:data_source_comparison}.
+They are OpenTelemetry, Prometheus, and the TICK stack.
+OpenTelemetry is a standalone solution for the collection of metrics. 
+It provides many client libraries to instrument service for business metrics and can integrate
+with most data sinks and visualization tools.
+Prometheus is commonly used in combination with the LGTM (Loki Grafana Tempo Mimir) stack.
+Loki is a service for handling logs, Tempo is responsible for handling traces, Grafana is used for visualization and Mimir provides
+long-term storage for Prometheus. Prometheus itself is responsible for the collection of metrics.
+As this work only considers metrics, the full setup would use Grafana for visualization, Prometheus as the data source, and Mimir
+as the data sink. As Mimir only provides Prometheus with an interface to a storage system and is itself not one, it can be paired with MinIO
+a free-to-use object storage system.
+The TICK stack consists of four different tools: Telegraf, InfluxDB, Chronograf, and Kapacitor.
+Telegraf is responsible for collecting metrics from the monitored services. The collected metrics are then forwarded
+to InfluxDB, the storage component of the stack, and Kapacitor which is responsible for data processing.
+Chronograf provides the interface to visualize and analyze the collected metrics.
+
+From these three options, Prometheus together with Grafana, Mimir, and MinIO was chosen for SPMonitor.
+Unlike OpenTelemetry, Prometheus provides easy integration with its data sink and visualization tool as
+they were built to work together. OpenTelemetry on the other hand is a standalone solution meant to enhance
+other tools which do not collect metrics themselves. The TICK stack provides the same integration benefit compared
+to OpenTelemetry. The decision between Prometheus and the TICK stack is not as straightforward.
+Both fulfill all requirements, offer extensibility options through plugins for different data sources
+and pre-built visualizations, and they are both open-source projects which can be freely used.
+One difference between them is that there exists a provider solution for managing Grafana with Crossplane.
+This does not seem to exist for the TICK stack. Crossplane will be used to provision and operate the cloud
+services of DLAKaApp and SPMonitor. Therefore Grafana and Prometheus are chosen for SPMonitor as they offer tools
+for integrating them with Crossplane compared to the TICK stack. The final selection of tools can be seen in Figure \ref{fig:spmonitor_tech_stack}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.4\textwidth]{figures/spmonitor_tech_stack.png}
+	\caption{SPMonitor Technology Stack}
+	\label{fig:spmonitor_tech_stack}
+\end{figure}
+
+\subsection{Architecture}
 
 \todo{Explain SPS Architecture}
 
-% Candidates:
-% - Prometheus/Grafana
-% - TICK
-% - OpenSearch
-% - OpenTelemetry
+\subsection{API Specification}
 
-% The components that will be chosen for SPMonitor must fulfill a few requirements.
-% These requirements are listed in Table \ref{tab:requirements}.
-% Firstly, the solution should be scaleable to an arbitrary amount of monitored instances, and different workload sizes.
-% Secondly, it should be possible to add new and different services in the future. This means that SPMonitor should be extensible.
-% Thirdly, the components license model must permit free commercial use.
-% Additionally, the components should be cloud agnostic, meaning that they are not bound to one vendor's specific cloud environment.
-% Similarly, the components should not depend upon specific choices for the other components, so that the whole system can be freely designed.
+\subsection{DevOps Concept}
 
-% \begin{table}[h]
-% \begin{tabular}{l|l}
-% 	& Requirement       			\\
-% \hline
-% R1 	& Scalability 					\\
-% R2 	& Extensibility       			\\
-% R3 	& License			  			\\
-% R4 	& Agnostic       				\\
-% \end{tabular}
-% \caption{Requirements for SPMonitor}
-% \label{tab:requirements}
-% \end{table}
-
-% Note that the components are analyzed regarding their intended use.
-% The result is, that a component might be listed as not fulfilling a requirement even though it would be possible
-% to use the component in a way that fulfills the requirement. This is an important consideration for components
-% that are part of a complete monitoring stack that offers components for all three types of components.
-% Without this consideration, the fourth requirement would be violated.
-
-% The components that were chosen in the end, can be seen in Figure \ref{fig:sps_spmonitor}.
-% Grafana was chosen as the component for visualization together with Prometheus as the data source/sink.
-% The combination of Grafana with Prometheus is an industry-standard solution that offers a lot of flexibility
-% and functionality.
-% Because Prometheus only stores metrics in memory and does not provide long-term storage,
-% Grafana Mimir, with MinIO as a storage backend, was added to resolve this issue.
-% The Grafana Agent was added as an additional data source because it provides an easy method
-% of scraping performance metrics from Kubernetes Pods, which are then written to Prometheus for storage and analysis.
-
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{figures/sps_spmonitor.png}
 	\caption{SystemPlusSoftware SPMonitor}
