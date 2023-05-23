@@ -7,20 +7,20 @@
 
 \section{BestRentalPoC}
 
-The BestRentalPoC is a proof of concept for the usage of decentralized identities.
-BestRental is a fictive car rental company, which requires customers to have a valid driver's license
+The \Gls{BestRentalPoC} is a proof of concept for the usage of decentralized identities.
+\Gls{BestRental} is a fictive car rental company, which requires customers to have a valid driver's license
 when renting a car.
 For this purpose, the driving license authority can issue a customer, called Alice, a verifiable credential (VC).
 The VC is stored in Alice's digital wallet.
-When renting a car, Alice can present her VC to BestRental, who can then verify the validity of Alice's driver's license.
+When renting a car, \Gls{Alice} can present her VC to BestRental, who can then verify the validity of Alice's driver's license.
 
-The BestRentalPoC consists of three parts: The BestRental application, the DrivingLicenseAuthority application
+The \Gls{BestRentalPoC} consists of three parts: The \Gls{BestRental} application, the DrivingLicenseAuthority application
 and the decentralized identity system.
-The BestRental application allows Alice to rent a car and present her VC.
+The \Gls{BestRental} application allows \Gls{Alice} to rent a car and present her VC.
 The DrivingLicenseAuthority application allows the issuance of a VC to Alice.
 Finally, the decentralized identity system provides the functionality of issuing and verifying VCs.
 
-The BestRental application consists of a browser-based frontend and a microservice, which handles the required
+The \Gls{BestRental} application consists of a browser-based frontend and a microservice, which handles the required
 business logic. In the same way, the DrivingLicenseAuthority application consists of a frontend and a microservice.
 Additionally, both applications have tenants in Microsoft Azure which include an Azure Active Directory and
 a Key Vault called VerifiedIDVault.

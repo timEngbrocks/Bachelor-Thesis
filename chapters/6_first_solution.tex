@@ -21,16 +21,16 @@ After receiving the contract from DLAKa, SP starts designing the system
 for DLAKa. Because SP has to operate the system on a fixed yearly budget,
 they want to monitor the performance of the system to identify parts with excessive resource usage, which
 incur additional costs. They identify the CPU and memory usage of the system as two technical metrics that should be monitored.
-Additionally, DLAKa has asked them to provide the capability of monitoring business metrics for them.
-DLAKa wants to know how many digital driving licenses are being issued and how often the issuance of a digital
+Additionally, \Gls{DLAKa} has asked them to provide the capability of monitoring business metrics for them.
+\Gls{DLAKa} wants to know how many digital driving licenses are being issued and how often the issuance of a digital
 driving license fails. To monitor both technical and business metrics, SP designs the ServiceProviderMonitor (SPMonitor) as a part
-of the system for DLAKa which will provide all functionality for monitoring the specified metrics.
+of the system for \Gls{DLAKa} which will provide all functionality for monitoring the specified metrics.
 
 BestRental, a car rental company, has heard of DLAKa's plans for digital driving licenses
-and wants to integrate them into its online rental system. Contrary to DLAKa, BestRental develops its
-system in-house. Similarly to DLAKa, BestRental is interested in obtaining business metrics from its system.
+and wants to integrate them into its online rental system. Contrary to DLAKa, \Gls{BestRental} develops its
+system in-house. Similarly to DLAKa, \Gls{BestRental} is interested in obtaining business metrics from its system.
 They want to use these metrics to make business decisions like if they should increase the capacity of their fleet in the future.
-For this purpose, BestRental designs an additional application called BestMonitor that will provide all the monitoring functionality.
+For this purpose, \Gls{BestRental} designs an additional application called BestMonitor that will provide all the monitoring functionality.
 In the beginning, they are only interested in one metric: How many active rentals are there?
 
 For the design of SPMonitor, SP created two use cases: Present Metric and Collect Metric.
@@ -39,7 +39,7 @@ Present Metric handles the use case of presenting the collected metrics to a use
 Collect Metric is concerned with how SPMonitor receives metrics for later presentation to a user, this is described in Listing \ref{lis:use_case_description_collect_metric}.
 
 The metrics that will initially be monitored by SPMonitor are the number of issued digital driving licenses (NumDDL)
-and the memory usage of the DLAKaApp (MemUse). The NumDDL metric is a business metric for DLAKa, while MemUse is
+and the memory usage of the \Gls{DLAKaApp} (MemUse). The NumDDL metric is a business metric for DLAKa, while MemUse is
 a technical metric that allows SP to monitor the performance of DLAKaApp.
 
 \section{Analysis}
@@ -59,13 +59,13 @@ a technical metric that allows SP to monitor the performance of DLAKaApp.
 \begin{lstlisting}[caption = {Use Case Description: Present Metric}, label = {lis:use_case_description_present_metric}, style = kit-cm, language=]
 Title: Present Metric
 
-Primary Actors: DLAKa Clerk
+Primary Actors: \Gls{DLAKa} Clerk
 
 Preconditions:
 - SPMonitor has the NumDDL metric configured
 
 Flow:
-1. DLAKa Clerk opens the dashboard for the NumDDL metric
+1. \Gls{DLAKa} Clerk opens the dashboard for the NumDDL metric
 2. SPMonitor retrieves all stored values for the NumDDL metric
 3. SPMonitor displays the values in a graph
 
@@ -86,15 +86,15 @@ Title: Collect Metric
 Secondary Actors: DLAKaApp, DLAKaCluster
 
 Preconditions:
-- DLAKaApp is set up to collect the NumDDL metric
+- \Gls{DLAKaApp} is set up to collect the NumDDL metric
 - DLAKaCluster is set up to collect the MemUse metric
-- DLAKaApp is running inside of the DLAKaCluster
+- \Gls{DLAKaApp} is running inside of the DLAKaCluster
 Postconditions:
 - SPMonitor has values stored for NumDDL and MemUse
 
 Flow:
-1. SPMonitor sends a request to DLAKaApp for the NumDDL metric
-2. DLAKaApp replies with a value for the NumDDL metric
+1. SPMonitor sends a request to \Gls{DLAKaApp} for the NumDDL metric
+2. \Gls{DLAKaApp} replies with a value for the NumDDL metric
 3. SPMonitor receives the reply
 4. SPMonitor stores the value for the NumDDL metric
 5. SPMonitor sends a request to DLAKaCluster for the MemUse metric
@@ -103,7 +103,7 @@ Flow:
 8. SPMonitor stores the value for the MemUse metric
 
 Alternative Flows:
-2a. DLAKaApp replies with an error message
+2a. \Gls{DLAKaApp} replies with an error message
 2a1. SPMonitor receives the error message
 2a2. SPMonitor retries to request the NumDDL metric
 6a. DLAKaCluster replies with an error message
@@ -145,7 +145,7 @@ instrument service but they often use additional tools like OpenTelemetry for th
 to be as slim as possible, to reduce complexity, data sources that can instrument services on their own without
 the need for an additional tool, will be preferred over data sources that can not do that.
 Lastly, the data source needs to support two different cloud environments: Kubernetes for the on-premise parts
-of DLAKaApp and Microsoft Azure for the decentralized identity part of DLAKaApp.
+of \Gls{DLAKaApp} and Microsoft Azure for the decentralized identity part of DLAKaApp.
 
 These six requirements for the data source are listed in Table \ref{tab:data_source_requirements}.
 Requirements R2 through R6 are hard requirements, meaning that a data source that does not fulfill them
@@ -229,7 +229,7 @@ Both fulfill all requirements, offer extensibility options through plugins for d
 and pre-built visualizations, and they are both open-source projects which can be freely used.
 One difference between them is that there exists a provider solution for managing Grafana with Crossplane.
 This does not seem to exist for the TICK stack. Crossplane will be used to provision and operate the cloud
-services of DLAKaApp and SPMonitor. Therefore Grafana and Prometheus are chosen for SPMonitor as they offer tools
+services of \Gls{DLAKaApp} and SPMonitor. Therefore Grafana and Prometheus are chosen for SPMonitor as they offer tools
 for integrating them with Crossplane compared to the TICK stack. The final selection of tools can be seen in Figure \ref{fig:spmonitor_tech_stack}.
 
 \begin{figure}

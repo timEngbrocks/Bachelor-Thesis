@@ -12,29 +12,29 @@
 
 \todo{Introduce topic area}
 \subsection{Story BestRentalPoC}
-Alice is a customer of BestRental and has been renting cars from them.
+\Gls{Alice} is a customer of \Gls{BestRental} and has been renting cars from them.
 However, every time she rented a car, she had to remember to bring her physical driving license.
 Fortunately, DLAKa, the driving license authority DLA in Karlsruhe (Ka), 
-has introduced a digital driving license option. Alice heard the news and decided to go
+has introduced a digital driving license option. \Gls{Alice} heard the news and decided to go
 to the authority to obtain her digital driving license. Bob, who works at DLAKa,
-first checks that Alice's physical driving license is valid. Then, Bob fills out a digital form
-using the data on Alice's physical driving license. Afterward, Alice scans the QR code on Bob's monitor
+first checks that Alice's physical driving license is valid. Then, \Gls{Bob} fills out a digital form
+using the data on Alice's physical driving license. Afterward, \Gls{Alice} scans the QR code on Bob's monitor
 using her authenticator app and grants permission to create her digital driving license.
-As a result, Alice now possesses a digital driving license in the wallet of her authenticator app.
-Alice now can provide digital proof of her valid driving license to anyone who requests it.
-Next, Alice rents a car from BestRental. But this time, she uses her digital driving license
-to prove that she has a valid one. Once Alice opens the website of BestRental,
+As a result, \Gls{Alice} now possesses a digital driving license in the wallet of her authenticator app.
+\Gls{Alice} now can provide digital proof of her valid driving license to anyone who requests it.
+Next, \Gls{Alice} rents a car from BestRental. But this time, she uses her digital driving license
+to prove that she has a valid one. Once \Gls{Alice} opens the website of BestRental,
 she will be prompted to present her digital driving license. Therefore, the website displays a QR Code,
-which Alice scans with her authenticator app. Next, Alice confirms the presentation using
+which \Gls{Alice} scans with her authenticator app. Next, \Gls{Alice} confirms the presentation using
 her authenticator app and decides what information gets shared. 
-Finally, Alice has been verified on BestRental's website and can now rent a car. 
-Alice provides the desired period and location for the car rental.
-On the website, Alice can then browse and choose from available cars.
-Once she has selected a car, BestRental will reserve the car for her.
+Finally, \Gls{Alice} has been verified on BestRental's website and can now rent a car. 
+\Gls{Alice} provides the desired period and location for the car rental.
+On the website, \Gls{Alice} can then browse and choose from available cars.
+Once she has selected a car, \Gls{BestRental} will reserve the car for her.
 
 
 \subsection{Motivation BestRentalPoC}
-The company BestRental wants to develop a monitoring solution for its BestRentalPoC system
+The company \Gls{BestRental} wants to develop a monitoring solution for its \Gls{BestRentalPoC} system
 to collect metrics that are meant to assist the company in operating the BestRentalPoC.
 The system will be operated by QA Engineers, system operators, and a project manager.
 Before developing the monitoring solution, the team tasked with developing the solution,
@@ -46,13 +46,13 @@ trigger errors, so that they can fix them.
 For them to better understand errors, they want to know how often errors occur and from which services,
 inside of BestRentalPoC, they originate.
 The system operators run the BestRentalPoC. They need to make sure that at any point in time
-BestRentalPoC has enough instances of all of its services available to serve all incoming requests.
-Because BestRental wants to operate profitably, they can't just create as many instances as they like,
+\Gls{BestRentalPoC} has enough instances of all of its services available to serve all incoming requests.
+Because \Gls{BestRental} wants to operate profitably, they can't just create as many instances as they like,
 and they need to shut down instances when they are not needed.
 To assist them with their task, they want to know how high the resource usage of each instance is
 and how many requests are coming into the system. The resources that they want to track for each
 instance are the instance's CPU and memory usage.
-The project manager's yearly bonus is tied to how profitable the BestRentalPoC operates.
+The project manager's yearly bonus is tied to how profitable the \Gls{BestRentalPoC} operates.
 To ensure that he gets his bonus, the project manager wants to track the operating costs of the complete system.
 Additionally, he needs to how high the operating costs of each service are, so that he can
 allocate development time to increase the efficiency of a service, making it more profitable.

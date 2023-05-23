@@ -7,22 +7,22 @@
 \todo{continue writing}
 
 Decentralized Identities are best explained with an example of how and where they are used.
-Alice is a citizen who wants to rent a car. Alice has a decentralized identifier (DID) which is a digital identity
+\Gls{Alice} is a citizen who wants to rent a car. \Gls{Alice} has a decentralized identifier (DID) which is a digital identity
 that uniquely identifies her. She also has a digital wallet associated with her DID that she can use
-to store digital credentials. Bob is a clerk for a driving license authority.
-In order for Alice to be able to rent a car online, she needs a method of proving that she has a valid
-driver's license. She goes to Bob and asks him to issue her a Verifiable Credential (VC) for her driving
+to store digital credentials. \Gls{Bob} is a clerk for a driving license authority.
+In order for \Gls{Alice} to be able to rent a car online, she needs a method of proving that she has a valid
+driver's license. She goes to \Gls{Bob} and asks him to issue her a Verifiable Credential (VC) for her driving
 license, which she could use as proof of her possessing a valid driver's license.
-Bob verifies that Alice has a valid driver's license and then issues her the VC using her DID.
+\Gls{Bob} verifies that \Gls{Alice} has a valid driver's license and then issues her the VC using her DID.
 The VC is stored in Alice's digital wallet which only she has access to.
 When she now goes through the process of renting a car online, the rental company
 can ask her to provide a VC to prove that she has a valid driver's license.
-Alice can then share her VC from her wallet with the rental company, which can then be
-verified through the Trust System. The rental company now knows that Alice has a valid driving license
+\Gls{Alice} can then share her VC from her wallet with the rental company, which can then be
+verified through the Trust System. The rental company now knows that \Gls{Alice} has a valid driving license
 because they could verify that the VC was valid and associated with Alice's DID.
-Alice can now proceed with renting a car online from the rental company.
+\Gls{Alice} can now proceed with renting a car online from the rental company.
 
-Throughout this entire process, Alice was in charge of her personal information while
+Throughout this entire process, \Gls{Alice} was in charge of her personal information while
 the rental company was still able to verify her possession of a driving license. This is because
 the rental company trusts the driving license authority and the Trust System.
 An identity system like this that is based upon trust towards certain entities which uses DID's and VC's is called
