@@ -32,82 +32,98 @@ The World Wide Web Consortium (W3C) provides a standard for this type of system 
 Standard along with the Verifiable Credentials Data Model v1.1 Standard.
 
 
-\section{Monitoring}
+\section{Observability and Monitoring}
+
+In 1960, Kalman defined a system to be observable if its exact state at any time can be completely determined
+by its outputs \cite{OnTheGeneralTheoryOfControlSystems}. Based on this definition, observability
+for modern cloud systems is the practice of capturing outputs from a software system to
+infer knowledge about its state. According to Usman et al. observability consists of capturing
+three main types of data from a system: logs, metrics and traces, these are often called the
+three pillars of observability \cite{ASurveyOnObservabilityOfDistributedEdgeContainerBasedMicroservices}.
+
+\todo{Explain logs, metrics and traces}
+
+Monitoring is defined by the Cambridge Dictionary as
+\enquote{to watch and check a situation carefully for a period of time in order to discover something about it}
+\cite{CambridgeDictionary}.
+For software systems, monitoring 
+\enquote{is the process of collecting, analyzing, and using information to track a program's progress toward reaching its objectives and to guide management decisions}
+\cite{DynatraceBlog}.
 
 \todo{Cleanup and actually write this section}
 
-According to \cite{9837035}, observability consists of three pillars: Metrics, Logs, and Traces.
-Metrics.
-Logs are streams of textual information emitted by an application. They can contain information about important
-events, like an incoming request, or provide details about the occurrence of exceptions.
-Traces are a way of tracking the path of requests through a system. A trace contains detailed information
-about all the services that were called during the processing of a request and can be thought of
-as a stack trace for microservices.
+% According to \cite{9837035}, observability consists of three pillars: Metrics, Logs, and Traces.
+% Metrics.
+% Logs are streams of textual information emitted by an application. They can contain information about important
+% events, like an incoming request, or provide details about the occurrence of exceptions.
+% Traces are a way of tracking the path of requests through a system. A trace contains detailed information
+% about all the services that were called during the processing of a request and can be thought of
+% as a stack trace for microservices.
 
-Because of the scope of this work, only Metrics will be used. Logs and Traces will still be considered
-in the development of a solution so that they may be added in the future.
+% Because of the scope of this work, only Metrics will be used. Logs and Traces will still be considered
+% in the development of a solution so that they may be added in the future.
 
-Because of the scope of this work, only the pillar of Metrics is considered.
+% Because of the scope of this work, only the pillar of Metrics is considered.
 
-\begin{quote}
-\textit{``Metrics are numerical representations of data that Ops teams use to determine the overall behavior of a system, service, or network component over time.'', \cite{9837035}}
-\end{quote}
+% \begin{quote}
+% \textit{``Metrics are numerical representations of data that Ops teams use to determine the overall behavior of a system, service, or network component over time.'', \cite{9837035}}
+% \end{quote}
 
-The four golden signals \cite{Beyer2016-xi}
-\begin{itemize}
-    \item Latency: time to service a request
-    \item Traffic: requests per second
-    \item Errors: rate of failed requests
-    \item Saturation: how saturated are constrained resources like memory or I/O
-\end{itemize}
+% The four golden signals \cite{Beyer2016-xi}
+% \begin{itemize}
+%     \item Latency: time to service a request
+%     \item Traffic: requests per second
+%     \item Errors: rate of failed requests
+%     \item Saturation: how saturated are constrained resources like memory or I/O
+% \end{itemize}
 
-White-box vs. Black-box Monitoring \cite{Beyer2016-xi}
-\begin{itemize}
-    \item White-box: Monitoring based on internal system metrics.
-    \item Black-box: Monitoring based on externally visible behavior.
-\end{itemize}
+% White-box vs. Black-box Monitoring \cite{Beyer2016-xi}
+% \begin{itemize}
+%     \item White-box: Monitoring based on internal system metrics.
+%     \item Black-box: Monitoring based on externally visible behavior.
+% \end{itemize}
 
-Internal vs. External resources in a monitoring context:
-Internal resources describe resources that allow direct access to their internals.
-An example of an internal resource is a self-hosted microservice.
-External resources describe resources that do not allow direct access to their internals.
-An example of an external resource is a Software-as-a-Service (SaaS) product which is used in a context that should be monitored.
+% Internal vs. External resources in a monitoring context:
+% Internal resources describe resources that allow direct access to their internals.
+% An example of an internal resource is a self-hosted microservice.
+% External resources describe resources that do not allow direct access to their internals.
+% An example of an external resource is a Software-as-a-Service (SaaS) product which is used in a context that should be monitored.
 
-External resources can, because of their nature, only be monitored using the Black-box approach.
-Internal resources however can be monitored with both the White-box and Black-box approach.
+% External resources can, because of their nature, only be monitored using the Black-box approach.
+% Internal resources however can be monitored with both the White-box and Black-box approach.
 
-Motivations for monitoring cloud applications \cite{6483656}
-\begin{itemize}
-    \item Capacity and Resource Planning
-    \item Capacity and Resource Management
-    \item Data Center Management
-    \item SLA Management
-    \item Billing
-    \item Troubleshooting
-    \item Performance Management
-    \item Security Management
-\end{itemize}
+% Motivations for monitoring cloud applications \cite{6483656}
+% \begin{itemize}
+%     \item Capacity and Resource Planning
+%     \item Capacity and Resource Management
+%     \item Data Center Management
+%     \item SLA Management
+%     \item Billing
+%     \item Troubleshooting
+%     \item Performance Management
+%     \item Security Management
+% \end{itemize}
 
-\todo{Capacity and Resource Planning}
+% \todo{Capacity and Resource Planning}
 
-\todo{Capacity and Resource Management}
+% \todo{Capacity and Resource Management}
 
-Data Center Management is mainly concerned with the efficient usage of resources.
-One key measurement of the efficiency of a data center is its energy efficiency.
+% Data Center Management is mainly concerned with the efficient usage of resources.
+% One key measurement of the efficiency of a data center is its energy efficiency.
 
-SLA Management refers to the monitoring of parameters, which are defined in Service Level Agreements (SLA).
-These parameters must be within set bounds for an SLA to be considered fulfilled.
+% SLA Management refers to the monitoring of parameters, which are defined in Service Level Agreements (SLA).
+% These parameters must be within set bounds for an SLA to be considered fulfilled.
 
-Billing refers to the monitoring of parameters that influence the cost of running an application.
-When an application is hosted on a cloud provider's Infrastructure-as-a-Service (IaaS) system,
-one of those parameters might be the number of compute instances that an application uses.
+% Billing refers to the monitoring of parameters that influence the cost of running an application.
+% When an application is hosted on a cloud provider's Infrastructure-as-a-Service (IaaS) system,
+% one of those parameters might be the number of compute instances that an application uses.
 
-While Troubleshooting usually refers to the tracing of requests and failures to provide a dataset for analyzing and fixing issues in an application,
-Monitoring can also be used to aid in troubleshooting by recording the number of failed requests and their context.
+% While Troubleshooting usually refers to the tracing of requests and failures to provide a dataset for analyzing and fixing issues in an application,
+% Monitoring can also be used to aid in troubleshooting by recording the number of failed requests and their context.
 
-\todo{Performance Management}
+% \todo{Performance Management}
 
-\todo{Security Management}
+% \todo{Security Management}
 
 \section{DevOps}
 

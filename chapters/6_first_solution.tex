@@ -1,14 +1,15 @@
 \chapter{SPMonitor}
 
-\todo{Add chapter introduction}
-
 % This is the third result chapter which presents the first solution of the thesis.
 % The solution is integrated into the overall concept introduced in Chapter 4 and
 % it is technically based on the foundation described in Chapter 5.
 
 % A thesis should provide at least two such solutions.
 
+\todo{Add chapter introduction}
 \todo{Explain purpose: maybe move motivation here; away from Analysis}
+
+This chapter will focus on the development of SPMonitor.
 
 \subsection{Motivation}
 The DrivingLicenseAuthorityKarlsruhe (DLAKa) wants to provide citizens with digital driving licenses,
@@ -169,12 +170,13 @@ R6 & Microsoft Azure \\
 
 The data sources that will be compared according to the requirements in Table \ref{tab:data_source_requirements} stem
 from the paper \enquote{A Survey on Observability of Distributed Edge {\&} Container-Based Microservices}
-by Usman et al. \cite{ToolSurvey}. The list from that survey was supplemented with one additional entry,
+by Usman et al. \cite{ASurveyOnObservabilityOfDistributedEdgeContainerBasedMicroservices}. The list from that survey was supplemented with one additional entry,
 the TICK (Telegraf, InfluxDB, Chronograf, Kapacitor) stack. Any entries that do not support metrics or are purely research projects were eliminated.
 Lastly, the entry for Kibana was changed to ELK for the ELK (ElasticSearch, LogStash, Kibana) stack.
 The complete overview of all analyzed tools can be seen in Table \ref{tab:data_source_comparison}.
 
 \begin{table}[]
+\centering
 \begin{tabular}{l|c|c|c|c|c|c}
 Name & R1 & R2 & R3 & R4 & R5 & R6 \\
 \hline
@@ -241,15 +243,15 @@ for integrating them with Crossplane compared to the TICK stack. The final selec
 
 \todo{Explain SPS Architecture}
 
-\subsection{API Specification}
-
-\subsection{DevOps Concept}
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{figures/sps_spmonitor.png}
 	\caption{SystemPlusSoftware SPMonitor}
 	\label{fig:sps_spmonitor}
 \end{figure}
+
+\subsection{API Specification}
+
+\subsection{DevOps Concept}
 
 \section{Implementation}

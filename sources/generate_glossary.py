@@ -20,6 +20,6 @@ glsentry = """
 	description = {{{description}}}
 }}
 """
-with open("../chapters/glossar.tex", 'w') as file:
+with open("../chapters/used_terms.tex", 'w') as file:
 	for term in terms:
 		file.write(glsentry.format(term = term, description = terms[term]))
