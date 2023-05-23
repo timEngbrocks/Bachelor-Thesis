@@ -1,31 +1,14 @@
 %==============================================================================
-% short introduction to get template running on WINDOWS
-% further explanation can be found in the pptx
-% can be removed after first compilation 
-%
-% install MikTeX (http://www.miktex.org) - activate auto-install of packages
-% install ActivePerl (https://www.perl.org/) - add to HOME
-% system reboot
-%
-% use command-line or IDE in admin-mode to execute the  following commands
-% in the specified order (pdflatex used because we want the PDF in the end)
-% 
-%
-% After changes in glossary you need to execute the following command 
-% to use the new acronyms
-%
-% pdflatex bt_engbrocks.tex
-% makeglossaries bt_engbrocks
-% pdflatex bt_engbrocks.tex
-% bibtex bt_engbrocks
-% pdflatex bt_engbrocks.tex
-% pdflatex bt_engbrocks.tex
-%
-% After changes in literature you need to execute the following command
-% to use the new reference
-%
-% bibtex bt_engbrocks
-%
+% Fix Cite
+% Find 1: (^(?!%).+)(\\cite\{.*\})
+% Replace 1: $1\\iffalse $2 \\fi 
+% Find 2: \\iffalse(.*)\s\\fi\s
+% Replace 2: $1
+% Fix Ref
+% Find 1: (^(?!%).+)(\\ref\{.*\})
+% Replace 1: $1\\iffalse $2 \\fi 
+% Find 2: \\iffalse(.*)\s\\fi\s
+% Replace 2: $1
 %==============================================================================
 
 %==============================================================================
@@ -94,8 +77,6 @@
 %
 
 \include{chapters/appendix}
-
-\printglossaries
 
 %==============================================================================
 

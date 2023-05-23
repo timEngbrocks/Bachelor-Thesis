@@ -170,7 +170,7 @@ R6 & Microsoft Azure \\
 
 The data sources that will be compared according to the requirements in Table \ref{tab:data_source_requirements} stem
 from the paper \enquote{A Survey on Observability of Distributed Edge {\&} Container-Based Microservices}
-by Usman et al. \cite{ASurveyOnObservabilityOfDistributedEdgeContainerBasedMicroservices}. The list from that survey was supplemented with one additional entry,
+by Usman et al. \cite{UF+22}. The list from that survey was supplemented with one additional entry,
 the TICK (Telegraf, InfluxDB, Chronograf, Kapacitor) stack. Any entries that do not support metrics or are purely research projects were eliminated.
 Lastly, the entry for Kibana was changed to ELK for the ELK (ElasticSearch, LogStash, Kibana) stack.
 The complete overview of all analyzed tools can be seen in Table \ref{tab:data_source_comparison}.
@@ -251,6 +251,12 @@ for integrating them with Crossplane compared to the TICK stack. The final selec
 \end{figure}
 
 \subsection{API Specification}
+
+% \begin{listing}
+\inputminted{yaml}{listings/rest_specification_drivinglicensemanagement.yaml}
+% \caption{REST API Specification of Application Microservice DrivingLicenseManagement}
+% \label{lis:rest_spec_dlm}
+% \end{listing}
 
 \subsection{DevOps Concept}
 

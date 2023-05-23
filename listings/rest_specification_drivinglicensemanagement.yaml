@@ -1,0 +1,70 @@
+openapi: 3.0.0
+info:
+  title: API of Application Microservice DrivingLicenseManagement
+  version: 1.0.0
+
+tags:
+  - name: Callback Endpoint to Receive Request Updates from MS Entra
+
+paths:
+  /issuance-callback:
+    post:
+      tags:
+        - Callback Endpoint to Receive Request Updates from MS Entra
+      parameters:
+        - name: api-key
+          in: header
+          description: The API key for accessing the resource
+          required: false
+          schema:
+            type: string
+            example: "d6afbb6d-0249-4d33-a68c-07b5cf0d0f56"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                requestId:
+                  type: string
+                  format: uuid
+                  example: "181db17c-8077-44da-867f-78ffeda1ba30"
+                  description: The ID of the request
+                requestStatus:
+                  type: string
+                  enum: [request_retrieved, issuance_successful, issuance_error]
+                  description: The status of the request
+                state:
+                  type: string
+                  format: uuid
+                  example: "14a8d6bd-362a-42e4-a509-a12e836dce25"
+                  description: The state of the request
+      responses:
+        200:
+          description: Success
+        401:
+          description: API key is missing or wrong (if it is required)
+  /metrics:
+    get:
+      tags:
+        - Scrape Endpoint for Prometheus
+      responses:
+        200:
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                has_value: 
+                  summary: The metric has a value
+                  value: |
+                    # HELP num_ddl Number of issued digital driving licenses
+                    # TYPE num_ddl counter
+                    num_ddl 42
+                no_value: 
+                  summary: The metric has no value
+                  value: |
+                    # HELP num_ddl Number of issued digital driving licenses
+                    # TYPE num_ddl counter
+                    num_ddl 0
