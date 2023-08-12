@@ -1,14 +1,12 @@
 %==============================================================================
-% Fix Cite
+% Exclude: **/archive/**/*, cmnat.bst
+% Fix Cite/Ref
 % Find 1: (^(?!%).+)(\\cite\{.*\})
 % Replace 1: $1\\iffalse $2 \\fi 
-% Find 2: \\iffalse(.*)\s\\fi\s
-% Replace 2: $1
-% Fix Ref
-% Find 1: (^(?!%).+)(\\ref\{.*\})
-% Replace 1: $1\\iffalse $2 \\fi 
-% Find 2: \\iffalse(.*)\s\\fi\s
-% Replace 2: $1
+% Find 2: (^(?!%).+)(\\ref\{.*\})
+% Replace 2: $1\\iffalse $2 \\fi 
+% Find 3: \\iffalse(.*)\s\\fi\s
+% Replace 3: $1
 %==============================================================================
 
 %==============================================================================
@@ -64,13 +62,11 @@
 
 \include{chapters/6_first_solution}
 
-\include{chapters/7_second_solution}
+\include{chapters/7_project_team_work}
 
-\include{chapters/8_practical_task}
+\include{chapters/8_m2go_contributions}
 
-\include{chapters/9_project_team_work}
-
-\include{chapters/10_summary_outlook}
+\include{chapters/9_summary_outlook}
 
 %
 % add appendix

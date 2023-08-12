@@ -1,0 +1,253 @@
+\chapter{Contributions to the Practical Course Microservice2Go}
+
+M2Go (Microservice2Go) is a practical course,
+which supplements the lecture WASA1 (Web Applications and Service-oriented Architectures 1)
+offered by the research group Cooperation \& Management (C\&M) each winter semester.
+The lecture WASA1 covers the development and architecture of advanced web applications
+that employ microservices and the cloud. M2Go supplements the lecture by applying the learned concepts
+from the lecture to a concrete example for which microservices are
+implemented using the GoLang programming language. The course will be offered each winter semester
+starting with the winter semester of 2023/2024. During my bachelor's thesis, I contributed
+to the preparation of this course by creating master solutions to exercises for students.
+
+\todo{Finish}
+
+\section{Description of the Practical Course Microservice2Go}
+
+M2Go is split into four different parts which are illustrated in Figure \ref{fig:m2go_parts}.
+The first part, C\&M Org, familiarizes the students with the working processes of C\&M.
+Each student has a timesheet in which they track the amount of time that they spent on the practical course.
+The students also create a practical thesis document which is kept in the document storage of C\&M.
+The practical thesis document is written throughout the practical course and documents the tasks
+carried out by students and what they learned. It is the main basis for their final grade.
+The status message is a simple email from a student to the C\&M team to signal that they completed
+their tasks for the week and that their practical thesis document as well as the timesheet are in order.
+
+In the GoLang part, the students are introduced to the GoLang programming language.
+They start by setting up their M2Go Environment for developing applications with GoLang.
+This is then used to create the first program called HelloWorld to get familiar with the programming language.
+The goal of this program is to output the text ``Hello World!'' to the console which is a standard first program
+to develop when learning any new language.
+Afterward, the program CarRental is developed which validates if a date is valid.
+This program teaches the students the fundamentals of GoLang like control structures
+and unit testing. Based on the program CarRental, CarRentalCLI is developed.
+This program provides a basic command-line input (CLI) to interact with a microservice
+called CarRental from a C\&M research project. CarRentalCLI does not interact with a real
+microservice but instead provides a local version of the service which is implemented by the students.
+
+The Microservice Engineering part teaches students how to develop microservices.
+The development process being used is the Unified Microservice Engineering (UME) approach from C\&M.
+The microservices that will be developed for this part stem from the Proof of Concept (PoC) BestRentalPoC.
+Based on the UME approach, the needed microservices are first analyzed and designed.
+Following the design, the microservices are then implemented and tested using GoLang by employing
+the knowledge which was gained in the previous part.
+
+Identity and Access Management is the final part of M2Go. It covers the topic of access management
+for BestRentalPoC by using decentralized identities and fine-grained authorization.
+While this part is currently planned, it is not yet ready.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{figures/m2go_parts.png}
+	\caption{M2Go Parts}
+	\label{fig:m2go_parts}
+\end{figure}
+
+There are four actors in M2Go as seen in Figure \ref{fig:m2go_actors_and_systems}.
+The M2GHead owns the M2Go course as well as all of its materials and templates.
+The M2GHead is responsible for the course.
+The M2G Practical Material is stored in the C\&M Document Storage.
+It is prepared by the M2GOrganizer.
+The M2GOrganizer also creates the Working Folder Template which is used to
+create the Working Folder for the M2GParticipants. The working folder
+contains the sources and current version of an M2GParticipant's Practical Course Thesis.
+The Practical Course Thesis is written in Overleaf and is based on the C\&M Thesis Template.
+The M2GOrganizer also creates GitLab Templates for the different parts of the course.
+The templates are used to create the GitLab repositories for the current semester's course.
+M2GParticipants store their solutions to the exercises in the corresponding GitLab repository.
+Finally, there is also the M2GSupervisor who supervises and assists M2GParticipants.
+The M2GHead and M2GOrganizer are responsible for grading each M2GParticipants participation in the course.
+My role in the preparation of this course was that of an M2GOrganizer who creates
+the master solutions to the exercises. Because the course is currently being prepared and not
+yet offered, I was not responsible for any grades.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{figures/m2go_actors_and_systems.png}
+	\caption{M2Go Actors and Systems}
+	\label{fig:m2go_actors_and_systems}
+\end{figure}
+
+\todo{Finish}
+
+\section{Operation of the Practical Course Microservice2Go}
+
+\todo{Do}
+
+\section{Contributions to the Practical Course Microservice2Go}
+
+\todo{Finish}
+
+As a part of my bachelor's thesis, I contributed to the M2Go course.
+My contributions were focused on the third part of the course: Microservice Engineering.
+This part amongst other things focuses on the development of a domain microservice called
+DM-Car. Together with a student who participated in the WASA2 practical course in 2023,
+I implemented the master solution for DM-Car. The master solution is a complete
+implementation of the microservice according to the guidelines and best practices of C\&M.
+Additionally, I created exercises for the participants 
+based on this master solution.
+
+% TODO: Add description of DM-Car's structure
+
+% Before:
+% - What is DM-Car -> maybe in the section above
+
+% What are my contributions:
+% - Created master solution for DM-Car -> reference Lachenicht
+% - Created implementation exercises for DM-Car
+
+% \subsection{Creating the Master Solution for DM-Car}
+
+% What did I do here?
+% - Added database connection
+% - Refactor
+% 	- added operationId to API Specification
+% 	- renamed methods to fit API Diagram
+% 	- use Cars instead of []Car
+% 	- added PORT env
+% - Adding tests
+
+The initial implementation of the master solution for DM-Car was provided
+by Mr. Lachenicht, a student participating in WASA2's practical course in
+the summer semester of 2022. His implementation used an in-memory database
+to store cars. My first task was to exchange the in-memory database
+with a connection to a Postgres database.
+To connect to a Postgres database the microservice needs a connection URL
+for that database. The format of that connection URL is 
+postgres://USER:PASSWORD@HOST:PORT/NAME, where USER and PASSWORD are the credentials
+of an account registered with the database. HOST and PORT are the URL where the
+database can be reached and NAME is the name of the database.
+This connection URL could be hard coded into the microservice which would mean that it
+is not configurable. To make the connection URL configurable, the microservice
+gets the values needed for the connection URL from environment variables.
+The environment variables used for this are the following:
+DB\_USER, DB\_PASSWORD, DB\_HOST, DB\_PORT and DB\_NAME.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\textwidth]{figures/Code Snippets/DM-Car_database_connection_url.png}
+	\caption{Implementation of the database connection URL for DM-Car}
+	\label{fig:dm_car_database_connection_url}
+\end{figure}
+
+% TODO: I made some exercises for implementation
+
+% Structure:
+% - Explain over all goal of designing exercises along the structure of the Microarchitecture
+% - How the tasks are prepared
+% 	- Strip down master solution
+% - Explain each task and what its teachings are
+% 	- Task explanation should be in a format for the M2Go doc
+
+% Microarchitecture:
+% - Microservice Operation
+% - Entities/Value Object
+% - Domain/Application Logic
+% - Persistency Interface
+% - Database
+
+% TODO:
+% - Master solution for API spec provided? -> operationId etc
+
+% Things that need to be explained/provided:
+% - operationId in OpenAPI specification
+% - postgres database with go
+% - Basic SQL?
+% - Tests in Go?
+
+\section{Implementation and Local Deployment of DM-Car}
+
+The UME approach uses C\&M's micro architecture to implement microservices.
+The micro architecture is split into three layers: API, logic and infrastructure.
+The source code for each part is placed into a folder with a corresponding name.
+The API layer contains the controller, the API specification and stubs which handle the mapping
+of HTTP requests to Go methods.
+The controller contains the methods which are mapped to the API of the microservice.
+The logic layer contains the domain logic which consists of the domain models and the operations.
+For each method that is exposed in the API there is a separate operation which is called by the controller
+when the corresponding API method is invoked. Because of this one-to-one relation, each operation
+implements exactly one domain function.
+The infrastructure layer contains the persistency entities, mappers between persistency entities and domain models
+as well as the persistency interface.
+Persistency entities are a representation of domain models which is used for persisting them in a database.
+The persistency interface, also called a repository, contains methods for interacting with the database.
+Each operation in the logic layer may be composed of several different methods from the infrastructure layer,
+depending on the needs of the operation.
+
+TODO: insert micro architecture diagram or repo figure
+
+A large part of DM-Car has already been implemented but it currently misses two functions.
+Firstly, no method has been implemented to add cars.
+Secondly, DM-Car currently uses an in-memory database instead of an actual database.
+
+The goal of the implementation phase for DM-Car is to finish the implementation of the microservice and switch to an actual database.
+For the database, a Postgres (TODO: link) database will be used.
+Additionally, DM-Car requires tests to ensure that its domain constraints will not be violated.
+
+% TODO: Abeck überzeugen wieso API vor Logic
+\subsection{API}
+
+For the implementation of DM-Car the web framework Echo (TODO: link) is used.
+The task of the web framework for DM-Car is accepting requests,
+routing them to the right methods and sending responses.
+Because both Echo and OpenAPI are widely used, there is a tool that automatically
+generates all the needed source code for Echo to implement an OpenAPI specification.
+To generate the right source code without any need for adaptation,
+the API specification needs to be as complete as possible. Some of features
+of OpenAPI, which are necessary for code generation, are:
+Defining data models and giving each API method an operationId which is a unique name.
+The data models will be used by Echo to parse incoming JSON requests
+into Go structs. The operationId gives the code generator hints for assigning method names
+in the generated Go source code.
+The UME documentation contains a Best Practice article on how to do all of this. (TODO: maybe link? wahrscheinlich)
+
+\fbox{\parbox{\textwidth}{
+\textbf{Exercise API}
+\begin{enumerate}
+	\item \textbf{Generate Server Stubs From API Specification} \\
+	Update the stubs in DM-Car to use your API Specification
+	from the previous exercises. Your API specification should include the methods:
+	AddCar, GetCar and GetCars.
+\end{enumerate}
+}}
+
+\subsection{Logic}
+
+% TODO: write
+
+\fbox{\parbox{\textwidth}{
+\textbf{Exercise Logic}
+\begin{enumerate}
+	\item \textbf{Implement the Domain Models} \\
+	Implement the logic model and persistence entities for DM-Car based on the API Diagram.
+	
+	\item \textbf{Add a New Method} \\
+	Implement the method AddCar.
+
+	\item \textbf{Validating the Domain Constraints} \\
+	Adapt DM-Car to validate its domain constraints.
+	You should also create tests to make sure that the domain constraints will not be violated.
+\end{enumerate}
+}}
+
+\subsection{Infrastructure}
+
+% TODO: write
+
+\fbox{\parbox{\textwidth}{
+\textbf{Exercise Logic}
+\begin{enumerate}
+	\item \textbf{Connecting to a Database} \\
+	Replace the in-memory database in DM-Car with a connection to a Postgres database.
+\end{enumerate}
+}}

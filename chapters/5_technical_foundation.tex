@@ -33,9 +33,15 @@
 % The WASA lecture contains the current and, therefore, the ``valid version'' of concepts and solutions. 
 % So this content should be trusted if there is a mismatch between WASA lecture and theses or publications.
 
-\section{Crossplane}
+\section{Containerization}
 
-\section{Monitoring System}
+\todo{Do}
+
+\section{ArgoCD}
+
+\todo{Do}
+
+\section{Monitoring Systems}
 \todo{Finish}
 A complete monitoring system requires three main parts: Data sources, data sinks, and the ability
 to analyze/visualize the collected data.
@@ -63,12 +69,12 @@ or aggregate it.
 Data collectors can be used to buffer metrics that were sent by data sources before they are stored in a data sink,
 which decreases the load on the data sink.
 
-\section{Grafana}
+\subsection{Grafana}
 \todo{Grafana}
 Grafana is a tool for visualizing and querying time-series data.
 In Grafana you can build dashboards that visualize time-series data
 
-\section{Prometheus}
+\subsection{Prometheus}
 \todo{Prometheus}
 Prometheus is an open-source monitoring system.
 Prometheus can collect metrics by two different methods.
@@ -79,12 +85,12 @@ A time-series database is a type of database that is optimized for data entries,
 which are associated with time. An example of this type of data is metrics and the time when they were collected.
 To analyze the collected metrics, Prometheus uses a query language called PromQL.
 
-\section{Grafana Mimir}
+\subsection{Grafana Mimir}
 \todo{Grafana Mimir}
 Prometheus only stores its data on local disks which is
 Grafana Mimir offers long-term storage for Prometheus data.
 
-\section{MinIO}
+\subsection{MinIO}
 MinIO is an object storage that provides the same interface as Amazon Web Service's (AWS) S3 service.
 Object storage system store data as objects with a unique identifier. An object contains the data stored
 data itself and additional metadata. Objects can store arbitrary types of data.
