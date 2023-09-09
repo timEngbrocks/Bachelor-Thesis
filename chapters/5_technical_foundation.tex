@@ -1,48 +1,53 @@
 \chapter{Technical Foundation}
 \label{cha:technical_foundation}
 
-\todo{Add chapter introduction}
-
-% In this chapter, the technical foundation of the solutions developed in this thesis is worked out. 
-% Usually, this is the first chapter written by each SeniorStudent since it describes the current (technical) status 
-% the further work of this thesis is based on. 
-% By doing so, the continuity of the work carried out by the research group C\&M is guaranteed.
-% Additionally, this chapter deals for those JuniorStudents who are co-supervised by the 
-% SeniorStudent (the author of this thesis) as one of the most relevant sources for the JuniorStudents' practical work.
-
-% Depending on the concrete topic of the thesis, the technical foundation may include the 
-% (i) software and/or system architecture of the software system under investigation, 
-% (ii) the artifacts relevant for the thesis, 
-% (iii) tools that are applied,
-% (iv) any further technical system or solution. 
-% These parts of the technical foundation should be described from the viewpoint of the specific topic of this thesis. 
-% For example, if an artifact is relevant for the topic, only the topic-related aspects 
-% of this artifact (and not just the artifact) should be illustrated in this chapter.
-
-% General description of concepts or solutions are NOT part of this chapter, 
-% but should be transferred to other chapters of the thesis (e.g., Chapter 1 or Chapter 2). 
-% This also holds for the description of concrete solutions which are NOT to be described in Chapter 5
-%  but in the following chapters. The focus of Chapter 5 is to make clear what is missing in the 
-% current technical solution in order to motivate the work which will be carried in this thesis 
-% (and which will be further described in the following chapters).
-
-% Relevant sources for the content of Chapter 5 are: 
-% (i) WASA lecture, 
-% (ii) latest Bachelor/Master/PhD theses, 
-% (iii) latest publication. 
-% The WASA lecture contains the current and, therefore, the ``valid version'' of concepts and solutions. 
-% So this content should be trusted if there is a mismatch between WASA lecture and theses or publications.
+% TODO: Check fits new third section
+This chapter provides the technical foundations that are used for the solution that has been developed by this thesis.
+These overviews do not go into detail about how they are used in this thesis but rather aim to provide
+a foundation for the reader which is required by the following chapters.
+Section \ref{sec:tech_containerization} explains the concept of containerization as well as the concepts of Kubernetes and Helm.
+Section \ref{sec:tech_argocd} provides an overview of the CI/CD tool ArgoCD.
+Section \ref{sec:tech_monitoring_systems} explains the concept of monitoring systems and their components. Additionally,
+this section provides the foundations for the tools used by the monitoring solution that was developed for this thesis.
 
 \section{Containerization}
+\label{sec:tech_containerization}
 
-\todo{Do}
+% TODO: Do
+
+Containerization is one of two possibilities to virtualize IT infrastructure.
+The first possibility is virtualization through virtual machines.
+The second possibility is containerization. The difference between virtual machines
+and containerization is how they operate. This is visualized in Figure \ref{fig:vm_container_virtualization}.
+Virtual machines run as a separate operating system on a computer.
+They provide their own kernel and the hypervisor of the
+
+\cite{DOC-DOCS}
+
+\cite{KUB-DOCS}
+
+\cite{HEL-DOCS}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/vm_container_virtualization.png}
+	\caption{VM vs. Container-Based Virtualization \cite{CM-W-CON}}
+	\label{fig:vm_container_virtualization}
+\end{figure}
 
 \section{ArgoCD}
+\label{sec:tech_argocd}
 
-\todo{Do}
+% TODO: Do
+
+\cite{ARG-DOCS}
 
 \section{Monitoring Systems}
-\todo{Finish}
+\label{sec:tech_monitoring_systems}
+
+% TODO: Finish
+
 A complete monitoring system requires three main parts: Data sources, data sinks, and the ability
 to analyze/visualize the collected data.
 The collected data can be split into three different types
@@ -69,56 +74,75 @@ or aggregate it.
 Data collectors can be used to buffer metrics that were sent by data sources before they are stored in a data sink,
 which decreases the load on the data sink.
 
-\subsection{Grafana}
-\todo{Grafana}
-Grafana is a tool for visualizing and querying time-series data.
-In Grafana you can build dashboards that visualize time-series data
+% \subsection{Grafana}
 
-\subsection{Prometheus}
-\todo{Prometheus}
-Prometheus is an open-source monitoring system.
-Prometheus can collect metrics by two different methods.
-Firstly, it can pull metrics from services via HTTP which is called scraping.
-Additionally, it can receive metrics via a push gateway to which services can send their metrics.
-Prometheus stores the collected metrics in a time-series database.
-A time-series database is a type of database that is optimized for data entries,
-which are associated with time. An example of this type of data is metrics and the time when they were collected.
-To analyze the collected metrics, Prometheus uses a query language called PromQL.
+% % TODO: Grafana
 
-\subsection{Grafana Mimir}
-\todo{Grafana Mimir}
-Prometheus only stores its data on local disks which is
-Grafana Mimir offers long-term storage for Prometheus data.
+% \cite{GRA-DOCS}
 
-\subsection{MinIO}
-MinIO is an object storage that provides the same interface as Amazon Web Service's (AWS) S3 service.
-Object storage system store data as objects with a unique identifier. An object contains the data stored
-data itself and additional metadata. Objects can store arbitrary types of data.
+% Grafana is a tool for visualizing and querying time-series data.
+% In Grafana you can build dashboards that visualize time-series data
 
-Storage systems can be divided into two categories by the type of data that they store.
-There are systems for structured data like relational or other types of databases.
-Then there are systems for unstructured data which need to be able to store random binary data.
-These systems for unstructured data can be divided into three categories: File storage, Block storage, and Object storage.
-File storage stores files in a hierarchical structure of folders and files.
-Files are identified by their path in the hierarchy and can be accessed by multiple users at a time.
-File storage is commonly used as the default storage system on most operating systems.
-Block storage stores files as chunks of data with a unique identifier. This increases access performance
-and reduces wasted memory from having to layout files contiguously in memory but it also increases complexity.
-Block storage is mostly used for systems that need minimal delay and consistent performance which are also
-able to expend the extra compute time needed for reassembling files from their separate chunks.
-Object storage combines the approaches of File and Block storage. Files are stored as objects that
-contain the file's data and additional metadata. They have a unique identifier for access and are laid out
-contiguously in memory. Object storage is mostly used for static data that needs to be read often but not written.
-This is because Object storage requires the complete retrieval and rewrite of an object when modifying it.
-Object storage reduces the complexity of the storage system compared to File and Block storage and increases
-performance for its specific use cases. One example of the use of object storage is the storage of
-assets for web pages like images or scripts. These assets don't have an overall structure which means
-that an unstructured storage system is best suited for their storage.
-Additionally, these assets need to be accessed more often than they need to be written.
+% \subsection{Prometheus}
 
-One of the most popular object storage systems for cloud environments is Amazon Web Service's (AWS)
-S3; S3 means Simple Storage Service. AWS S3 is a paid service that implements the S3 interface for object storage.
-Contrary to AWS S3, the S3 interface is an open standard.
-MinIO was built as a free alternative to AWS S3 which implements the same interface.
-This way, MinIO can be used interchangeably with other services that rely on AWS S3 for storage.
-For this work, MinIO is used as part of the data sink for the monitoring solution.
+% % TODO: Prometheus
+
+% \cite{PRO-DOCS}
+
+% Prometheus is an open-source monitoring system.
+% Prometheus can collect metrics by two different methods.
+% Firstly, it can pull metrics from services via HTTP which is called scraping.
+% Additionally, it can receive metrics via a push gateway to which services can send their metrics.
+% Prometheus stores the collected metrics in a time-series database.
+% A time-series database is a type of database that is optimized for data entries,
+% which are associated with time. An example of this type of data is metrics and the time when they were collected.
+% To analyze the collected metrics, Prometheus uses a query language called PromQL.
+
+% \subsection{Grafana Mimir}
+
+% % TODO: Grafana Mimir
+
+% \cite{MIM-DOCS}
+
+% Prometheus only stores its data on local disks which is
+% Grafana Mimir offers long-term storage for Prometheus data.
+
+% \subsection{MinIO}
+
+% % TODO: MinIO
+
+% \cite{MIN-DOCS}
+
+% MinIO is an object storage that provides the same interface as Amazon Web Service's (AWS) S3 service.
+% Object storage system store data as objects with a unique identifier. An object contains the data stored
+% data itself and additional metadata. Objects can store arbitrary types of data.
+
+% Storage systems can be divided into two categories by the type of data that they store.
+% There are systems for structured data like relational or other types of databases.
+% Then there are systems for unstructured data which need to be able to store random binary data.
+% These systems for unstructured data can be divided into three categories: File storage, Block storage, and Object storage.
+% File storage stores files in a hierarchical structure of folders and files.
+% Files are identified by their path in the hierarchy and can be accessed by multiple users at a time.
+% File storage is commonly used as the default storage system on most operating systems.
+% Block storage stores files as chunks of data with a unique identifier. This increases access performance
+% and reduces wasted memory from having to layout files contiguously in memory but it also increases complexity.
+% Block storage is mostly used for systems that need minimal delay and consistent performance which are also
+% able to expend the extra compute time needed for reassembling files from their separate chunks.
+% Object storage combines the approaches of File and Block storage. Files are stored as objects that
+% contain the file's data and additional metadata. They have a unique identifier for access and are laid out
+% contiguously in memory. Object storage is mostly used for static data that needs to be read often but not written.
+% This is because Object storage requires the complete retrieval and rewrite of an object when modifying it.
+% Object storage reduces the complexity of the storage system compared to File and Block storage and increases
+% performance for its specific use cases. One example of the use of object storage is the storage of
+% assets for web pages like images or scripts. These assets don't have an overall structure which means
+% that an unstructured storage system is best suited for their storage.
+% Additionally, these assets need to be accessed more often than they need to be written.
+
+% \cite{AMA-DOCS}
+
+% One of the most popular object storage systems for cloud environments is Amazon Web Service's (AWS)
+% S3; S3 means Simple Storage Service. AWS S3 is a paid service that implements the S3 interface for object storage.
+% Contrary to AWS S3, the S3 interface is an open standard.
+% MinIO was built as a free alternative to AWS S3 which implements the same interface.
+% This way, MinIO can be used interchangeably with other services that rely on AWS S3 for storage.
+% For this work, MinIO is used as part of the data sink for the monitoring solution.
