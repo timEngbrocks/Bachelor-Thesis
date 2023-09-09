@@ -1,0 +1,673 @@
+\chapter{Contributions to the Practical Course Microservice2Go}
+\label{cha:m2go}
+
+% TODO: 
+% best practice:
+% - General Go development setup in VSCode
+% - PostgreSQL database with go
+% - Tests in Go?
+
+M2Go (Microservice2Go) is a practical course, which supplements the lecture
+WASA1 (Web Applications and Service-oriented Architectures 1). WASA1 is offered
+by the research group C\&M (Cooperation \& Management) each winter semester.
+The lecture WASA1 covers the development and architecture of advanced web
+applications that employ microservices and the cloud. M2Go supplements the
+lecture by applying the learned concepts from the lecture to a concrete example
+for which microservices are implemented using the Golang programming language.
+The course will be offered each winter semester starting with the winter
+semester of 2023/2024. M2Go is further described in Section
+\ref{sec:m2g_description}. Section \ref{sec:m2g_operation} describes the
+operations of M2Go. During the duration of this thesis, the author contributed
+to the preparation of this course. These contributions are described in Section
+\ref{sec:m2g_contribution}. Part of the author's contributions was the
+preparation of exercises for the participants of M2Go. The prepared chapter
+with the exercises which will be used in the M2Go course material, is placed in
+Section \ref{sec:m2g_exercise}.
+
+\section{Description of the Practical Course Microservice2Go}
+\label{sec:m2g_description}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{figures/m2go_parts.png}
+	\caption{M2Go Parts \cite{CM-W-M2G}}
+	\label{fig:m2go_parts}
+\end{figure}
+
+M2Go is split into four different parts which are illustrated in Figure
+\ref{fig:m2go_parts}. The first part, C\&M Org, familiarizes the students with
+the working processes of C\&M. Each student has a timesheet in which they track
+the amount of time that they spend on the practical course. The students also
+create a practical thesis document which is kept in the document storage of
+C\&M. The practical thesis document is written throughout the practical course
+and documents the tasks carried out by students and what they learned. It is
+the main basis for their final grade. The work at C\&M is based on a bi-weekly
+cycle that starts with the weekly status message. The status message is a
+simple email from a student to the C\&M team to signal that they completed
+their tasks for the week and that their practical thesis document as well as
+the timesheet are in order. Every second week, each student has to provide a
+version of their practical thesis document which is ready for review. This
+review is discussed in the weekly project team meeting after which the student
+updates their practical thesis document accordingly. In the Golang part, the
+students are introduced to the Golang programming language. They start by
+setting up their M2Go Environment for developing applications with Golang. This
+is then used to create the first program called HelloWorld to get familiar with
+the programming language. The goal of this program is to output the text
+``Hello World!'' to the console which is a standard first program to develop
+when learning any new language. Afterward, the program CarRental will be
+developed which validates if a date is valid. This program teaches the students
+the fundamentals of Golang like control structures and unit testing. Based on
+the program CarRental, CarRentalCLI is developed. This program provides a basic
+command-line input (CLI) to interact with a microservice called CarRental from
+a C\&M research project. CarRentalCLI does not interact with a real
+microservice but instead provides a local version of the service which is
+implemented by the students. The Microservice Engineering part teaches students
+how to develop microservices. The development process being used is the Unified
+Microservice Engineering (UME) approach from C\&M. The microservices that will
+be developed for this part stem from the Proof of Concept (PoC) BestRentalPoC.
+Based on the UME approach, the needed microservices are first analyzed and
+designed. Following the design, the microservices are then implemented and
+tested using Golang by employing the knowledge which was gained in the previous
+part. Identity and Access Management is the final part of M2Go. It covers the
+topic of access management for BestRentalPoC by using decentralized identities
+and fine-grained authorization. While this part is currently planned, it is not
+yet ready.
+
+\section{Operation of the Practical Course Microservice2Go}
+\label{sec:m2g_operation}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{figures/m2go_actors_and_systems.png}
+	\caption{M2Go Actors and Systems \cite{CM-W-M2G}}
+	\label{fig:m2go_actors_and_systems}
+\end{figure}
+
+There are four actors in M2Go as seen in Figure
+\ref{fig:m2go_actors_and_systems}. The M2GHead owns the M2Go course as well as
+all of its materials and templates. The M2GHead is responsible for the course.
+The M2G Practical Material is stored in the C\&M Document Storage. It is
+prepared by the M2GOrganizer. The M2GOrganizer also creates the Working Folder
+Template which is used to create the Working Folder for the M2GParticipants.
+The working folder contains the sources and the current version of an
+M2GParticipant's Practical Course Thesis. The Practical Course Thesis is
+written in Overleaf and is based on the C\&M Thesis Template. The M2GOrganizer
+also creates GitLab Templates for the different parts of the course. The
+templates are used to create the GitLab repositories for the current semester's
+course. M2GParticipants store their solutions to the exercises in the
+corresponding GitLab repository. Finally, there is also the M2GSupervisor who
+supervises and assists M2GParticipants. The M2GHead and M2GOrganizer are
+responsible for grading each M2GParticipant's participation in the course. The
+role of the author in the preparation of this course was that of an
+M2GOrganizer who creates the master solutions to the exercises. Because the
+course is currently being prepared and not yet offered, the author was not
+responsible for any grades.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{figures/m2go_gitlab.png}
+	\caption{M2Go GitLab Repository Structure \cite{CM-G-M2G}}
+	\label{fig:m2go_gitlab}
+\end{figure}
+
+The GitLab repository for M2Go is split into three sections. An overview of the
+sections can be seen in Figure \ref{fig:m2go_gitlab}. 0.PastSemesters is meant
+as an archive that contains the work from previous semesters. 1.M2GoTemplates
+contains template repositories with the exercises for the course as well as
+their solutions. WS2324 will contain a repository for each student who
+participates in the course where they can store their solutions to the
+exercises. M2GParticipants will only have access to their repository.
+1.M2GoTemplates is split into exercises and solutions. Both exercises and
+solutions have sections for the four parts of M2Go. 1.Exercises contains the
+source code for the four parts of M2Go. These repositories are used as the
+basis for the exercises of the course. 2.Solutions contains the completed
+solutions to all exercises.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{figures/m2go_templates_gitlab.png}
+	\caption{M2Go Templates GitLab Repository Structure \cite{CM-G-M2G}}
+	\label{fig:m2go_templates_gitlab}
+\end{figure}
+
+\pagebreak
+
+\section{Contributions to the Practical Course Microservice2Go}
+\label{sec:m2g_contribution}
+
+As a part of this thesis, the author contributed to the M2Go course. The
+contributions were focused on the third part of the course: Microservice
+Engineering. This part amongst other things focuses on the development of a
+domain microservice called DM-Car. Together with a student \cite{La23} who
+participated in the WASA2 practical course in 2023, the master solution for
+DM-Car was implemented. The master solution is a complete implementation of the
+microservice according to the guidelines and best practices of C\&M.
+Additionally, exercises were created for the participants of the course based
+on this master solution. An overview of the master solution in the form of a
+CSS (Code Structure Sketch) can be seen in Figure \ref{fig:dm_car_css}, this
+sketch visualizes the main components and their interactions.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\textwidth]{figures/micro_architecture.png}
+	\caption{C\&M Micro Architecture \cite{CM-W-IMP}}
+	\label{fig:micro_architecture}
+\end{figure}
+
+DM-Car follows the UME approach which was discussed in Section
+\ref{sec:ume_approach}. The UME approach provides a software architecture
+called micro architecture for implementing microservices. This micro
+architecture can be seen in Figure \ref{fig:micro_architecture}. The micro
+architecture splits microservices into three parts the API, the logic, and the
+infrastructure. The API part of the micro architecture is responsible for
+exposing the microservice's API. The main component of the API part is the
+controller which accepts incoming requests, routes them to the logic part, and
+sends the response back to the requester. The logic part contains the
+microservice's business logic, called microservice operations, as well as the
+necessary entities and value objects which are collectively called models. The
+infrastructure part provides the microservice with a persistency interface to
+allow it to access databases or other forms of storage. The persistence
+interface is implemented in the form of a repository that provides basic
+functions to access and store data. These are then used by the microservice
+operations. The micro architecture also provides the file structure for the
+microservice. Each part of the micro architecture gets a separate top-level
+directory. The API directory also contains separate directories for the
+microservice operations and the models.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{figures/dm_car_package_structure.png}
+	\caption{DM-Car Package Structure}
+	\label{fig:dm_car_package_structure}
+\end{figure}
+
+DM-Car is split into three packages: api, logic, and infrastructure following
+the micro architecture. An overview of DM-Car's package structure can be
+seen in Figure \ref{fig:dm_car_package_structure}. The api package contains the
+controller and stubs package. The stubs package contains source code which was generated by the
+oapi-codegen tool \cite{DEE-OAPI}. The oapi-codegen tool \cite{CM-G-GEN}
+generates the structure for a server in Golang, using the Echo framework
+\cite{LAB-DOCS} from an OpenAPI specification. 
+A part of this generated code is the ServerInterfaceWrapper which provides
+the microservice's API. The controller package contains the controller of DM-Car
+that provides the interface between the Echo framework and the rest of DM-Car.
+The logic package which contains the sub-packages operations and models handles
+the logic functionality of the server. The models package contains the structs
+which model the entities defined in the API diagram. The operations
+package contains the CarOperationsInterface which provides the interface
+between the API and logic part of DM-Car as well as the CarRepositoryInterface
+which provides the interface between the logic and infrastructure part of DM-Car.
+While the API and infrastructure parts of DM-Car provide interfaces
+for DM-Car to interact with external services,
+the logic part contains business logic that is the core of DM-Car.
+Because of that, the logic part provides interfaces to the API and infrastructure
+parts instead of, for example, the infrastructure part providing an interface to the logic part.
+This decouples the business logic from the implementation details of the microservice
+which increases maintainability.
+The infrastructure package contains the sub-packages entities and mappers.
+The entities package provides the persistence entities that describe how the models
+from the logic part are stored by the microservice. Should the microservice
+store its data, for example, in an SQL database, the persistence entities
+would model how the models from the logic part are converted to a relational structure.
+The mappers package contains functions to convert models to persistence entities
+and vice versa. Additionally, the infrastructure package contains the PGXInterface
+that provides the persistency interface for DM-Car. 
+% % In the case of DM-Car,
+% % a PostgreSQL database \cite{POS-DOCS} is used to store data.
+% % DM-Car uses the pgx library \cite{CH23} to connect to the database.
+% % The PGXInterface
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{figures/dm_car_css_api.png}
+	\caption{DM-Car Code Structure Sketch: API}
+	\label{fig:dm_car_css_api}
+\end{figure}
+
+% The following will be a description of how DM-Car handles a request.
+% The request used for the example is the method AddCar which creates a new car.
+
+% An overview of the API part of DM-Car can be seen in Figure \ref{fig:dm_car_css_api}.
+% When DM
+
+The generated code consists of
+an interface ServerInterface and a wrapper implementation of that interface
+called ServerInterfaceWrapper. The ServiceInterfaceWrapper provides the entry
+points for the routes defined in the API specification. Additionally, there is
+also a struct Car which implements the model for Car which is defined in the
+API specification. 
+The controller package contains the controller CarController
+which is the interface between the generated code for the Echo framework and
+the implementation of DM-Car. When the server receives a request for one of the
+routes defined in the API specification, Echo matches that route to the
+corresponding method in the ServerInterfaceWrapper which then calls the method
+for that route on the CarController. The methods in CarController handle the
+parsing of the incoming data into the corresponding Golang models as well as
+parsing the computed response back into JSON which will be returned to the
+requester by Echo.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{figures/dm_car_css_logic.png}
+	\caption{DM-Car Code Structure Sketch: Logic}
+	\label{fig:dm_car_css_logic}
+\end{figure}
+
+The logic package which contains the sub-packages operations and models handles
+the logic functionality of the server. The models package contains the structs
+which model the entities defined in the API diagram. Additionally, the models
+package contains the interface CarRepositoryInterface which defines the
+interface to the infrastructure part that the logic part of the server expects.
+Because the logic part of the server is its central component, it defines both
+its interface to be used by the API part as well as the interface to be used by
+the infrastructure part. With this approach, the API and infrastructure
+components can be exchanged for different implementations without requiring any
+changes to the logic part of the server. This is important because the logic
+part implements the business logic which should be agnostic to how the server
+receives requests and how data is stored. The API and infrastructure parts
+meanwhile have to interact with the server's environment. Therefore they might
+need to be adapted, should the environment of the server change, while the
+business logic, defined during the Applications design phase, should be immune
+to any such changes. The operations package contains the implementation of the
+business logic.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{figures/dm_car_css_infrastructure.png}
+	\caption{DM-Car Code Structure Sketch: Infrastructure}
+	\label{fig:dm_car_css_infrastructure}
+\end{figure}
+
+% TODO: GORM
+
+% The infrastructure package contains the sub-packages entities and mappers. The
+% entities package defines the storage model for the entities of the logic part.
+% Depending on the storage method, there might not be a one-to-one mapping
+% between the logic's models and the infrastructure's persistence entities. The
+% mappers package contains the class CarMapper which provides methods to convert
+% models to persistence entities and vice versa. Additionally, the infrastructure
+% package contains the class CarRepository which provides the interface between
+% the server and its storage. In the case of DM-Car, the storage method is a
+% PostgreSQL \cite{POS-DOCS} database which requires some additional methods to
+% be present on the CarRepository. These methods are CreateDatabaseConnection
+% which establishes a connection to the database, the method Close which closes
+% the connection to the database, and the private method getDatabaseURL which
+% reads the data necessary to connect to the database from environment variables
+% and builds a connection URL to the database from that data. To enable unit
+% testing of CarRepository, the infrastructure package also contains the
+% interface PGXInterface which provides a minimal subset of the connection
+% interface provided by the pgx library \cite{CH23}. This allows the connection
+% to the database to be mocked for unit testing with minimal effort. The logical
+% flow of an incoming request to the server is the following: First, the requests
+% will be received by Echo through the EchoRouter which decides which method on
+% the ServerInterfaceWrapper should be called. The ServerInterfaceWrapper then
+% forwards the request to the correct method on the controller CarController.
+% CarController parses the request data and forwards the parsed data to
+% CarOperations. CarOperations performs the requested business logic on the
+% provided data, as well as checking that the incoming data conforms to the
+% domain constraints. While processing the request, CarOperations may utilize
+% none or several methods on the repository CarRepository. The repository
+% CarRepository may load data from the database or write new data to it. After
+% the request has been processed by CarOperations, the result is returned to
+% CarController which translates the result into an HTTP response which may
+% optionally contain a JSON payload. CarController returns this response to the
+% ServerInterfaceWrapper, which gives the response to Echo so that it can be sent
+% to the requester.
+
+% \begin{figure}[h]
+% 	\centering
+% 	\includegraphics[width=\textwidth]{figures/dm_car_css.png}
+% 	\caption{DM-Car Code Structure Sketch}
+% 	\label{fig:dm_car_css}
+% \end{figure}
+
+% The initial implementation of DM-Car used an in-memory database which was
+% directly implemented in the repository CarRepository in the form of a map. The
+% first task of the author was to replace CarRepository's implementation with an
+% implementation that utilizes a PostgreSQL database for data storage. To connect
+% to a PostgreSQL database, the pgx library was used. This library extends Go's
+% database/sql module with PostgreSQL-specific functionality. The implementation
+% of how DM-Car establishes a connection to a database can be seen
+% % in shortened form in Listing \ref{lis:dm_car_db_impl}. To connect to a
+% PostgreSQL database, the repository CarRepository calls the method
+% CreateDatabaseConnection during its creation. CreateDatabaseConnection returns
+% an object through which actions on the database can be performed or an error if
+% the connection cannot be established. First, CreateDatabaseConnection calls the
+% method getDatabaseURL which computes the URL through which the database can be
+% reached. To compute the correct URL, getDatabaseURL reads the following
+% environment variables in lines 12 to 16: POSTGRES\_USER, POSTGRES\_PASSWORD,
+% POSTGRES\_HOST, POSTGRES\_PORT, and POSTGRES\_NAME. These values are used in
+% line 18 to return the URL which is of the format:
+% postgres://USER:PASSWORD@HOST:PORT/NAME, where USER and PASSWORD are the
+% credentials of an account registered with the database. HOST and PORT are the
+% URL where the database can be reached and NAME is the name of the database.
+% After getting the URL of the database, CreateDatabaseConnection calls the
+% pgx.Connect method with the previously computed URL in line 4. To test that the
+% connection has been successfully established, a ping is sent to the database in
+% line 6. If the ping succeeds, meaning that DM-Car can reach the database, the
+% connection object is returned. Lines 2, 4, and 6 can optionally return errors.
+% In that case, the method is exited early and the error is returned to the
+% caller of CreateDatabaseConnection. This is handled in lines 3, 5, and 7 but
+% has been left out for brevity.
+
+% \begin{figure}[h]
+% 	\centering
+% 	\includegraphics[width=\textwidth]{figures/CreateDatabaseConnectionCSS.png}
+% 	\caption{DM-Car Code Structure Sketch: CreateDatabaseConnection}
+% 	\label{fig:create_db_connection_css}
+% \end{figure}
+
+% \begin{lstlisting}[caption = {Implementation of the Connection to a Database in DM-Car}, label = {lis:dm_car_db_impl}, style = kit-cm, language=Go] 
+% func CreateDatabaseConnection() (PGXInterface, error) {
+% 	url, err := getDatabaseURL()
+% 	// ... Error handling.
+% 	connection, err := pgx.Connect(context.Background(), url)
+% 	// ... Error handling.
+% 	err = connection.Ping(context.Background())
+% 	// ... Error handling.
+% 	return connection, nil
+% }
+
+% func getDatabaseURL() (string, error) {
+% 	host := os.Getenv("POSTGRES_HOST")
+% 	port := os.Getenv("POSTGRES_PORT")
+% 	user := os.Getenv("POSTGRES_USER")
+% 	password := os.Getenv("POSTGRES_PASSWORD")
+% 	dbname := os.Getenv("POSTGRES_NAME")
+
+% 	return fmt.Sprintf("postgres://%s:%s@%s:%s/%s",
+% 		user,
+% 		password,
+% 		host,
+% 		port,
+% 		dbname), nil
+% }
+% \end{lstlisting}
+
+% After the connection to the database has been established, CarRepository can
+% access the database. The connection object to the database that was
+% % created in Line 4 in Listing \ref{lis:dm_car_db_impl}, is stored in the CarRepository's
+% databaseConnection member variable. The shortened implementation of the CarRepository's
+% methods AddCar, GetCar, and GetCars can be seen in Listings
+% % \ref{lis:dm_car_repo_add_impl}, \ref{lis:dm_car_repo_get_impl}, and
+% % \ref{lis:dm_car_repo_all_impl} respectively.
+
+% % Listing \ref{lis:dm_car_repo_add_impl} shows the implementation of CarRepository's AddCar method.
+% The method starts by preparing an SQL INSERT statement in Line 3 that inserts
+% the provided car into the database. In Line 4, the prepared statement is
+% executed using pgx's Exec method. Exec is used to execute SQL statements that
+% mutate data like INSERT, UPDATE, and DELETE. The method then returns the error
+% object returned from Exec that is nil if Exec did not return an error.
+
+% \begin{figure}[h]
+% 	\centering
+% 	\includegraphics[width=\textwidth]{figures/AddCarCSS.png}
+% 	\caption{DM-Car Code Structure Sketch: AddCar}
+% 	\label{fig:add_car_css}
+% \end{figure}
+
+% \begin{lstlisting}[caption = {Implementation of the Repository Method AddCar}, label = {lis:dm_car_repo_add_impl}, style = kit-cm, language=Go] 
+% func (repository *CarRepository) AddCar(car model.Car) error {
+% 	// ... Converting model.Car to CarPersistenceEntity.
+% 	statement := // ... SQL query to insert a car.
+% 	_, err := repository.databaseConnection.Exec(context.Background(), statement)
+% 	return err
+% }
+% \end{lstlisting}
+
+% % Listing \ref{lis:dm_car_repo_get_impl} shows the implementation of CarRepository's GetCar method.
+% GetCar retrieves a car from the database by its VIN. Therefore either one or no
+% car is returned by GetCar. The method starts by preparing an SQL statement to
+% retrieve a car with a matching VIN to that provided as an argument in Line 3.
+% This statement is used by pgx's QueryRow method in Line 4. QueryRow executes an
+% SQL SELECT statement that is expected to return at most one row as a result.
+% The result is stored in the variable row. In Line 5, the data from the row is
+% retrieved using its Scan method which puts the values from a row into the
+% variables whose references are provided as arguments. The number and order of
+% the arguments must match the number and order of columns listed in the executed
+% SELECT statement. Scan returns nil if the query returned a row as a result. If
+% the query did not return a row, Scan returns the error sql.ErrNoRows. In the
+% case that the query did return a row, the resulting CarPersistenceEntity is
+% mapped into a Car and returned in Line 8.
+
+% \begin{figure}[h]
+% 	\centering
+% 	\includegraphics[width=\textwidth]{figures/GetCarCSS.png}
+% 	\caption{DM-Car Code Structure Sketch: GetCar}
+% 	\label{fig:get_car_css}
+% \end{figure}
+
+% % \begin{lstlisting}[caption = {Implementation of the Repository Method GetCar}, label = {lis:dm_car_repo_get_impl}, style = kit-cm, language=Go] 
+% % func (repository *CarRepository) GetCar(vin string) (model.Car, error) {
+% % 	// ... Allocating a CarPersistenceEntity and Vin object.
+% % 	statement := // ... SQL statement to get a car with matching VIN number.
+% % 	row := repository.databaseConnection.QueryRow(context.Background(), statement)
+% % 	switch err := row.Scan(&vinObject.Vin, &car.Model, &car.Brand); err {
+% % 	case nil:
+% % 		car.Vin = vinObject
+% % 		return mappers.ConvertCarPersistenceEntityToCar(car), nil
+% % 	// ... case sql.ErrNoRows OR default: Error handling.
+% % 	}
+% % }
+% % \end{lstlisting}
+
+% % Listing \ref{lis:dm_car_repo_all_impl} shows the implementation of CarRepository's GetCars method.
+% GetCars retrieves all cars from the database. Therefore either zero or more
+% cars are returned by GetCars. The method starts by preparing an SQL statement
+% to retrieve all cars in Line 2. This statement is used by pgx's Query method in
+% Line 3. Query executes an SQL SELECT statement that is expected to return
+% multiple rows as a result. The result is stored in the variable rows. Because
+% the Query method returns an unknown number of rows, it needs to allocate memory
+% with a size that is unknown at compile time. To free this memory after it is no
+% longer used, the rows' Close method is called in Line 5 with the defer keyword
+% which means that it will be called when the rows variable goes out-of-scope. In
+% Line 6, an array of CarPersistenceEntities, called cars, is allocated into
+% which the results from the query will be stored. Starting in Line 7, GetCars
+% iterates over the rows returned by the query. For each row, the data from the
+% row is stored in a CarPersistenceEntity in Line 9 that is then appended to the
+% cars array in Line 12. This works similarly to the method GetCar. After
+% iterating over all rows, the cars array is first converted to a
+% CarsPersistenceEntity that is then mapped to a Cars object in Line 15. This
+% object is then returned by GetCars in Line 18.
+
+% \begin{figure}[h]
+% 	\centering
+% 	\includegraphics[width=\textwidth]{figures/GetCarsCSS.png}
+% 	\caption{DM-Car Code Structure Sketch: GetCars}
+% 	\label{fig:get_cars_css}
+% \end{figure}
+
+% % \begin{lstlisting}[caption = {Implementation of the Repository Method GetCars}, label = {lis:dm_car_repo_all_impl}, style = kit-cm, language=Go] 
+% % func (repository *CarRepository) GetCars() (model.Cars, error) {
+% % 	statement := // ... SQL query to get all cars.
+% % 	rows, err := repository.databaseConnection.Query(context.Background(), statement)
+% % 	// ... Error handling.
+% % 	defer rows.Close()
+% % 	cars := []entities.CarPersistenceEntity{}
+% % 	for rows.Next() {
+% % 		// ... Allocating a CarPersistenceEntity and Vin object.
+% % 		err = rows.Scan(&vin.Vin, &car.Brand, &car.Model)
+% % 		// ... Error handling.
+% % 		car.Vin = vin
+% % 		cars = append(cars, car)
+% % 	}
+% % 	// ... Error handling.
+% % 	var result = mappers.ConvertCarsPersistenceEntityToCars(entities.CarsPersistenceEntity{
+% % 		Cars: cars,
+% % 	})
+% % 	return result, nil
+% % }
+% % \end{lstlisting}
+
+% In summary, pgx provides three main methods for executing SQL statements. Exec
+% for running INSERT, UPDATE, and DELETE statements. QueryRow for SELECT
+% statements that return at most one row as a result and Query for general SELECT
+% statements that may return multiple rows.
+
+% TODO: Fit refactored names from Niklas
+% TODO: Guideline ref
+% TODO: GORM instead of pgx
+\section{Implementation of DM-Car}
+\label{sec:m2g_exercise}
+
+The UME approach uses C\&M's micro architecture to implement microservices.
+This micro architecture is described in the chapter Implementation and Test of
+the WASA course unit Microservice Engineering \cite{CM-W-IMP}. The DM-Car implementation, which
+is to be investigated, can be found in the C\&M GitLab in 1\_1.M2Go >
+1.M2GoTemplates > 1.Exercises > 3.MicroserviceEngineering > DM-Car \cite{CM-G-DMC}.
+
+\fbox{\parbox{\textwidth}{
+\textbf{Exercise MicroArchDMCar}
+\begin{enumerate}
+	\item \textbf{The UME Micro Architecture} \\
+	What are the three parts of a micro architecture
+	and which aspect does each part cover in a microservice implementation?
+
+	% TODO: Links
+	\item \textbf{Usage of the Micro Architecture} \\
+	To which parts of the micro architecture do the following structs and interfaces
+	in DM-Car belong: CarController, CarOperationsInterface, CarOperations,
+	GetCarOperation, CarRepositoryInterface, and CarRepository.
+	Add a figure to your practical course thesis which graphically illustrates the relation
+	between these components of DM-Car and the micro architecture.
+\end{enumerate}
+}}
+
+The chapter Implementation and Test of the WASA course unit Microservice Engineering \cite{CM-W-IMP}
+introduces the concept of a CSS (Code Structure Sketch) which can be used
+to visualize the structure of the source code and bridge the gap between the design
+artifacts like class diagrams and the actual implementation.
+
+\fbox{\parbox{\textwidth}{
+\textbf{Exercise ImplementationDMCar}
+\begin{enumerate}
+	% TODO: Link
+	\item \textbf{Code Structure Sketches} \\
+	Create Code Structure Sketches in your practical course thesis
+	that visualize the implementation of the method GetCar in the CarController,
+	the GetCarOperation, and the method GetCar in the CarRepository.
+	
+	% TODO: Link
+	\item \textbf{Control Flow of DM-Car} \\
+	Describe the code structure of DM-Car by explaining the flow
+	of the method GetCar in the CarController from its invocation
+	until its return. Use the previously created Code Structure Sketches
+	for your description.
+\end{enumerate}
+}}
+
+% TODO: Ist addCar schon in API Diagram, API Spec und Domain Constraints gegeben?
+\fbox{\parbox{\textwidth}{
+\textbf{Challenge ExtendingDMCar}
+\begin{enumerate}
+	% TODO: Link
+	\item \textbf{Extending the API Specification} \\
+	Extend the API specification of DM-Car with the method addCar()
+	described in the API diagram of DM-Car.
+
+	% TODO: Link
+	\item \textbf{Generate Server Stubs From API Specification} \\
+	Regenerate the stubs in DM-Car from the new API specification
+	using the oapi-codegen tool.
+
+	\item \textbf{Documentation} \\
+	Document the changes to the source code of DM-Car caused by the previous task
+	in your practical course thesis.
+
+	% TODO: Link
+	\item \textbf{API Controller Implementation} \\
+	Implement the method AddCar in the API Controller CarController.
+
+	% TODO: Link
+	\item \textbf{Microservice Operation Implementation} \\
+	Implement the AddCarOperation.
+
+	% TODO: Link
+	\item \textbf{Repository Implementation} \\
+	Implement the method AddCar in the repository CarRepository.
+
+	% TODO: Link
+	% TODO: Postman instead of curl
+	\item \textbf{Testing the Implementation} \\
+	Test your implementation of the new CarRepository by creating three cars with the curl commands
+	provided in DM-Car's README file. Document the requests that you used and their responses in your practical
+	course thesis.
+\end{enumerate}
+}}
+
+\section{Infrastructure Implementation of DM-Car}
+
+% TODO: GORM, ref guideline
+% The pgx library \cite{CH23} can be used to connect to a PostgreSQL database from Golang.
+% This library adapts the standard Golang module database/sql for use with PostgreSQL databases.
+% The C\&M GitLab provides a Best Practice for working with pgx under 1.Teaching >
+% 1.EngineeringKnowledge > 1.UMEPhases \cite{CM-G-PHA}. This repository also contains
+% Best Practices for working with PostgreSQL and its CLI psql.
+
+% TODO: move to best practice
+% PostgreSQL provides a CLI tool called psql to interact with PostgreSQL databases.
+% psql can be used to view and modify the contents of a database.
+% When running PostgreSQL inside of a Docker container using one of the official PostgreSQL
+% images, psql will be installed per default.
+% To view the contents of a PostgreSQL database that is running inside of a Docker container,
+% the following commands can be executed.
+% First, \lstinline|docker container ls| lists the names of all running Docker containers.
+% \lstinline|docker container exec -it CONTAINER_NAME psql -U USERNAME -W -p PORT -h localhost|
+% connects to a container with the name CONTAINER\_NAME that is hosting a PostgreSQL database.
+% Replace USERNAME with the username of one of the database's accounts
+% and PORT with the port of the database. These values can be found in the docker-compose file of DM-Car.
+% After entering the command, type in the password associated with the username that was entered.
+% Enter the \lstinline|\l| command to list all available databases.
+% With \lstinline|\c NAME;| a database called NAME can be selected.
+% After choosing a database, \lstinline|\dt| lists all of the tables in the database.
+% SQL queries can now be executed from the terminal on the selected database.
+% For example \lstinline|SELECT * FROM Car| should display all of the contents of the Car table.
+% To quit the PostgreSQL CLI tool, type \lstinline|\q|.
+
+% TODO: GORM instead of pgx
+\fbox{\parbox{\textwidth}{
+\textbf{Challenge InfrastructureDMCar}
+\begin{enumerate}
+	\item \textbf{Reading Environment Variables} \\
+	Add a function to the CarRepository that reads the values of the environment variables
+	POSTGRES\_HOST, POSTGRES\_PORT, POSTGRES\_USER, POSTGRES\_PASSWORD, and POSTGRES\_NAME. Combine the values of these
+	environment values into a string with the following format that is returned by your function:
+	postgres://USER:PASSWORD@HOST:PORT/NAME
+
+	% TODO: Link
+	\item \textbf{Connecting to a Database} \\
+	Extend the method NewCarRepository with the code necessary to connect to a PostgreSQL database.
+	Store the returned connection object in the CarRepository struct.
+	You should also make sure that the connection to the database works, after establishing it,
+	by pinging the database.
+
+	% TODO: Link
+	\item \textbf{Database Repository: AddCar} \\
+	Replace the method AddCar in CarRepository with a variant
+	that uses the database from the first exercise instead of the in-memory database.
+	Hint: AddCar is a mutation that modifies the database.
+
+	% TODO: Link
+	\item \textbf{Database Repository: GetCar} \\
+	Replace the method GetCar in CarRepository with a variant
+	that uses the database from the first exercise instead of the in-memory database.
+	Hint: GetCar should only expect to get zero or one result per call.
+
+	% TODO: Link
+	\item \textbf{Database Repository: GetCars} \\
+	Replace the method GetCars in CarRepository with a variant
+	that uses the database from the first exercise instead of the in-memory database.
+	Hint: GetCars returns an unknown amount of results per call.
+
+	\item \textbf{Cleanup} \\
+	Remove all remaining references to the in-memory database.
+
+	% TODO: Link
+	\item \textbf{Documentation} \\
+	Test your implementation of the new CarRepository by creating three cars with the curl commands
+	provided in DM-Car's README file.
+	Next, use the provided curl commands to retrieve one of those cars by its VIN and to retrieve
+	all existing cars. Document the requests that you used and their responses in your practical
+	course thesis. Use psql to document the contents of the database after your requests.
+\end{enumerate}
+}}

@@ -1,31 +1,12 @@
 %==============================================================================
-% short introduction to get template running on WINDOWS
-% further explanation can be found in the pptx
-% can be removed after first compilation 
-%
-% install MikTeX (http://www.miktex.org) - activate auto-install of packages
-% install ActivePerl (https://www.perl.org/) - add to HOME
-% system reboot
-%
-% use command-line or IDE in admin-mode to execute the  following commands
-% in the specified order (pdflatex used because we want the PDF in the end)
-% 
-%
-% After changes in glossary you need to execute the following command 
-% to use the new acronyms
-%
-% pdflatex bt_engbrocks.tex
-% makeglossaries bt_engbrocks
-% pdflatex bt_engbrocks.tex
-% bibtex bt_engbrocks
-% pdflatex bt_engbrocks.tex
-% pdflatex bt_engbrocks.tex
-%
-% After changes in literature you need to execute the following command
-% to use the new reference
-%
-% bibtex bt_engbrocks
-%
+% Exclude: **/archive/**/*, cmnat.bst
+% Fix Cite/Ref
+% Find 1: (^(?!%).+)(\\cite\{.*\})
+% Replace 1: $1\\iffalse $2 \\fi 
+% Find 2: (^(?!%).+)(\\ref\{.*\})
+% Replace 2: $1\\iffalse $2 \\fi 
+% Find 3: \\iffalse(.*)\s\\fi\s
+% Replace 3: $1
 %==============================================================================
 
 %==============================================================================
@@ -64,8 +45,6 @@
 \include{chapters/0-2_authorship}
 \tableofcontents
 
-\include{chapters/0-4_unorganized_text}
-
 %
 % add content
 %
@@ -83,13 +62,11 @@
 
 \include{chapters/6_first_solution}
 
-\include{chapters/7_second_solution}
+\include{chapters/7_project_team_work}
 
-\include{chapters/8_practical_task}
+\include{chapters/8_m2go_contributions}
 
-\include{chapters/9_project_team_work}
-
-\include{chapters/10_summary_outlook}
+\include{chapters/9_summary_outlook}
 
 %
 % add appendix
@@ -100,3 +77,66 @@
 %==============================================================================
 
 \end{document}
+
+% \subsection{Inserting UML Diagrams}
+% UML diagrams are exclusively created with the tool UMLet. The UMLet files are to be stored in the subfolder ``6.UMLet\_Sources''.
+% The UMLet diagram is inserted in the format .png in the thesis figures file. The UMLet diagram illustrated in Figure \ref{fig:exa_sys_arc}
+% is taken from the WASA lecture.
+
+% \begin{figure}[ht]
+% 	\centering
+% 	\includegraphics[width=0.4\textwidth]{figures/exa_sys_arc}
+% 	\caption{Example of a SystemPlusSoftware Architecture}
+% 	\label{fig:exa_sys_arc}
+% \end{figure}
+
+% The naming convention of the UMLet file is <figure\_number>.<tite\_of\_the\_figure> as can be easily understood when taking
+% a closer look to the folder ``6.UMLet\_Sources'' in which the example diagram shown in Figure \ref{fig:exa_sys_arc} is stored.
+
+% \subsection{Citations}
+% \label{subsec:citations}
+% Citations can be included in the thesis in the following way:
+
+% \begin{quote}
+% \textit{``A microservice is a cohesive, independent process interacting via messages''}
+% \end{quote}
+% \begin{quote}
+% \textit{``fictive book quote.'', \cite[P.~99]{Be02}}
+% \end{quote}
+
+% \subsection{Writing Cucumber Features in LaTeX}
+% Features are included in the LaTeX code as a special listing and referenced in the text using the feature \ref{lis:example} command.
+
+% \vspace{0.5cm}
+% \begin{lstlisting}[caption = {Example for Development Artifacts in the Thesis}, label = {lis:example}, style = kit-cm, language=] 
+% First line of the development artifact
+% Second line of the development artifact
+% \end{lstlisting}
+
+% \subsection{Inserting Tables}
+% Table \ref{tab:example_table} shows an simple example for inserting a table in LaTeX.
+% \begin{table}[H] 
+%Hint: The [H] is part of the packet float. It stands for ``Here'' which means that the table is placed where it is defined.
+% 	\centering
+% 	\begin{tabular}{ | l | p{7cm} | }
+% 		\hline
+% 		\textbf{Heading} & \textbf{Further Heading} \\
+% 		\hline
+% 		 Entry & Example of an entry \\
+% 		\hline
+% 		 Entry & Example of a further entry \\
+% 	 	\hline
+% 	\end{tabular}
+% 	\caption{Example of a Table}
+% 	\label{tab:example_table}
+% \end{table}
+
+% \subsection{Linguistic Conventions in the Context of the C\&M Software Development Process}
+% All artifacts created during the C\&M software development process are written in English.
+% This also applies to the features created in the analysis phase, since it is assumed that the user of a software system
+% developed by C\&M is an English speaker. American English is used throughout the thesis.
+
+% An important quality aspect to be considered in software development is the consistent spelling of the introduced terms during development.
+% Two levels must be distinguished here: The level of ("natural", English) language and the level of (formal, development-related) artifacts.
+% An example of a term at the language level is "Todo List Management".
+% As a C\&M convention that terms are written on the artifact level in the so-called CamelCase notation, in this example "TodoListManagement".

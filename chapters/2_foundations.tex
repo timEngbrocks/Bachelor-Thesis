@@ -1,235 +1,215 @@
 \chapter{Foundations}
 \label{cha:foundations}
 
-\section{Use Case Motivation}
+This chapter provides descriptions of the concepts used in this thesis.
+Section \ref{sec:foundation_decentralized_identities} describes decentralized identities
+which are the focus of the research project BestRentalPoC.
+Section \ref{sec:foundation_observability} describes observability and monitoring which are
+the focus of this thesis.
+Section \ref{sec:foundation_devops} and \ref{sec:foundation_cicd} describe the concepts
+of DevOps and CI/CD which are used in the results provided by this thesis.
 
-The company BestRental wants to develop a monitoring solution for its BestRentalPoC system
-to collect metrics that are meant to assist the company in operating the BestRentalPoC.
-The system will be operated by QA Engineers, system operators, and a project manager.
-Before developing the monitoring solution, the team tasked with developing the solution,
-interview the different roles to find out how they will use the solution
-and what their tasks and responsibilities are.
-QA Engineers are responsible for the reliability of BestRentalPoC.
-To ensure the reliability of the system, they want to know when requests to the system fail and
-trigger errors, so that they can fix them.
-For them to better understand errors, they want to know how often errors occur and from which services,
-inside of BestRentalPoC, they originate.
-The system operators run the BestRentalPoC. They need to make sure that at any point in time
-BestRentalPoC has enough instances of all of its services available to serve all incoming requests.
-Because BestRental wants to operate profitably, they can't just create as many instances as they like,
-and they need to shut down instances when they are not needed.
-To assist them with their task, they want to know how high the resource usage of each instance is
-and how many requests are coming into the system. The resources that they want to track for each
-instance are the instance's CPU and memory usage.
-The project manager's yearly bonus is tied to how profitable the BestRentalPoC operates.
-To ensure that he gets his bonus, the project manager wants to track the operating costs of the complete system.
-Additionally, he needs to how high the operating costs of each service are, so that he can
-allocate development time to increase the efficiency of a service, making it more profitable.
-After the interviews, the development notes that all types of users of the monitoring solution
-want to be able to do five different things.
-Firstly, they want to be able to create a dashboard for a metric that displays its current and historic values.
-When viewing a dashboard they also want to be able to run queries on the metric to, for example, get
-its value at a specific point in time.
-Because the users can't constantly watch all of their dashboards, they want to be able to create
-alerts for a metric that will be triggered when the metric exceeds a set value.
-When a metric exceeds a value set for an alert, the users want to receive the alert so that they can act on it.
-The developers also know that the solution needs to be able to do three main things to accomplish
-the requested features.
-Firstly, the solution needs to collect metrics from BestRentalPoC,
-it then needs to analyze the collected data, and lastly, it needs to conditionally send out alerts
-for metrics.
+\section{Decentralized Identities}
+\label{sec:foundation_decentralized_identities}
 
-\section{Use Case Descriptions}
+Decentralized identities can be broken up into two parts: DIDs (Decentralized Identifiers) and VCs (Verifiable Credentials).
+DIDs identify a subject while VCs make claims about the subject. A DID in combination with a set of VCs represents
+a decentralized identity.
+The W3C (World Wide Web Consortium) provides the standards necessary for the implementation and realization
+of decentralized identities.
+The standard concerning DIDs is the W3C Recommendation Decentralized Identifiers (DIDs) v1.0 \cite{W3C-DID}
+and the standard for VCs is the W3C Working Draft Verifiable Credentials Data Model v2.0 \cite{W3C-VC}.
 
-% \begin{figure}[h]
-% 	\centering
-% 	\includegraphics[width=\textwidth]{figures/use_case_monitoring_bestrental.png}
-% 	\caption{Use Case: Monitoring BestRental}
-% 	\label{fig:use_case_monitoring_best_rental}
-% \end{figure}
+Identifiers are used to uniquely identify something by a single value.
+An everyday example of this is an address that uniquely identifies a place.
+Most types of identifiers require a centralized registration authority that issues the identifiers.
+The task of the registration authority is to keep track of issued identifiers to ensure their uniqueness
+as well as their validity. DID are identifiers that do not require
+a centralized registration authority which is often accomplished with cryptography.
+In the case of the W3C standards, a DID is a URI that resolves to a DID document.
+A DID document contains the information necessary to authenticate the subject of a DID.
+Additionally, a DID document contains information about its DID controller which is the entity
+that can alter the DID document. The DID controller might also be the subject of the DID.
+To resolve a DID, DIDs are entered into a verifiable data registry which records the location
+of a DID document corresponding to a DID. Any system that can resolve DIDs to their DID documents
+is a verifiable data registry but verifiable data registries are most commonly implemented as
+distributed ledgers, peer-to-peer networks, decentralized file systems, databases, and other
+forms of trusted decentralized data storage.
 
-\vspace{0.5cm}
-\begin{lstlisting}[caption = {Use Case Description: Monitoring BestRental}, label = {lis:use_case_description_monitoring_bestrental}, style = kit-cm, language=] 
-Title: A Developer creates metrics and dashboards for BestRentalPoC
+A credential is a set of claims made by an issuer regarding one or more subjects.
+Each claim is an assertion regarding a subject.
+For example, a credential might be a driving license. In this case, the issuer is a driving license authority,
+the subject is the holder of the driving license and the claim is that the subject is legally allowed to drive.
+VCs are a type of credential with additional properties.
+They are tamper-evident, meaning that attempts to modify a VC can be detected.
+Additionally, their authorship can be cryptographically verified which means that anybody can verify a VC's issuer
+to check the validity of the VC.
 
-Primary Actors: Developer
-Secondary Actors: MonitoringSystem
+Decentralized identities provide improved privacy by minimizing the amount of PII (personally identifiable information)
+that needs to be shared. An example of this is a digital driving license, implemented as a decentralized identity,
+where a person does not have to share their PII but a third party can still validate
+that they possess a valid driving license. Due to their cryptographic nature,
+decentralized identities also provide tamper-proof identities along with increased data security.
 
-Preconditions:
-- The Developer has a valid account for the monitoring system
-Postconditions:
-- The metrics "total accumulated cost", "average CPU usage per service", "average memory usage per service", and "total failed requests" have been created
-- Dashboards for the new metrics have been created
+The following is an example of the usage of decentralized identities.
+\Gls{Alice} is a citizen who wants to rent a car. \Gls{Alice} has a DID that uniquely identifies her.
+She also has a digital wallet associated with her DID that she can use
+to store VCs. \Gls{Bob} is a clerk for a driving license authority.
+In order for \Gls{Alice} to be able to rent a car online, she needs a method of proving that she has a valid
+driver's license. She goes to \Gls{Bob} and asks him to issue her a Verifiable Credential (VC) for her driving
+license, which she could use as proof of her possession of a valid driver's license.
+\Gls{Bob} verifies that \Gls{Alice} has a valid driver's license and then issues her the VC using her DID.
+The VC is stored in Alice's digital wallet which only she has access to.
+When she now goes through the process of renting a car online, the rental company
+can ask her to provide a VC to prove that she has a valid driver's license.
+\Gls{Alice} can then share her VC from her wallet with the rental company, which can then be
+verified by the rental company. The rental company now knows that \Gls{Alice} has a valid driving license.
+\Gls{Alice} can now proceed with renting a car online from the rental company.
 
+\section{Observability and Monitoring}
+\label{sec:foundation_observability}
 
-Flow:
-1. The Developer sets up a new metric "total accumulated cost"
-2. The Developer sets up a new metric "average CPU usage per service"
-3. The Developer sets up a new metric "average memory usage per service"
-4. The Developer sets up a new metric "total failed requests"
-5. The Developer logs into the monitoring system
-6. The Developer creates a dashboard for the metric "total accumulated cost"
-7. The Developer creates a dashboard for the metric "average CPU usage per service"
-8. The Developer creates a dashboard for the metric "average memory usage per service"
-9. The Developer creates a dashboard for the metric "total failed requests"
-10. The Developer logs out of the monitoring system
+In 1960, Kalman \cite{Ka60} defined a system to be observable if its exact state at any time can be completely determined
+by its outputs. Based on this definition, observability
+for modern cloud systems is the practice of capturing outputs from a software system to
+infer knowledge about its state. According to Usman et al. \cite{UF+22}, observability consists of capturing
+three main types of data from a system: logs, metrics and traces, these are often called the
+three pillars of observability.
 
-\end{lstlisting}
+Logs are streams of textual information emitted by an application. They can contain information about important
+events, like an incoming request, or provide details about the occurrence of exceptions.
+Traces are a way of tracking the path of requests through a system. A trace contains detailed information
+about all the services that were called during the processing of a request and can be thought of
+as a stack trace for microservices.
+Metrics are numerical data captured from an application from which the state of the application
+can be gauged. An example of a metric is the memory usage of an application.
+Because of the scope of this work, from now on, only metrics will be considered for observability.
+% TODO: Das sollte eingehen in SPMonitor
+According to Beyer et al. \cite{BJ+16}, monitoring can be used to capture the four golden signals of
+a network-based application. These four signals are Latency, Traffic, Errors, and Saturation.
+Latency measures the time that it takes the application to service a request starting from its arrival.
+Traffic measures the number of incoming requests per second. Errors are the percentage-based rate at which
+incoming requests result in an error. Saturation is a measurement of how much capacity of a constrained
+resource like memory is being used and how much is still free.
 
-\vspace{0.5cm}
-\begin{lstlisting}[caption = {Use Case Description: A project manager monitors the cost of BestRentalPoC}, label = {lis:use_case_description_project_manager}, style = kit-cm, language=] 
-Title: A project manager monitors the cost of BestRentalPoC
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{figures/observability_and_golden_signals.png}
+	\caption{Observability and the Four Golden Signals}
+	\label{fig:observability_and_golden_signals}
+\end{figure}
 
-Primary Actors: Project Manager
-Secondary Actors: MonitoringSystem
+Beyer et al. \cite{BJ+16} divide monitoring into two categories: white-box and black-box monitoring.
+A monitoring approach belongs to the white-box category when it is only based on information that is
+internal to the system being monitored. Contrary, a monitoring approach belongs to the black-box category
+when it is only based on the externally visible behavior of the system.
+Internal resources describe resources that allow direct access to their internals.
+An example of an internal resource is a self-hosted microservice.
+External resources describe resources that do not allow direct access to their internals.
+An example of an external resource is a Software-as-a-Service (SaaS) product which is used in a context that should be monitored.
+External resources can, because of their nature, only be monitored using the Black-box approach.
+Internal resources however can be monitored with both the White-box and Black-box approach.
 
-Preconditions:
-- The Project Manager has a valid account for the monitoring system
-- The metric "total accumulated cost" has been set up
-- A dashboard for the metric "total accumulated cost" exists
-Postconditions:
-- The Project Manager received an alert for the metric "total accumulated cost" via email
+Aceto et al. \cite{AB+12} define eight motivations for monitoring cloud applications:
+Capacity and Resource Planning, Capacity and Resource Management, Data Center Management,
+SLA Management, Billing, Troubleshooting, Performance Management, and Security Management.
+Capacity and Resource Planning concerns the resources needed to run an application.
+Capacity and Resource Management is Capacity and Resource Planning during the operations
+of an application. Metrics allow operators to know if more resources are needed.
+Data Center Management is mainly concerned with the efficient usage of resources.
+One key measurement of the efficiency of a data center is its energy efficiency.
+SLA Management refers to the monitoring of parameters, which are defined in Service Level Agreements (SLA).
+These parameters must be within set bounds for an SLA to be considered fulfilled.
+Billing refers to the monitoring of parameters that influence the cost of running an application.
+When an application is hosted on a cloud provider's Infrastructure-as-a-Service (IaaS) system,
+one of those parameters might be the number of compute instances that an application uses.
+While Troubleshooting usually refers to the tracing of requests and failures to provide a dataset for analyzing and fixing issues in an application,
+Monitoring can also be used to aid in troubleshooting by recording the number of failed requests and their context.
+Performance Management captures the performance of an application with metrics like
+latency to gauge if the application performs as expected or needs adjustments.
+Security Management tracks security-related issues with metrics to allow developers to understand
+the source of security issues to mitigate them.
 
-Flow:
-1. The Project Manager logs into the monitoring system
-2. The Project Manager views the dashboard for the metric "total accumulated cost"
-3. The Project Manager creates an alert for the metric "total accumulated cost" when the value exceeds 10,000
-4. The Project Manager runs a query on the metric "total accumulated cost" to see its value one month ago
-5. The Project Manager logs out of the monitoring system
-6. The MonitoringSystem detects that the value of the metric "total accumulated cost" exceeds 10,000
-7. The MonitoringSystem sends the Project Manager an alert via email
-8. The Project Manager receives an alert for the metric "total accumulated cost" via email
+\section{DevOps}
+\label{sec:foundation_devops}
 
-Alternative flows:
-7a. The value of the metric "total accumulated cost" does not exceed 10,000
-	7a1. The MonitoringSystem does not send out an alert for the metric "total accumulated cost" via email
-8a. The value of the metric "total accumulated cost" does not exceed 10,000
-	8a1. The Project Manager does not receive an alert for the metric "total accumulated cost" via email
+DevOps (Development and Operations) is a philosophy for developing software.
+It provides practices and principles which aim to enhance the collaboration
+between software development and its operation which in turn should increase
+the overall efficiency of the software development process.
 
-Information requirements:
-- Values for the metric "total accumulated cost" reaching back at least one month
-\end{lstlisting}
+DevOps is based on the agile approach to project management.
+Agile project management turns linear processes into iterative ones.
+An example of a linear process is the waterfall model for software development in which
+the different phases of development happen one after another.
+In an iterative process, the work is split into multiple packages
+which are completed in order. For each process, there is a complete linear work process.
+This results in multiple processes which are iteratively completed.
+The principles of agile project management can also be applied to software development
+to get an iterative development process.
+DevOps takes this iterative approach and expands on it through faster cycle times of
+building and shipping a new version of an application.
+To achieve this, DevOps focuses on increasing the efficiency of cross-functional
+collaborations between developers and operators with four core principles \cite{GIT-DEV}.
+The first principle is automation. According to DevOps, everything that is needed
+to deliver software to a customer should be automated. On the development side, this includes
+testing and building. On the operations side, this includes provisioning infrastructure
+and deploying software as well as monitoring it. DevOps commonly employs CI/CD to achieve this.
+The second principle is collaboration. Commonly, teams, which participate in the
+development process of a software project, are split into two categories:
+Development teams, which only focus on the development of the software,
+and operation teams, which focus on its deployment and operation.
+To increase the cooperation between participants, DevOps reorders teams to have both
+developers and operators. In this configuration, each team is responsible for the whole process
+of its contribution from development to operations.
+The third principle is the focus on continuous improvements and minimization of waste
+in the form of time and money. DevOps employs monitoring and the measurement of metrics
+for this task.
+The fourth principle is the focus on the customer's needs. One advantage of an iterative process
+compared to a linear one is that changes requested by a customer can be adopted faster.
+In a linear process, the whole process would have to be started from the beginning to adopt changes.
+An iterative process can adopt changes in its next iteration step which, compared
+to the overall length of the complete process, takes less time.
+Lwakatare et al. \cite{LK+16} sort these principles into the five dimensions
+Collaboration, Automation, Culture, Monitoring, and Measurement where the third DevOps
+principle spans the dimensions of Monitoring and Measurement. The dimension of
+Culture adds additional focus on the principle of collaboration by stating that
+joint responsibility is necessary for the success of the collaboration between
+developers and operators. Joint responsibility ensures that all persons involved
+have the common interest of maintaining the quality of the software that they are developing.
+The combination of these principles and dimensions into DevOps promises faster
+development times for software while simultaneously improving its quality thus
+resulting in an overall efficiency gain for the development process.
+% TODO: This needs a citation
 
-\vspace{0.5cm}
-\begin{lstlisting}[caption = {Use Case Description: A system operator monitors the cost of BestRentalPoC}, label = {lis:use_case_description_system_operator}, style = kit-cm, language=] 
-Title: A system operator monitors the cost of BestRentalPoC
+\section{CI/CD}
+\label{sec:foundation_cicd}
 
-Primary Actors: System Operator
-Secondary Actors: MonitoringSystem
+CI/CD (Continuous Integration/Continuous Deployment) is a part of DevOps
+and combines continuous integration with continuous delivery and deployment to
+achieve the DevOps principle of automation. Generally speaking,
+CI/CD tries to reduce the amount of human involvement needed after a developer has written
+source code. This means automating the building and testing of that code which is referred
+to as continuous integration as well as the deployment and infrastructure provisioning
+for the deployment which is continuous deployment. Sometimes CD also refers to
+continuous delivery instead of deployment. In this case, CI/CD stops before the deployment
+of the software and ends with end-to-end tests of the system after integrating changes.
 
-Preconditions:
-- The System Operator has a valid account for the monitoring system
-- The metric "average CPU usage per service" has been set up
-- The metric "average memory usage per service" has been set up
-- A dashboard for the metric "average CPU usage per service" exists
-- A dashboard for the metric "average memory usage per service" exists
-Postconditions:
-- The System Operator received an alert for the metric "average CPU usage per service" via email
-- The System Operator received an alert for the metric "average memory usage per service" via email
+CI/CD has eight fundamental elements \cite{GIT-CICD}.
+The first two elements are a single source repository and frequent check-ins to the main branch.
+This practice reduces the number of duplicated artifacts, makes configuration easier and
+works to reduce the number of merge conflicts.
+Elements number three and four are automated and self-testing builds.
+Automated builds reduce the amount of human involvement necessary while automated testing ensures
+the software's quality. Element five supports automated testing with stable testing environments
+that are clones of the live production environment.
+Element six adds to the second element with frequent iterations which reduces the size of changes
+from each iteration making it easier to identify problems and roll them back.
+Element seven is maximum visibility. Every developer should be able to access all artifacts from
+the development process to make the identification of concerns easier and more likely.
+The last element is predictable deployments at any time. This ensures that should a problem arise
+in a production environment, it can easily be rolled back with confidence.
+Overall this approach promises faster times until the customer receives value, less context switching
+from working with multiple different sources and fast recovery in case of problems.
 
-Flow:
-1. The System Operator logs into the monitoring system
-2. The System Operator views the dashboard for the metric "average CPU usage per service"
-3. The System Operator creates an alert for the metric "average CPU usage per service" when the value exceeds 95%
-4. The System Operator runs a query on the metric "average CPU usage per service" to see its value one month ago
-5. The System Operator views the dashboard for the metric "average memory usage per service"
-6. The System Operator creates an alert for the metric "average memory usage per service" when the value falls below 10%
-7. The System Operator runs a query on the metric "average memory usage per service" to see its value one month ago
-8. The System Operator logs out of the monitoring system
-9. The MonitoringSystem detects that the value of the metric "average CPU usage per service" exceeds 95%
-10. The MonitoringSystem sends the Project Manager an alert for the metric "average CPU usage per service" via email
-11. The Project Manager receives an alert for the metric "average CPU usage per service" via email
-12. The MonitoringSystem detects that the value of the metric "average memory usage per service" is below 10%
-13. The MonitoringSystem sends the Project Manager an alert for the metric "average memory usage per service" via email
-14. The Project Manager receives an alert for the metric "average memory usage per service" via email
-
-Alternative flows:
-10a. The value of the metric "average CPU usage per service" does not exceed 95%
-	10a1. The MonitoringSystem does not send out an alert for the metric "average CPU usage per service" via email
-11a. The value of the metric "average CPU usage per service" does not exceed 95%
-	11a1. The System Operator does not receive an alert for the metric "average CPU usage per service" via email
-13a. The value of the metric "average memory usage per service" is not below 10%
-	13a1. The MonitoringSystem does not send out an alert for the metric "average memory usage per service" via email
-14a. The value of the metric "average memory usage per service" is not below 10%
-	14a1. The System Operator does not receive an alert for the metric "average memory usage per service" via email
-
-Information requirements:
-- Values for the metric "average CPU usage per service" reaching back at least one month
-- Values for the metric "average memory usage per service" reaching back at least one month
-\end{lstlisting}
-
-\vspace{0.5cm}
-\begin{lstlisting}[caption = {Use Case Description: A QA engineer monitors the cost of BestRentalPoC}, label = {lis:use_case_description_qa_engineer}, style = kit-cm, language=] 
-Title: A QA engineer monitors the cost of BestRentalPoC
-
-Primary Actors: QA Engineer
-Secondary Actors: MonitoringSystem
-
-Preconditions:
-- The QA Engineer has a valid account for the monitoring system
-- The metric "total failed requests" has been set up
-- A dashboard for the metric "total failed requests" exists
-Postconditions:
-- The System Operator received an alert for the metric "total failed requests" via email
-
-Flow:
-1. The QA Engineer logs into the monitoring system
-2. The QA Engineer views the dashboard for the metric "total failed requests"
-3. The QA Engineer creates an alert for the metric "total failed requests" when the value exceeds 100
-4. The QA Engineer runs a query on the metric "total failed requests" to see its value one month ago
-5. The QA Engineer logs out of the monitoring system
-6. The MonitoringSystem detects that the value of the metric "total failed requests" exceeds 100
-7. The MonitoringSystem sends the System Operator an alert via email
-8. The System Operator receives an alert for the metric "total failed requests" via email
-
-Alternative flows:
-7a. The value of the metric "total failed requests" does not exceed 100
-	7a1. The MonitoringSystem does not send out an alert for the metric "total failed requests"
-8a. The value of the metric "total failed requests" does not exceed 100
-	7a1. The System Operator does not receive an alert for the metric "total failed requests" via email
-
-Information requirements:
-- Values for the metric "total failed requests" reaching back at least one month
-\end{lstlisting}
-
-
-\vspace{0.5cm}
-\begin{lstlisting}[caption = {Use Case Description: The MonitoringSystem collects metrics from BestRentalPoC}, label = {lis:use_case_description_monitoring_system}, style = kit-cm, language=] 
-Title: The MonitoringSystem collects metrics from BestRentalPoC
-
-Primary Actors: MonitoringSystem
-Secondary Actors: BestRentalPoC
-
-Preconditions:
-- The MonitoringSystem is configured to collect the metric "total accumulated cost"
-- The MonitoringSystem is configured to collect the metric "average CPU usage per service"
-- The MonitoringSystem is configured to collect the metric "average memory usage per service"
-- The MonitoringSystem is configured to collect the metric "total failed requests"
-Postconditions:
-- The MonitoringSystem has the latest value for the metric "total accumulated cost" stored
-- The MonitoringSystem has the latest values for the metric "average CPU usage per service" stored
-- The MonitoringSystem has the latest values for the metric "average memory usage per service" stored
-- The MonitoringSystem has the latest value for the metric "total failed requests" stored
-
-Flow:
-1. The MonitoringSystem requests the latest value for the metric "total accumulated cost" from each service
-2. Each service from BestRentalPoC sends its latest value for the metric "total accumulated cost" to the MonitoringSystem
-3. The MonitoringSystem combines the values for the metric "total accumulated cost" from each service into one value
-4. The MonitoringSystem stores the latest value for the metric "total accumulated cost"
-5. The MonitoringSystem requests the latest value for the metric "average CPU usage per service" from each service
-6. Each service from BestRentalPoC sends its latest value for the metric "average CPU usage per service" to the MonitoringSystem
-7. The MonitoringSystem stores the latest values for the metric "average CPU usage per service"
-8. The MonitoringSystem requests the latest value for the metric "average memory usage per service" from each service
-9. Each service from BestRentalPoC sends its latest value for the metric "average memory usage per service" to the MonitoringSystem
-10. The MonitoringSystem stores the latest values for the metric "average memory usage per service"
-11. The MonitoringSystem requests the latest value for the metric "total failed requests" from each service
-12. Each service from BestRentalPoC sends its latest value for the metric "total failed requests" to the MonitoringSystem
-13. The MonitoringSystem combines the values for the metric "total failed requests" from each service into one value
-14. The MonitoringSystem stores the latest value for the metric "total failed requests"
-	
-Information Requirements: 
-- New values for the metric "total accumulated cost"
-- New values for the metric "average CPU usage per service"
-- New values for the metric "average memory usage per service"
-- New values for the metric "total failed requests"
-\end{lstlisting}
+% TODO: more text plus second citation for something
