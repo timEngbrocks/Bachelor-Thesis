@@ -1,19 +1,17 @@
 \chapter{Technical Foundation}
 \label{cha:technical_foundation}
 
-% TODO: Check fits new third section
 This chapter provides the technical foundations that are used for the solution that has been developed by this thesis.
 These overviews do not go into detail about how they are used in this thesis but rather aim to provide
 a foundation for the reader which is required by the following chapters.
 Section \ref{sec:tech_containerization} explains the concept of containerization as well as the concepts of Kubernetes and Helm.
-Section \ref{sec:tech_argocd} provides an overview of the CI/CD tool ArgoCD.
-Section \ref{sec:tech_monitoring_systems} explains the concept of monitoring systems and their components. Additionally,
-this section provides the foundations for the tools used by the monitoring solution that was developed for this thesis.
+Section \ref{sec:tech_monitoring_systems} explains the concept of monitoring systems and their components.
+Additionally, this section provides the foundations for the tools used by the monitoring solution that was developed for this thesis.
 
 \section{Containerization}
 \label{sec:tech_containerization}
 
-% TODO: Do
+% TODO: Finish
 
 Containerization is one of two possibilities to virtualize IT infrastructure.
 The first possibility is virtualization through virtual machines.
@@ -24,24 +22,86 @@ They provide their own kernel and the hypervisor of the
 
 \cite{DOC-DOCS}
 
+\subsection*{Kubernetes}
+
+% TODO: Kubernetes Intro
+% TODO: Nodes > Pods > Containers
+% TODO: What is a Kubernetes Resource
+
 \cite{KUB-DOCS}
 
-\cite{HEL-DOCS}
+Eleven resources in Kubernetes are important for this thesis.
+These resources are listed below with a brief description.
+\begin{itemize}
+	\item \textbf{Deployment} \\
+	A Deployment describes the desired state for a Pod.
+	The state of a Pod includes properties like the number of replicas,
+	the version of a container's image, or a container's open ports.
+	Kubernetes manages the incremental change of a Deployment to reach its desired state.
+	\item \textbf{Service} \\
+	A Service provides logical endpoints within a cluster.
+	Each endpoint on a service is mapped to a port on a specified Pod.
+	\item \textbf{Ingress} \\
+	An Ingress provides access to the cluster from external networks via, for example, HTTP.
+	An Ingress maps endpoints on the cluster to ports on services within the cluster.
+	Ingresses can also provide additional functionality like load-balancing.
+	\item \textbf{ConfigMap} \\
+	A ConfigMap is a resource that can store data as key-value pairs.
+	The values of a ConfigMap can be simple YAML properties or file-like.
+	\item \textbf{Secret} \\
+	A Secret is a type of ConfigMap that is meant to hold confidential data.
+	\item \textbf{PersistentVolume (PV)} \\
+	A PV provides access to a storage medium. PVs can be statically or dynamically
+	provisioned.
+	\item \textbf{PersistentVolumeClaim (PVC)} \\
+	A PVC requests access to a PV on behalf of an application.
+	Each PVC contains information like the requested storage size and access mode (read/write).
+	\item \textbf{ServiceAccount} \\
+	A ServiceAccount is an account for accessing a cluster. ServiceAccounts are meant
+	to be used by resources running within a cluster. Each ServiceAccount has a set of
+	permissions for what it is allowed to access in the cluster.
+	\item \textbf{ClusterRole} \\
+	A ClusterRole combines a set of permissions for a ServiceAccount into a named role.
+	\item \textbf{ClusterRoleBinding} \\
+	A ClusterRoleBinding binds a ClusterRole to a ServiceAccount which gives
+	the ServiceAccount the permissions defined in the ClusterRole.
+	\item \textbf{CustomResourceDefinition (CRD)} \\
+	A CRD allows the definition of additional custom resources for Kubernetes.
+\end{itemize}
 
+\subsection*{Helm}
 
-\begin{figure}
+% TODO: rewrite
+% Helm \cite{HEL-DOCS} is a templating engine for Kubernetes resource definitions.
+% Kubernetes does not provide any out-of-the-box support for dynamic properties.
+% Helm resolves this issue by creating template files with dynamic properties,
+% which user-controlled values can replace. Helm then fills the dynamic properties
+% with these values and renders them into a standard Kubernetes resource definition file.
+% This mechanism enables, for example, the creation of multiple deployments from the same definition but with different names.
+% Under the hood, Helm uses the Go language to parse the templates, which allows additional functionality,
+% like flow control and adapting provided values. Helm combines resources that should be templated into what is called a Helm Chart.
+% Each Chart has a single configuration file that contains the values used for templating the resources in the Helm Chart.
+% An example of how Helm works can be seen in \autoref{lis:helmExample}.
+% Values from the configuration file can be accessed by putting the property's name in double curly braces and prefixing it with .Values,
+% as can be seen in line 2 of the listing.
+
+% \begin{lstlisting}[caption = {Helm Templating Example}, label = {lis:helmExample}, style = kit-cm, language=yaml]
+% # Template file
+% name: app-{{ .Values.name }}
+
+% # values.yaml
+% name: example
+
+% # Rendered Kubernetes file
+% name: app-example
+% \end{lstlisting}
+
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/vm_container_virtualization.png}
 	\caption{VM vs. Container-Based Virtualization \cite{CM-W-CON}}
 	\label{fig:vm_container_virtualization}
 \end{figure}
-
-\section{ArgoCD}
-\label{sec:tech_argocd}
-
-% TODO: Do
-
-\cite{ARG-DOCS}
 
 \section{Monitoring Systems}
 \label{sec:tech_monitoring_systems}
