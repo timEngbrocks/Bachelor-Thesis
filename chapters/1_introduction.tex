@@ -12,18 +12,32 @@ in Section \ref{sec:content_overview}.
 
 \section{Introduction to the Topic Area}
 \label{sec:intro_topic}
-% If the work is based on a concrete project scenario, this project scenario should already be introduced
-% in this section at a high level of abstraction.
 
-% TODO: Do
-% Outline
-% - Monitoring/DevOps
-% - Decentralized Identity?
-% - BestRentalPoC
+DevOps (Development and Operations) is a software engineering practice that adapts the classical software development process (also known as the waterfall model)
+by integrating agile business practices into the development process. Today, DevOps and other
+development processes based on DevOps are widely used in professional environments. Because
+of its widespread usage, there is a lot of academic interest in DevOps. Although DevOps focuses
+on both the development and operation of software, as its name suggests, most academic research
+into the topic only focuses on the development of software including the delivery of software.
+Monitoring is a part of operating software systems that has received little attention in academic research.
 
-Monitoring is a part of operating software.
+\begin{quote}
+\textit{``Although researchers have focused considerably on build and deployment,
+DevOps also impacts infrastructure operations'', \cite{EG+16}}
+\end{quote}
+
+This thesis proposes an extension of the UME (Unified Microservice Engineering) approach with a monitoring concept.
+The UME approach is a DevOps-based software development process for the development of microservice-based
+software by the C\&M (Cooperation \& Management) research group. The main content chapters of this thesis
+focus on the development of a monitoring concept for the UME approach, in Chapter \ref{cha:concept},
+and its application to a research project from the C\&M group, in Chapter \ref{cha:first_solution}.
+The research project that the developed monitoring concept will be applied to is called
+BestRentalPoC (BestRental Proof of Concept).
+In Subsection \ref{subsec:story} the motivating story of BestRentalPoC is introduced which is later extended
+to include the need for a monitoring concept in Chapter \ref{cha:first_solution}.
 
 \subsection*{Story of BestRentalPoC}
+\label{subsec:story}
 
 The following is the motivating story behind the demonstrator project BestRentalPoC
 (BestRental Proof of Concept) that serves as a concrete project
@@ -49,84 +63,57 @@ Alice provides the desired period and location for the car rental.
 On the website, Alice can then browse and choose from available cars.
 Once she has selected a car, BestRental will reserve the car for her.
 
-% \subsection{Motivation BestRentalPoC}
-% The company BestRental wants to develop a monitoring solution for its BestRentalPoC system
-% to collect metrics that are meant to assist the company in operating the BestRentalPoC.
-% The system will be operated by QA Engineers, system operators, and a project manager.
-% Before developing the monitoring solution, the team tasked with developing the solution,
-% interview the different roles to find out how they will use the solution
-% and what their tasks and responsibilities are.
-% QA Engineers are responsible for the reliability of BestRentalPoC.
-% To ensure the reliability of the system, they want to know when requests to the system fail and
-% trigger errors, so that they can fix them.
-% For them to better understand errors, they want to know how often errors occur and from which services,
-% inside of BestRentalPoC, they originate.
-% The system operators run the BestRentalPoC. They need to make sure that at any point in time
-% BestRentalPoC has enough instances of all of its services available to serve all incoming requests.
-% Because BestRental wants to operate profitably, they can't just create as many instances as they like,
-% and they need to shut down instances when they are not needed.
-% To assist them with their task, they want to know how high the resource usage of each instance is
-% and how many requests are coming into the system. The resources that they want to track for each
-% instance are the instance's CPU and memory usage.
-% The project manager's yearly bonus is tied to how profitable the BestRentalPoC operates.
-% To ensure that he gets his bonus, the project manager wants to track the operating costs of the complete system.
-% Additionally, he needs to how high the operating costs of each service are, so that he can
-% allocate development time to increase the efficiency of a service, making it more profitable.
-% After the interviews, the development notes that all types of users of the monitoring solution
-% want to be able to do five different things.
-% Firstly, they want to be able to create a dashboard for a metric that displays its current and historic values.
-% When viewing a dashboard they also want to be able to run queries on the metric to, for example, get
-% its value at a specific point in time.
-% Because the users can't constantly watch all of their dashboards, they want to be able to create
-% alerts for a metric that will be triggered when the metric exceeds a set value.
-% When a metric exceeds a value set for an alert, the users want to receive the alert so that they can act on it.
-% The developers also know that the solution needs to be able to do three main things to accomplish
-% the requested features.
-% Firstly, the solution needs to collect metrics from BestRentalPoC,
-% it then needs to analyze the collected data, and lastly, it needs to conditionally send out alerts
-% for metrics.
-
 \section{Research Questions}
 \label{sec:rq}
-% The first research question should be superior to the following questions ''2 to n'' 
-% and should be dealt with in the first content chapter which is Chapter 4.
 
-% The second research question concerns the concrete software system which serves as a (first part of a)
-% demonstrator for the overall research question. This software system will be developed in cooperation with
-%  the project team (JuniorStudents) which is co-supervised by the author (SeniorStudent) of this thesis.
-% Chapter 5 (Technical Foundation) introduces the existing preliminary work which particularly includes the already
-% existing artifacts relevant for the software system to be developed. Chapter 6 (First Solution) describes the
-% structured development approach of the software system (in the case of a microservice-based application,
-% this is C\&M's microservice engineering approach).
-
-% Research questions 3 to n should then be addressed in the following chapters.
-% These research questions should be formulated in detail only AFTER clear answers to the second research question have
-% been worked out since these results have a strong influence on the further alignment of the thesis.
-
-% TODO: Do
+This thesis focuses on developing a monitoring concept that can be integrated into the UME (Unified Microservice Engineering)
+approach which is a software development process created by the C\&M (Cooperation \& Management) research group.
+The development of the monitoring concept is guided by two research questions that are listed below.
+The first research question RQ1 operates on an abstract level and is answered in Chapter \ref{cha:concept}.
+The second research question RQ2 takes the results from the first research question and validates them by applying
+the developed monitoring concept to the demonstrator project BestRentalPoC (Best Rental Proof of Concept) in Chapter \ref{cha:first_solution}.
+An overview of the demonstrator project is given in Section \ref{sec:desc_demonstrator}.
 
 \begin{enumerate}
-	\item[RQ1:] How can monitoring be integrated into the UME (Unified Microservice Engineering) approach?
-	Most research regarding DevOps-based software engineering processes and practices only focuses
-	on the development and deployment part of DevOps while leaving out the operations.
+	\item[RQ1:] How can monitoring be integrated into the UME approach?
+	Most research regarding DevOps-based software development processes and practices only focuses
+	on the development and deployment of software while leaving out its operation which
+	includes monitoring. The UME approach is such a DevOps-based software development process that currently
+	does not include a monitoring concept. Extending the UME approach with a monitoring concept is the main goal
+	of this thesis.
 
 	\item[RQ2:] How can the adapted UME approach be used to monitor BestRentalPoC?
-	To prove the validity of the developed monitoring concept it should be applied
-	to a project.
+	The BestRentalPoC is a software project from the C\&M research group that is used
+	to test out and develop new engineering practices. This thesis will use this project
+	to validate the developed monitoring concept by integrating it into a part of the project.
 \end{enumerate}
 
 \section{Description of the Demonstrator}
 \label{sec:desc_demonstrator}
-% The demonstrator should clarify the research questions introduced in the previous section on an appropriate conceptual level.
-% The demonstrator introduces a practical example and shows a solution. In its first draft,
-% it corresponds to the software system which is developed in cooperation with the co-supervised project team (JuniorStudents).
 
-% TODO: Do
+The BestRentalPoC is used as a demonstrator in this thesis.
+This means that the BestRentalPoC is used to validate the abstract monitoring concept that will be developed
+by applying it to a concrete project. The BestRentalPoC consists of three main components: The DLAKaApp, the BestRentalApp,
+and Microsoft Entra Verified Id \cite{MIC-ENT}. In its current state, the BestRentalPoC is fully developed but lacks monitoring.
+Because the UME approach that was used to develop the BestRentalPoC is based on the DevOps concept, this raises the question
+of how monitoring can be integrated into a DevOps-based software engineering process like the UME approach.
+This question is answered in Chapter \ref{cha:concept}.
+
+The DLAKaApp consists of the user interface UI-DLAKa (User Interface DLAKa) and the microservice AM-DrivingLicenseManagement
+(Application Microservice DrivingLicenseManagement) which are both deployed to a Kubernetes \cite{KUB-DOCS} cluster using Helm \cite{HEL-DOCS}.
+The monitoring concept will be applied to the DLAKaApp as an extra component called SPMonitor.
+SPMonitor will monitor the issuance of digital driving licenses as well as the resource usage of DLAKaApp's components. 
+Because AM-DrivingLicenseManagement is written in the Golang programming language, SPMonitor will need to interact with a microservice
+written in Golang and be deployed to a Kubernetes cluster using Helm. The development of SPMonitor can be found in Chapter \ref{cha:first_solution}.
 
 \section{Thesis Structure}
 \label{sec:thesis_structure}
 
-The following is a brief overview of the structure of this thesis.
+The following is a brief overview of the structure of this thesis. Chapter \ref{cha:concept} and \ref{cha:first_solution}
+provide the main content of this thesis. The chapters \ref{cha:foundations}, \ref{cha:state_of_the_art}, and
+\ref{cha:technical_foundation} provide the knowledge needed by a reader of this thesis.
+Chapters \ref{cha:projektteam-arbeiten} and \ref{cha:m2go} describe additional work that was performed
+by the author of this thesis that is not related to the research questions posed in Section \ref{sec:rq}.
 
 \subsection*{Chapter 2: Foundations}
 
@@ -143,7 +130,6 @@ group's literature collection.
 
 \subsection*{Chapter 4: Overall Concept of the Developed Solution}
 
-% TODO:
 Chapter \ref{cha:concept} develops the central idea of this thesis: The extension
 of the UME approach with a monitoring concept. First, the UME approach,
 which employs the DevOps concept, is described. This is followed by an analysis
@@ -172,11 +158,11 @@ create requirements and capabilities for SPMonitor. After the analysis,
 SPMonitor is designed. The design starts with an abstract software architecture
 based on the general requirements for a monitoring tool described in Chapter \ref{cha:foundations}.
 This is followed by an API specification for collecting metrics from the microservice DrivingLicenseManagement.
-% TODO:
-SPMonitor Client Lib
+The metrics will be collected from the microservice DrivingLicenseManagement through
+the SPMonitor Library.
 With the requirements and capabilities as a basis, the tools for SPMonitor are selected next.
 Finally, the concrete software architecture of SPMonitor is designed.
-The chapter concludes with the description of the implementation and deployment of SPMonitor.
+The chapter concludes with a description of the implementation and deployment of SPMonitor.
 
 \subsection*{Chapter 7: Organization of the Project Team}
 
@@ -200,18 +186,8 @@ developing a microservice implementation which will be used as the template for 
 Chapter \ref{cha:outlook} contains the author's summary of this thesis
 as well as an outlook on areas of research that require further attention in the future.
 
-\subsection*{Chapter 10: Appendix}
-
-Chapter \ref{cha:appendix} is the appendix to the main content of the thesis.
-The appendix contains lecture slides that were developed by the author for the WASA2 lecture,
-the summary of a so-called Snack and Learn seminar by iC Consult \cite{ICC-WEB},
-and a copy of the best practices and guidelines that were developed by the author
-for the Unified Microservice Engineering approach of the Cooperation and Management group.
-
 \section{Content-related Overview}
 \label{sec:content_overview}
-
-% TODO: Check fits new figure
 
 Figure \ref{fig:content_overview} illustrates the relationship between the topics
 discussed in this thesis. A developer uses the UME (Unified Microservice Engineering) approach
@@ -219,8 +195,9 @@ by the C\&M (Cooperation \& Management) group for developing microservice-based 
 that uses decentralized identities. Decentralized identities are a method of providing
 credentials independent of a central authority based upon decentralization and cryptography.
 The UME approach defines a process for developing microservice-based software
-using the DevOps concept. The DevOps concept employs CI/CD (Continuous Integration/Continuous Deployment)
-and containerization to increase the efficiency of software development.
+using the concepts of DevOps and CI/CD.
+The DevOps concept aims to increase the efficiency of software development
+through faster product deliveries by taking an agile approach to software development.
 CI/CD refers to the practice of continuously delivering new features of software instead
 of only delivering the completed software. Containerization provides a method for
 deploying software independent of its runtime environment which makes deployments
@@ -234,9 +211,9 @@ Business metrics capture KPIs (Key Performance Indicators) that can be used
 by a business to drive business decisions. An example of a business metric
 is the usage of a feature.
 
-\begin{figure}[h]
+\begin{figure}[tb]
 	\centering
-	\includegraphics[width=\textwidth]{figures/content_overview.png}
+	\includegraphics[width=0.7\textwidth]{figures/content_overview.png}
 	\caption{Content-related Overview}
 	\label{fig:content_overview}
 \end{figure}

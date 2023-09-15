@@ -19,7 +19,7 @@
 \usepackage[printonlyused]{acronym}
 \usepackage{multicol}
 
-\usepackage[table]{xcolor}
+\usepackage[table, dvipsnames]{xcolor}
 
 \usepackage{comment}
 
@@ -297,6 +297,111 @@
     commentstyle=\color{black},
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% YAML syntax highlighting %%%%%%%%%%%%%%%%%
+
+\lstdefinelanguage{yaml}{
+  keywords={
+    serviceAccounts:,
+    server:,
+    name:,
+    serverFiles:,
+    prometheus.yml:,
+    remote_write:,
+    url:,
+    scrape_configs:,
+    job_name:,
+    kubernetes_sd_configs:,
+    role:,
+    namespaces:,
+    names:,
+    metadata:,
+    annotations:,
+    prometheus/path:,
+    prometheus/port:,
+    prometheus/scheme:,
+    prometheus/scrape:,
+    kind:,
+    rules:,
+    resources:,
+    verbs:,
+    datasources:,
+    datasources.yaml:,
+    type:,
+    isDefault:,
+    dashboardsConfigMaps:,
+    default:,
+    dashboardProviders:,
+    dashboardproviders.yaml:,
+    apiVersion:,
+    providers:,
+    data:,
+    spec:,
+    replicas:,
+    template:,
+    containers:,
+    image:,
+    ports:,
+    envFrom:,
+    secretRef:,
+    args:,
+    port:,
+    targetPort:,
+    pvcName:,
+    s3:,
+    endpoint:,
+    bucket_name:,
+    existingSecret:,
+    mode:,
+    buckets:,
+    serviceAccount:,
+    persistence:,
+    existingClaim:,
+    dependencies:,
+    condition:,
+    mimir:,
+    storage:,
+    capacity:,
+    hostPath:,
+    path:,
+    persistency:,
+    enabled:,
+    minio:,
+    openapi:,
+    info:,
+    title:,
+    version:,
+    paths:,
+    /metrics:,
+    get:,
+    responses:,
+    200:,
+    description:,
+    content:,
+    text/plain:,
+    schema:,
+    examples:,
+    has_value:,
+    summary:,
+    value:,
+    no_value:
+  },
+  keywordstyle=\color{blue}\footnotesize,
+  moredelim=[is][commentstyle]{||}{££},
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{\#},
+  commentstyle=\color{olive}\ttfamily,
+  stringstyle=\color{orange}\ttfamily,
+  morestring=[b]',
+  morestring=[b]",
+  alsoletter={.,:,/2,0},
+  breaklines=true
+}
+
+%%%%%%%%%%% YAML syntax highlighting %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \DeclareCaptionFont{black}{\color{black}} 
 \DeclareCaptionFormat{listing}
   {\colorbox{white}
@@ -318,16 +423,6 @@
 %\usepackage[disable]{todonotes}	% hide all todo notes
 %\presetkeys{todonotes}{inline}{}	% show all defined todos as inline
 
-%
-% glossary
-%
-
-\usepackage[acronym,numberedsection,automake]{glossaries}
-\setacronymstyle{long-short}
-\loadglsentries{chapters/used_terms.tex}
-\loadglsentries{chapters/glossar.tex}
-\makeglossaries
-\glsdisablehyper
 %
 % load additional packages
 %

@@ -1,24 +1,3 @@
-% Auf dieser Seite wird ein wichtiger Aspekt der für alle bei C&M erstellten Ausarbeitungen behandelt. Der Aspekt der Literatur wird umso wichtiger, je "wissenschaftlich höherwertiger" die Ausarbeitung ist (Pr /Se/PR – BT – MT – PhD).
-
-% (1) Bei C&M existieren zu fast jedem vergebenen Thema Vorarbeiten, die eine erste wichtige Quelle für die zu diesem Thema vorhandenen Literatur darstellt. Diese Vorarbeiten sind insbesondere die zu dem Thema in den vorhergehenden Semestern durchgeführten Arbeiten (MT, BT, Pr/Se/PS) und Publikationen, aber auch ggf. gewisse Ausschnitte aus den WASA-Kurseinheiten. Die in diesen Arbeiten referenzierte Literatur liefert eine weitere umfangreiche Quelle.
-
-% (2.1) Im Falle eines Autors werden die ersten Buchstaben des Nachnamens dieses Autors genannt, wobei der erste Buchstabe groß- und der zweite kleingeschrieben ist. Bei zwei Autoren werden die Anfangsbuchstaben der Nachnamen der Autoren in Großbuchstaben angegeben. Mehr als zwei Autoren werden durch ein "+" nach den ersten zwei Buchstaben kenntlich gemacht.
-% Beispiel:
-% [DK+18] Soumya Kanti Datta, Mohammad Irfan Khan, Lara Codeca, B. Denis, Jerome Haerri, Christian Bonnet: IoT and Microservices Based Testbed for Connected Car Services, IEEE 19th International Symposium on "A World of Wireless, Mobile and Multimedia Networks" (WoWMoM), pp. 14 – 19, 2018.
-% (2.2) Ist der Autor eine Organisation, so werden die drei ersten Buchstaben als Abkürzung dieser Organisation im Index vorgesehen. Aus Gründen einer besseren Wiederverwendbarkeit der Referenzen in anderen Dokumenten erfolgt anstelle der Jahreszahl eine Drei-Buchstaben-Abkürzung des Titels des Dokuments, die mit einem Bindestrich ("-") an die Abkürzung der Organisation angehängt wird. Diese drei Buchstaben entsprechen den ersten drei Buchstaben im Titel, wobei die Groß-/Kleinschreibung des Titels übernommen wird.
-% Beispiel:
-% [Mic-Act] Microsoft: Active Directory-Synchronisierung: Roadmap, Online-Hilfe zu Microsoft Office 365. http://onlinehelp.microsoft.com/de-de/office365-enterprises/ff652543.aspx
-% [Wik-Act] Wikipedia: Active Directory. http://de.wikipedia.org/wiki/Active_Directory
-% (2.3) Für die Dokumente der Forschungsgruppe Cooperation & Management gelten folgende Regeln für die Index-Bildung.
-% (i) Abkürzung CM für Cooperation & Management
-% (ii) einem oder zwei Großbuchstaben, der/die die Art des Dokuments angibt (G: GitLab, V: Verwaltungsdokument (inkl. Lehre-Dokument), W: WASA-Kurseinheit bzw. WASA Course Unit)
-% (iii) die ersten drei Buchstaben des Titels des Dokuments.
-% Beispiel:
-% [CM-W-WEB] Cooperation & Management: WEB APPLICATION DEVELOPMENT, WASA Course Unit. \\sccfs.scc.kit.edu\OE\TM\VR\Mitglieder\2-2.WASA_Lecture\1.Web_Application_Development
-
-% (3) Eine solche Verknüpfung des Index sollte für alle im Literarturverzeichnis und in der Top Literature auftretenden Referenzen durchgeführt werden. In den Kapiteln ist jeder Index mindestens bei seinem ersten Auftreten in diesem Kapitel zu verlinken.
-% (3.1) Wird ein Dokument in Papierform ausgeliefert (insbesondere also Bachelor- und Masterarbeiten), ist im Literaturverzeichnis zusätzlich der Web-Link mit anzugeben (in Kursivschrift nach dem das Ende der Referenz bezeichnenden Satzendepunkt). Ergänzend kann in Klammern nach dem Web-Link ebenfalls in Kursivschrift angegeben werden, wann der Web-Link das letzte Mal besucht wurde.
-
 @article{UF+22,
   author  = {Usman, Muhammad and Ferlin, Simone and Brunstrom, Anna and Taheri, Javid},
   journal = {IEEE Access},
@@ -90,19 +69,38 @@
   doi     = {10.1109/MS.2016.68}
 }
 
-@inproceedings{LK+16,
-  author = {Lwakatare, Lucy Ellen and Kuvaja, Pasi and Oivo, Markku},
-  year   = {2016},
-  month  = {08},
-  title  = {An Exploratory Study of DevOps: Extending the Dimensions of DevOps with Practices}
+
+@article{LK+16,
+  title={An Exploratory Study of DevOps: Extending the Dimensions of DevOps with Practices},
+  author={Lwakatare, Lucy Ellen and Kuvaja, Pasi and Oivo, Markku},
+  journal={Icsea},
+  volume={104},
+  pages={91-99},
+  year={2016}
 }
 
-@article{La23,
+@misc{La23,
   author       = {Tim Lachenicht},
   title        = {Applying Decentralized Identities within the Case Study BestRentalPoC},
   year         = {2023},
   howpublished = {\url{file://sccfs.scc.kit.edu/OE/TM/VR/Mitglieder/3-2-1.MicroserviceEngineering/Pr_SpielvogelLachenicht/%5BLa23%5D_Applying_Decentralized_Identities_within_the_Case_Study_BestRentalPoC.pdf}},
   note         = {Accessed: 2023-08-20}
+}
+
+@misc{Am23,
+  author       = {Roman Amblank},
+  title        = {Practical Course Thesis},
+  year         = {2023},
+  howpublished = {\url{file://sccfs.scc.kit.edu/OE/TM/VR/Mitglieder/3-0.Treffen/2.Praktikum/Bearbeitet/KW31/pr_Amblank-gogel.pdf}},
+  note         = {Accessed: 2023-09-10}
+}
+
+@misc{Go23,
+  author       = {Gerrit Gogel},
+  title        = {Master Thesis},
+  year         = {2023},
+  howpublished = {\url{file://sccfs.scc.kit.edu/OE/TM/VR/Mitglieder/3-3.Ba_Ma_PdF/MT_Gogel/mt_gogel.pdf}},
+  note         = {Accessed: 2023-09-13}
 }
 
 @article{SB+17,
@@ -138,95 +136,111 @@
   author  = {Brian Fitzgerald and Klaas-Jan Stol}
 }
 
-@article{W3C-DID,
-  organization = {World Wide Web Consortium},
+@misc{W3C-DID,
+  author       = {World Wide Web Consortium},
   title        = {Decentralized Identifiers (DIDs) v1.0},
   year         = {2022},
   howpublished = {\url{https://www.w3.org/TR/did-core/}},
   note         = {Accessed: 2023-08-21}
 }
 
-@article{W3C-VC,
-  organization = {World Wide Web Consortium},
+@misc{W3C-VC,
+  author       = {World Wide Web Consortium},
   title        = {Verifiable Credentials Data Model v2.0},
   year         = {2023},
   howpublished = {\url{https://www.w3.org/TR/vc-data-model-2.0/}},
   note         = {Accessed: 2023-08-21}
 }
 
-@article{GIT-DEV,
-  organization = {GitLab},
+@misc{GIT-DEV,
+  author       = {GitLab},
   title        = {What is DevOps?},
   year         = {2023},
   howpublished = {\url{https://about.gitlab.com/topics/devops}},
   note         = {Accessed: 2023-08-22}
 }
 
-@article{GIT-CICD,
-  organization = {GitLab},
+@misc{GIT-CICD,
+  author       = {GitLab},
   title        = {What is CI/CD?},
   year         = {2023},
   howpublished = {\url{https://about.gitlab.com/topics/ci-cd/}},
   note         = {Accessed: 2023-08-22}
 }
 
-@article{CM-W-CON,
+@misc{CM-W-CON,
   author       = {Cooperation \& Management},
   title        = {Containerization And Container Management - WASA Course Unit},
   year         = {2023},
-  howpublished = {\url{\\sccfs.scc.kit.edu\OE\TM\VR\Mitglieder\2-2-1.Microservice_Engineering\me6-1.containerization_and_container_management.pptx}},
+  howpublished = {\url{//sccfs.scc.kit.edu/OE/TM/VR/Mitglieder/2-2-1.Microservice_Engineering/me6-1.containerization_and_container_management.pptx}},
   note         = {Accessed: 2023-08-23}
 }
 
-@article{CM-W-OVW,
+@misc{CM-W-OVW,
   author       = {Cooperation \& Management},
   title        = {Microservice Engineering: Overview - WASA Course Unit},
   year         = {2023},
-  howpublished = {\url{\\sccfs.scc.kit.edu\OE\TM\VR\Mitglieder\2-2-1.Microservice_Engineering\me1.overview.pptx}},
+  howpublished = {\url{//sccfs.scc.kit.edu/OE/TM/VR/Mitglieder/2-2-1.Microservice_Engineering/me1.overview.pptx}},
   note         = {Accessed: 2023-08-24}
 }
 
-@article{CM-W-DES,
+@misc{CM-W-DES,
   author       = {Cooperation \& Management},
   title        = {Microservice Engineering: Design - WASA Course Unit},
   year         = {2023},
-  howpublished = {\url{\\sccfs.scc.kit.edu\OE\TM\VR\Mitglieder\2-2-1.Microservice_Engineering\me4.design.pptx}},
+  howpublished = {\url{//sccfs.scc.kit.edu/OE/TM/VR/Mitglieder/2-2-1.Microservice_Engineering/me4.design.pptx}},
   note         = {Accessed: 2023-08-24}
 }
 
-@article{CM-W-M2G,
+@misc{CM-W-M2G,
   author       = {Cooperation \& Management},
   title        = {M2Go Introduction},
   year         = {2023},
-  howpublished = {\url{\\sccfs.scc.kit.edu\OE\TM\VR\Mitglieder\2-2-4.WASA_M2Go\m2go0_introduction.pptx}},
+  howpublished = {\url{//sccfs.scc.kit.edu/OE/TM/VR/Mitglieder/2-2-4.WASA_M2Go/m2go0_introduction.pptx}},
   note         = {Accessed: 2023-08-24}
 }
 
-@article{CM-W-IMP,
+@misc{CM-W-IMP,
   author       = {Cooperation \& Management},
   title        = {Microservice Engineering: Implementation and Test - WASA Course Unit},
   year         = {2023},
-  howpublished = {\url{\\sccfs.scc.kit.edu\OE\TM\VR\Mitglieder\2-2-1.Microservice_Engineering\me5.implementation_and_test.pptx}},
+  howpublished = {\url{//sccfs.scc.kit.edu/OE/TM/VR/Mitglieder/2-2-1.Microservice_Engineering/me5.implementation_and_test.pptx}},
   note         = {Accessed: 2023-08-24}
 }
 
-@article{CM-W-OPS,
+@misc{CM-W-OPS,
   author       = {Cooperation \& Management},
   title        = {Microservice Engineering: Deployment and Operations - WASA Course Unit},
   year         = {2023},
-  howpublished = {\url{\\sccfs.scc.kit.edu\OE\TM\VR\Mitglieder\2-2-1.Microservice_Engineering\me6-2.deployment_and_operations.pptx}},
+  howpublished = {\url{//sccfs.scc.kit.edu/OE/TM/VR/Mitglieder/2-2-1.Microservice_Engineering/me6-2.deployment_and_operations.pptx}},
   note         = {Accessed: 2023-08-24}
 }
 
-@article{CM-W-TEA,
+@misc{CM-W-TEA,
   author       = {Cooperation \& Management},
   title        = {C\&M Teamarbeit},
   year         = {2023},
-  howpublished = {\url{\\sccfs.scc.kit.edu\OE\TM\VR\Mitglieder\1-1.Teamarbeit\1.cm-teamarbeit.pptx}},
+  howpublished = {\url{//sccfs.scc.kit.edu/OE/TM/VR/Mitglieder/1-1.Teamarbeit/1.cm-teamarbeit.pptx}},
   note         = {Accessed: 2023-09-03}
 }
 
-@article{CM-G-M2G,
+@misc{CM-W-DEV,
+  author       = {Cooperation \& Management},
+  title        = {WASA: DevOps},
+  year         = {2023},
+  howpublished = {\url{//sccfs.scc.kit.edu/OE/TM/VR/Mitglieder/2-2-3.Advanced_Course_Units/3-4.devops-ss23.pptx}},
+  note         = {Accessed: 2023-09-15}
+}
+
+@misc{CM-W-INT,
+  author       = {Cooperation \& Management},
+  title        = {WASA Introduction WS22/23},
+  year         = {2022},
+  howpublished = {\url{//sccfs.scc.kit.edu/OE/TM/VR/Mitglieder/2-2.==WASA==/1.Earlier_Semesters/WiSe22-23/1.wasa_introduction_wise22-23.pdf}},
+  note         = {Accessed: 2023-09-03}
+}
+
+@misc{CM-G-M2G,
   author       = {Cooperation \& Management},
   title        = {M2Go GitLab Repository},
   year         = {2023},
@@ -234,7 +248,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{CM-G-UME,
+@misc{CM-G-UME,
   author       = {Cooperation \& Management},
   title        = {UME Documentation},
   year         = {2023},
@@ -242,7 +256,7 @@
   note         = {Accessed: 2023-08-27}
 }
 
-@article{CM-G-GEN,
+@misc{CM-G-GEN,
   author       = {Cooperation \& Management},
   title        = {UME Documentation: Generate Go API Controller Stubs From OpenAPI Specification},
   year         = {2023},
@@ -250,7 +264,7 @@
   note         = {Accessed: 2023-08-28}
 }
 
-@article{CM-G-DMC,
+@misc{CM-G-DMC,
   author       = {Cooperation \& Management},
   title        = {DM-Car},
   year         = {2023},
@@ -258,7 +272,7 @@
   note         = {Accessed: 2023-08-29}
 }
 
-@article{CM-G-PHA,
+@misc{CM-G-PHA,
   author       = {Cooperation \& Management},
   title        = {UME Phases},
   year         = {2023},
@@ -266,15 +280,39 @@
   note         = {Accessed: 2023-08-29}
 }
 
-@article{CH23,
-  author       = {Jack Christensen},
-  title        = {pgx - PostgreSQL Driver and Toolkit},
+@misc{CM-G-SP,
+  author       = {Tim Engbrocks},
+  title        = {SPMonitor GitLab Repository},
   year         = {2023},
-  howpublished = {\url{https://github.com/jackc/pgx}},
-  note         = {Accessed: 2023-08-24}
+  howpublished = {\url{https://gitlab.kit.edu/kit/cm/members/bama/baengbrocks/spmonitor}},
+  note         = {Accessed: 2023-09-12}
 }
 
-@article{DEE-OAPI,
+@misc{CM-G-SPS,
+  author       = {Tim Engbrocks},
+  title        = {SPMonitor Secrets GitLab Repository},
+  year         = {2023},
+  howpublished = {\url{https://gitlab.kit.edu/kit/cm/members/bama/baengbrocks/spmonitor-secrets}},
+  note         = {Accessed: 2023-09-12}
+}
+
+@misc{CM-G-SPM,
+  author       = {Tim Engbrocks},
+  title        = {SPMonitor Mimir GitLab Repository},
+  year         = {2023},
+  howpublished = {\url{https://gitlab.kit.edu/kit/cm/members/bama/baengbrocks/spmonitor-mimir}},
+  note         = {Accessed: 2023-09-12}
+}
+
+@misc{Ji23,
+  author       = {Jinzhu},
+  title        = {GORM Documentation},
+  year         = {2023},
+  howpublished = {\url{https://gorm.io/docs/}},
+  note         = {Accessed: 2023-09-12}
+}
+
+@misc{DEE-OAPI,
   author       = {DeepMap Inc.},
   title        = {OpenAPI Client and Server Code Generator},
   year         = {2023},
@@ -282,7 +320,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{PRO-DOCS,
+@misc{PRO-DOCS,
   author       = {Prometheus Authors},
   title        = {Prometheus Documentation},
   year         = {2023},
@@ -290,7 +328,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{PRO-HELM,
+@misc{PRO-HELM,
   author       = {Prometheus Authors},
   title        = {Prometheus Helm Charts},
   year         = {2023},
@@ -298,7 +336,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{GRA-DOCS,
+@misc{GRA-DOCS,
   author       = {Grafana Labs},
   title        = {Grafana Documentation},
   year         = {2023},
@@ -306,7 +344,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{GRA-HELM,
+@misc{GRA-HELM,
   author       = {Grafana Labs},
   title        = {Grafana Helm Charts},
   year         = {2023},
@@ -314,7 +352,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{MIM-DOCS,
+@misc{MIM-DOCS,
   author       = {Grafana Labs},
   title        = {Mimir Documentation},
   year         = {2023},
@@ -322,7 +360,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{MIM-IMG,
+@misc{MIM-IMG,
   author       = {Grafana Labs},
   title        = {Mimir Docker Image},
   year         = {2023},
@@ -330,7 +368,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{MIN-DOCS,
+@misc{MIN-DOCS,
   author       = {MinIO Inc.},
   title        = {MinIO Documentation},
   year         = {2023},
@@ -338,7 +376,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{MIN-HELM,
+@misc{MIN-HELM,
   author       = {MinIO Inc.},
   title        = {MinIO Helm Charts},
   year         = {2023},
@@ -346,7 +384,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{AMA-DOCS,
+@misc{AMA-DOCS,
   author       = {Amazon Web Services Inc.},
   title        = {Amazon S3 Documentation},
   year         = {2023},
@@ -354,7 +392,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{CM-G-DLM,
+@misc{CM-G-DLM,
   author       = {Cooperation \& Management},
   title        = {API Diagram AM-DrivingLicenseManagement},
   year         = {2023},
@@ -362,7 +400,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{HEL-DOCS,
+@misc{HEL-DOCS,
   author       = {Helm Authors},
   title        = {Helm Documentation},
   year         = {2023},
@@ -370,7 +408,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{KUB-DOCS,
+@misc{KUB-DOCS,
   author       = {The Kubernetes Authors},
   title        = {Kubernetes Documentation},
   year         = {2023},
@@ -378,7 +416,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{DOC-DOCS,
+@misc{DOC-DOCS,
   author       = {Docker Inc.},
   title        = {Docker Documentation},
   year         = {2023},
@@ -386,7 +424,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{ARG-DOCS,
+@misc{ARG-DOCS,
   author       = {Argo Project Authors},
   title        = {ArgoCD Documentation},
   year         = {2023},
@@ -394,7 +432,7 @@
   note         = {Accessed: 2023-08-24}
 }
 
-@article{LAB-DOCS,
+@misc{LAB-DOCS,
   author       = {LabStack LLC},
   title        = {Echo Documentation},
   year         = {2023},
@@ -402,7 +440,7 @@
   note         = {Accessed: 2023-08-27}
 }
 
-@article{POS-DOCS,
+@misc{POS-DOCS,
   author       = {The PostgreSQL Global Development Group},
   title        = {PostgreSQL Documentation},
   year         = {2023},
@@ -410,10 +448,106 @@
   note         = {Accessed: 2023-08-27}
 }
 
-@article{ICC-WEB,
+@misc{ICC-WEB,
   author       = {iC Consult Group GmbH},
   title        = {iC Consult Website},
   year         = {2023},
   howpublished = {\url{https://ic-consult.com/en/}},
   note         = {Accessed: 2023-08-30}
+}
+
+@misc{CM-G-CON,
+  author       = {Cooperation \& Management},
+  title        = {Cooperation \& Management GitLab: DM-Car CarController},
+  year         = {2023},
+  howpublished = {\url{https://gitlab.kit.edu/kit/cm/m2go/practicalmaterial/exercises/microserviceengineering/dm-car/-/blob/main/src/api/controller/CarController.go}},
+  note         = {Accessed: 2023-09-13}
+}
+
+@misc{CM-G-IOP,
+  author       = {Cooperation \& Management},
+  title        = {Cooperation \& Management GitLab: DM-Car CarOperationsInterface},
+  year         = {2023},
+  howpublished = {\url{https://gitlab.kit.edu/kit/cm/m2go/practicalmaterial/exercises/microserviceengineering/dm-car/-/blob/main/src/logic/operations/CarOperationsInterface.go}},
+  note         = {Accessed: 2023-09-13}
+}
+
+@misc{CM-G-OP,
+  author       = {Cooperation \& Management},
+  title        = {Cooperation \& Management GitLab: DM-Car CarOperations},
+  year         = {2023},
+  howpublished = {\url{https://gitlab.kit.edu/kit/cm/m2go/practicalmaterial/exercises/microserviceengineering/dm-car/-/blob/main/src/logic/operations/CarOperations.go}},
+  note         = {Accessed: 2023-09-13}
+}
+
+@misc{CM-G-GET,
+  author       = {Cooperation \& Management},
+  title        = {Cooperation \& Management GitLab: DM-Car GetCarOperation},
+  year         = {2023},
+  howpublished = {\url{https://gitlab.kit.edu/kit/cm/m2go/practicalmaterial/exercises/microserviceengineering/dm-car/-/blob/main/src/logic/operations/GetCarOperation.go}},
+  note         = {Accessed: 2023-09-13}
+}
+
+@misc{CM-G-IREPO,
+  author       = {Cooperation \& Management},
+  title        = {Cooperation \& Management GitLab: DM-Car CarRepositoryInterface},
+  year         = {2023},
+  howpublished = {\url{https://gitlab.kit.edu/kit/cm/m2go/practicalmaterial/exercises/microserviceengineering/dm-car/-/blob/main/src/logic/model/CarRepositoryInterface.go}},
+  note         = {Accessed: 2023-09-13}
+}
+
+@misc{CM-G-MEMREPO,
+  author       = {Cooperation \& Management},
+  title        = {Cooperation \& Management GitLab: DM-Car InMemoryRepository},
+  year         = {2023},
+  howpublished = {\url{https://gitlab.kit.edu/kit/cm/m2go/practicalmaterial/exercises/microserviceengineering/dm-car/-/blob/main/src/infrastructure/InMemoryRepository.go}},
+  note         = {Accessed: 2023-09-13}
+}
+
+@misc{CM-G-API,
+  author       = {Cooperation \& Management},
+  title        = {Cooperation \& Management GitLab: DM-Car API specification},
+  year         = {2023},
+  howpublished = {\url{https://gitlab.kit.edu/kit/cm/m2go/practicalmaterial/exercises/microserviceengineering/dm-car/-/blob/main/src/api/specification/openapi.yaml}},
+  note         = {Accessed: 2023-09-13}
+}
+
+@misc{CM-G-BEIMPL,
+  author       = {Cooperation \& Management},
+  title        = {Cooperation \& Management GitLab: Best Practice: Implementing a Microservice in Golang},
+  year         = {2023},
+  howpublished = {\url{https://gitlab.kit.edu/kit/cm/teaching/engineeringknowledge/umephases/-/blob/main/pages/be_implementing_a_microservice_in_golang.md}},
+  note         = {Accessed: 2023-09-13}
+}
+
+@misc{CM-G-INFRA,
+  author       = {Cooperation \& Management},
+  title        = {Cooperation \& Management GitLab: DM-Car infrastructure package},
+  year         = {2023},
+  howpublished = {\url{https://gitlab.kit.edu/kit/cm/m2go/practicalmaterial/exercises/microserviceengineering/dm-car/-/tree/main/src/infrastructure}},
+  note         = {Accessed: 2023-09-13}
+}
+
+@misc{CM-G-MAIN,
+  author       = {Cooperation \& Management},
+  title        = {Cooperation \& Management GitLab: DM-Car main method},
+  year         = {2023},
+  howpublished = {\url{https://gitlab.kit.edu/kit/cm/m2go/practicalmaterial/exercises/microserviceengineering/dm-car/-/blob/main/src/main.go?ref_type=heads#L14}},
+  note         = {Accessed: 2023-09-13}
+}
+
+@misc{CM-G-ISSOP,
+  author       = {Cooperation \& Management},
+  title        = {Cooperation \& Management GitLab: AM-DrivingLicenseManagement IssuanceOperations},
+  year         = {2023},
+  howpublished = {\url{https://git.scc.kit.edu/cm-tm/cm-team/connectedcar/br/dlakaapp/am-drivinglicensemanagement/-/blob/dev-monitoring/src/logic/operations/IssuanceOperations.go}},
+  note         = {Accessed: 2023-09-13}
+}
+
+@misc{MIC-ENT,
+  author       = {Microsoft},
+  title        = {Introduction to Microsoft Entra Verified ID},
+  year         = {2023},
+  howpublished = {\url{https://learn.microsoft.com/en-us/azure/active-directory/verifiable-credentials/decentralized-identifier-overview}},
+  note         = {Accessed: 2023-09-13}
 }

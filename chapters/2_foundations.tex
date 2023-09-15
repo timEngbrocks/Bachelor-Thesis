@@ -52,19 +52,19 @@ that they possess a valid driving license. Due to their cryptographic nature,
 decentralized identities also provide tamper-proof identities along with increased data security.
 
 The following is an example of the usage of decentralized identities.
-\Gls{Alice} is a citizen who wants to rent a car. \Gls{Alice} has a DID that uniquely identifies her.
+Alice is a citizen who wants to rent a car. Alice has a DID that uniquely identifies her.
 She also has a digital wallet associated with her DID that she can use
-to store VCs. \Gls{Bob} is a clerk for a driving license authority.
-In order for \Gls{Alice} to be able to rent a car online, she needs a method of proving that she has a valid
-driver's license. She goes to \Gls{Bob} and asks him to issue her a Verifiable Credential (VC) for her driving
+to store VCs. Bob is a clerk for a driving license authority.
+In order for Alice to be able to rent a car online, she needs a method of proving that she has a valid
+driver's license. She goes to Bob and asks him to issue her a Verifiable Credential (VC) for her driving
 license, which she could use as proof of her possession of a valid driver's license.
-\Gls{Bob} verifies that \Gls{Alice} has a valid driver's license and then issues her the VC using her DID.
+Bob verifies that Alice has a valid driver's license and then issues her the VC using her DID.
 The VC is stored in Alice's digital wallet which only she has access to.
 When she now goes through the process of renting a car online, the rental company
 can ask her to provide a VC to prove that she has a valid driver's license.
-\Gls{Alice} can then share her VC from her wallet with the rental company, which can then be
-verified by the rental company. The rental company now knows that \Gls{Alice} has a valid driving license.
-\Gls{Alice} can now proceed with renting a car online from the rental company.
+Alice can then share her VC from her wallet with the rental company, which can then be
+verified by the rental company. The rental company now knows that Alice has a valid driving license.
+Alice can now proceed with renting a car online from the rental company.
 
 \section{Observability and Monitoring}
 \label{sec:foundation_observability}
@@ -84,7 +84,6 @@ as a stack trace for microservices.
 Metrics are numerical data captured from an application from which the state of the application
 can be gauged. An example of a metric is the memory usage of an application.
 Because of the scope of this work, from now on, only metrics will be considered for observability.
-% TODO: Das sollte eingehen in SPMonitor
 According to Beyer et al. \cite{BJ+16}, monitoring can be used to capture the four golden signals of
 a network-based application. These four signals are Latency, Traffic, Errors, and Saturation.
 Latency measures the time that it takes the application to service a request starting from its arrival.
@@ -92,7 +91,7 @@ Traffic measures the number of incoming requests per second. Errors are the perc
 incoming requests result in an error. Saturation is a measurement of how much capacity of a constrained
 resource like memory is being used and how much is still free.
 
-\begin{figure}[h]
+\begin{figure}[tb]
 	\centering
 	\includegraphics[width=0.7\textwidth]{figures/observability_and_golden_signals.png}
 	\caption{Observability and the Four Golden Signals}
@@ -211,5 +210,3 @@ The last element is predictable deployments at any time. This ensures that shoul
 in a production environment, it can easily be rolled back with confidence.
 Overall this approach promises faster times until the customer receives value, less context switching
 from working with multiple different sources and fast recovery in case of problems.
-
-% TODO: more text plus second citation for something
