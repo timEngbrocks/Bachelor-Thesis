@@ -152,25 +152,84 @@ Flow:
 
 \subsection{Metrics Definition}
 
-In this section the two metrics numDDL and memUse will be defined.
-The numDDL metric should represent the number of issued digital driving
-licenses. Therefore its value should be incremented each time the DLAKaApp
-completes the issuing of a digital driving license. The metric numDDL will
-always be an integer. The metric numDDL should be presented as a line graph
-that visualizes the development of the metric. The MemUse metric should
-represent the amount of memory that is currently being used by the DLAKaApp.
-For better understandability, the metric should be presented in several forms.
-Firstly, the MemUse metric should measure the total amount of memory used by
-DLAKaApp and present it as a percentage of a set maximum of usable memory.
-Additionally, the MemUse metric should present the same information for each
-service of DLAKaApp where each service has an individual maximum of usable
-memory. The total maximum usable memory should be the sum of the maximums of
-the individual services. These percentage-based values should be represented as
-gauges. In addition to the percentage-based values, the MemUse metric should
-also display the current total memory usage of DLAKaApp and each service in
-megabytes. The current total memory usage of DLAKaApp should be visualized as a
-line graph. The memory usage of the services should be presented in a combined
-line graph. Both metrics will be represented in separate dashboards.
+In this section, the two metrics numDDL and memUse will be defined.
+The definitions of these two metrics will use the Metric Definition artifact
+from the extended UME approach developed in Chapter \ref{cha:concept}.
+The definition of the numDDL metric in the form of a
+Metric Definition can be seen in Listing \ref{lis:metric_definition_numDDL}.
+As the story in Section \ref{sec:story} stated, the purpose of the numDDL is to capture how many
+digital driving licenses were issued by the DLAKaApp so that DLAKa can evaluate
+the success of the DLAKaApp. Because the numDDL metric only uses a single value,
+the number of issued digital driving licenses, it is an elementary metric.
+Additionally, the numDDL metric does not capture the state of the DLAKaApp
+but instead is used to measure the business performance of the DLAKaApp.
+This makes the numDDL metric an elementary business metric.
+The numDDL metric will be presented in a simple line graph that visualizes
+the historic development of the metric. This kind of visual representation
+aligns well with the metric's purpose.
+
+\begin{figure}[tb]
+\begin{lstlisting}[caption = {Metric Definition: numDDL}, label = {lis:metric_definition_numDDL}, style = kit-cm, language=]
+Name: numDDL
+
+Purpose:
+Capture the number of issued digital driving licenses to
+evaluate the success of the DLAKaApp.
+
+Type: Elemental, Business
+
+Values:
+  - number of issued digital driving licenses
+
+Visual Representation:
+Line Graph with time as the x-axis and the current metric value as the y-axis.
+\end{lstlisting}
+\end{figure}
+
+The definition of the MemUse metric in the form of a
+Metric Definition can be seen in Listing \ref{lis:metric_definition_memUse}.
+As the story in Section \ref{sec:story} stated, the purpose of the MemUse metric
+is to identify services within the DLAKaApp that use excessive amounts of resources
+which incur high operating costs.
+The MemUse metric combines the amount of main memory currently being used by each service
+into an additional value that is the sum of all the service's memory usage. This sum
+is an aggregation which makes the MemUse an aggregated metric.
+Because the amount of memory being used captures the current state of the DLAKaApp,
+the MemUse metric is also a technical metric. Together, this makes the MemUse metric
+an aggregated technical metric. The visual representation of the MemUse metric
+consists of two different types of visualization: a line graph in which the historical
+development of the metric can be seen and a gauge that displays the metric's current value
+within the ranges defined in Listing \ref{lis:metric_definition_memUse}.
+Both of these visualizations are used for each service's memory usage
+and the total memory usage of DLAKaApp.
+
+\begin{figure}[tb]
+\begin{lstlisting}[caption = {Metric Definition: MemUse}, label = {lis:metric_definition_memUse}, style = kit-cm, language=]
+Name: MemUse
+
+Purpose:
+Capture the amount of main memory being used by DLAKaApp and SPMonitor
+to find services with excessive resource usage to prevent high operating costs.
+
+Type: Aggregate, Technical
+
+Values:
+  - For each service in the DLAKaApp: the amount of main memory
+    that is currently being used in bytes
+  - Total: Sum over the values of all services
+
+Visual Representation:
+  Per Value:
+  - 1: Line Graph with time as the x-axis and the current metric value as the y-axis.
+  - 2: Gauge with different colors for the different ranges of the metric.
+
+Ranges:
+  Per Value:
+  - Ok: Value < 3 GB
+  - Warning: 3 GB < Value < 4 GB
+  - Critical: Value > 4 GB
+\end{lstlisting}
+\end{figure}
 
 \subsection{Capabilities and Requirements}
 
@@ -459,28 +518,6 @@ and the combination of Mimir and MinIO represents the microservice AM-MetricStor
 \section{Implementation and Deployment}
 \label{sec:impl_and_deployment}
 
-% TODO: review saad
-% Stefan würde das relativ gut verstehen. Aber der Rest safe nicht. 
-% Immer einen nicht technischen teil hinzufügt,  der grob beschreibt, 
-% was gleich erlkärt wird mit stark technischen detail
-
-% TODO: review saad
-% In der Section hast du schon eine starke hierarchische struktur. Gerade im Dritten COnfiguring schritt. Da gibts mehrere sachen wo du jedes mal wieder mit first/second/third anfängst. 
-% Wäre safe angenehmer, wenn man das bisschen besser einordnen kann oder einen art "inhaltsverzeichnnis" der schritte/unterschritte sieht
-% 1. Auto Discovery
-% 2. Config Storage Endpoint
-% 3. RBAC-based permissions
-% ich würde diese tasks erst so kurz erwähnen und dass diese in folgenden erklärt werden. 
-% und dann nach jedem punkt einen abschnitt machen (enter). Gerade weil der schritt 3 dann auch noch ewig lang ist und nochmal aus 2 teilen besteht. Sonst wird das ein big cluster of text
-% und abeck hat dann roten pfaden 
-
-% TODO: review saad
-% hier genauso, erst aufzählen dass es zwei scrape configs gibt, hast ja sogar namen udn dann auf die eingehen
-
-% TODO: review saad
-% perfekte intro, so meine ich das in den kommentaren davor 
-% -> meint config grafana erste sätze
-
 With the design of SPMonitor finished it can be implemented and deployed.
 SPMonitor will be implemented to be run as an Umbrella Helm Chart.
 An Umbrella Helm Chart combines multiple Helm Charts into a single Helm Chart with one configuration file
@@ -519,16 +556,9 @@ serverFiles:
 \end{figure}
 
 The Helm Chart for Prometheus \cite{PRO-HELM} was configured first as it is the central service
-of SPMonitor. There were three important tasks when configuring the Helm Chart
-for Prometheus. Firstly, Prometheus had to be set up to automatically discover
-the services that should be monitored via service discovery. Secondly,
-the remote\_write URL for Prometheus had to be set. This URL provides Prometheus
-with a storage endpoint for the collected metrics. In the case of SPMonitor,
-the storage endpoint is provided by Mimir so the URL could only be configured
-after the Mimir service had been set up. In this description, the remote\_write URL
-will be configured before the setup of Mimir to keep all the implementation details
-for each service in one place. Thirdly, Prometheus requires a service account with RBAC-based permissions to
-access other services in the cluster and the cluster itself.
+of SPMonitor. The configuration of Prometheus focused on three things: the automatic discovery of services
+that should be monitored, the connection to Mimir for persistency via the remote\_write URL, and the setup of a ServiceAccount
+with permissions that allow Prometheus to access resources in the cluster that are needed for monitoring.
 The configuration of Prometheus for the service discovery and remote\_write URL can
 be seen in Listing \ref{lis:prometheus_config}.
 The remote\_write URL is a single property in the configuration of the Prometheus
@@ -670,6 +700,8 @@ data:
 
 Grafana can export and import dashboards as JSON files. After SPMonitor was running
 for the first time, the dashboards for DLAKa and SP were created and exported as JSON files.
+The dashboards were created according to the metric definitions in Listings \ref{lis:metric_definition_memUse}
+and \ref{lis:metric_definition_numDDL}.
 To load the pre-configured dashboards into Grafana a ConfigMap called grafana-dashboards was used.
 The ConfigMap was referenced in the Grafana configuration under the attribute dashboardConfigMaps.default at lines 8 and 9.
 The configuration of the grafana-dashboards ConfigMap can be seen in Listing \ref{lis:grafana_dashboards_configmap}.
@@ -769,7 +801,7 @@ s3:
 \end{lstlisting}
 \end{figure}
 
-The Helm Chart for SPMonitor's Mimir requires two configurations to be set.
+The Helm Chart for SPMonitor's Mimir requires a PVC (PersistentVolumeClaim) and an S3-like bucket to be configured.
 The configuration of Mimir can be seen in Listing \ref{lis:mimir_config}.
 Firstly, Mimir needs the name of the PVC that it can use for temporarily storing data which is configured in line 1.
 Secondly, Mimir requires the configuration of the MinIO bucket location that consists

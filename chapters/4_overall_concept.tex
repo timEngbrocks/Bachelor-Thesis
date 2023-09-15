@@ -141,16 +141,46 @@ the right configuration changes for other deployments.
 
 % TODO: Do
 
-As Ebert et al. \cite{EG+16} note, the research into DevOps is primarily concerned with
-building and deploying software. But as the name implies, DevOps is also concerned with the
-operation of software.
+% As Ebert et al. \cite{EG+16} note, the research into DevOps is primarily concerned with
+% building and deploying software. But as the name implies, DevOps is also concerned with the
+% operation of software.
+
+The classical software engineering process consists of analysis, design, implementation, testing, and maintenance.
+This process is also known as the waterfall model. Developing software with the waterfall model starts
+with analyzing the requirements of the complete application. These requirements are then used to design
+an application that fulfills them. After the complete application has been designed, it is implemented.
+Once the implementation is done, the application is tested to ensure that it fulfills all requirements.
+When the testing is completed, the application is shipped to the customer. During the usage of the developed application,
+external factors may change which force the application to be updated. This is the last step in the waterfall model
+and is referred to as maintenance. In the waterfall model, this is the only phase when errors from previous phases can be corrected
+as the waterfall model does not provide the ability to, for example, go back to the design phase during the implementation
+to correct mistakes. This process has proven too rigid for most practical software developments.
+DevOps (Development and Operations) addresses this problem by adapting the waterfall model from a linear process
+into a cycle-based process.
+% DevOps (Development and Operations) addresses this rigidity problem of the waterfall model by adopting agile
+% business practices. Instead of splitting the development process into the phases of analysis, design, implementation,
+% testing, and maintenance, DevOps splits the development process into phases where each phase is meant to complete a sub-set
+% of features of the application. These phases are k
+The DevOps cycle consists of eight steps. These steps are planning, implementation, building, testing,
+releasing, deploying, operating, and monitoring \cite{CM-W-DEV}.
+Planning combines the steps of analysis and design from the waterfall model.
+In between the phases of implementation and testing from the waterfall model, the DevOps cycle inserts
+an additional step called building. In the build step, the source code and artifacts of the application
+are combined into a form that can be used by a customer, for example, an executable. Once the application
+has been built, the testing step takes place that mirrors the testing phase from the waterfall model.
+After the application has been tested, it is shipped to the customer which is turned into an explicit step called releasing
+in the DevOps cycle. The DevOps cycle also adds the step of deploying which refers to the setup and installation of an application's release.
+Once the application has been deployed, it has to be operated. % TODO: operating
+While the application is being used, the monitoring step takes place. In this step,
+the application is monitored to find issues that arise during the application's usage.
+In the case that issues are found in the application, the DevOps cycle can be restarted from the beginning
+to address these issues. This is the cyclic nature of the DevOps cycle in comparison with the linear waterfall model.
+
+% TODO: figure of cycle
+
+
 
 % TODO: Connection operation and observability
-
-\begin{quote}
-\textit{``Although researchers have focused considerably on build and deployment,
-DevOps also impacts infrastructure operations'', \cite{EG+16}}
-\end{quote}
 
 \section{Integrating Monitoring into the Unified Microservice Engineering Approach}
 
@@ -158,11 +188,125 @@ DevOps also impacts infrastructure operations'', \cite{EG+16}}
 
 Monitoring is a part of observability and as such should also be considered in DevOps processes.
 
-% TODO: Business metrics and technical metrics
+% TODO: Intro
+% - assumptions
+% - main part is metric definition -> the rest is just the realization of capturing the metrics
 
 \begin{figure}[tb]
 	\centering
 	\includegraphics[width=\textwidth]{figures/ume_approach_extended.png}
-	\caption{Extended Unified Microservice Approach}
+	\caption{Extended Unified Microservice Engineering Approach}
 	\label{fig:ume_approach_extended}
 \end{figure}
+
+% TODO: Assumptions
+% - pull based
+% - monitoring system already exists
+% - monitoring system is capable of aggregating raw values
+The extension of the UME approach with a monitoring concept is based on two assumptions.
+The first assumption is that a viable monitoring system already exists. This assumption
+is made because it simplifies the step API Design and API Specification in the extended UME approach.
+% TODO: besser formulieren
+% During this step the API of microservice, that provide data to the monitoring system, is specified
+% and must include a monitoring endpoint for collecting the data from the microservice. If the monitoring system
+% would not already exist at this point, the API of the microservice could not be specified because
+% the API specification requires knowledge about the format of data that is used by the monitoring system.
+
+% TODO: finish
+The second assumption is that the monitoring system works by pulling data from the application
+as opposed to the data being sent to the monitoring system by the application. This assumption
+is mainly based on the API-oriented approach to designing microservices taken by the UME approach.
+% TODO:
+% In this way, the API of microservices that provide data to the monitoring system
+% can be explicitly extended by a monitoring endpoint 
+
+% TODO: Figure for monitoring targets being marked in a software architecture diagram
+
+The extended UME approach can be seen in Figure \ref{fig:ume_approach_extended}.
+The extension of the UME approach with a monitoring concept starts in the analysis phase
+of the development process. After the Application Requirements Analysis and External System Requirements Analysis,
+a new analysis called Monitoring Requirements Analysis is added. The goal of this analysis
+is the creation of an artifact called Metric Definitions. The Metric Definitions artifact is a list
+that contains the definition of all metrics that should be monitored.
+The definition of each metric consists of the metric's name, the purpose of the metric,
+its type, a list of values necessary for calculating the metric, how the metric should
+be represented visually and optionally different ranges of values of the metric with associated
+state information. An example of a metric definition can be seen in Listing \ref{lis:metric_definition_example}.
+The purpose of a metric should clarify the meaning of a metric.
+An example of this comes from the manufacturing industry where the OEE (Overall Equipment Effectiveness)
+metric measures the percentage of planned production time that is truly productive.
+Additionally, the purpose of a metric should state what the metric is being used for.
+Continuing with the example of the OEE metric, the purpose would be to identify bottlenecks
+in production chains and to improve productivity.
+A metric can be categorized by the type of information that it provides and how it is calculated.
+A metric is either a business metric or a technical metric and its method of calculation is either
+elementary or through aggregation.
+Business metrics capture the performance of business processes.
+An example from BestRentalPoC is the number of issued digital driving licenses.
+Technical metrics capture the state of the application as numerical values.
+Examples of technical metrics are the four golden signals Latency, Traffic, Errors, and Saturation
+as defined in Chapter \ref{cha:foundations}.
+An elementary metric can be calculated from a single value captured from the application and does not
+need any other information. Elementary metrics can be combined to form aggregated metrics
+which are calculated by combining the values of different elementary metrics into a single value.
+The list of values necessary for calculating the metric is used in a later step
+of the extended UME approach to define monitoring targets in the software architecture of the application.
+If the type of a metric is elementary then the list of values necessary for calculating the metric
+must consist of exactly one entry. If the metric is aggregated then the list of values necessary for calculating
+the metric should also state how the different values in the list are combined to form the aggregated metric.
+The visual representation should describe how the metric can be presented in the chosen monitoring tool.
+This description should be kept short. An example of such a description can be seen in Listing \ref{lis:metric_definition_example}.
+Optionally, a metric's definition can contain value ranges that signal different states of a metric.
+Taking the metric Latency, possible value ranges would be: <1ms means Latency is Good, <10ms means High Latency,
+and >1s means Critical Latency. These states can then be used to, for example, trigger alerts or start
+processes. For example, if the metric Latency reaches the state of Critical Latency in a cloud application,
+a process that might be started is to scale the application horizontally by adding more instances of services.
+
+\begin{figure}[tb]
+\begin{lstlisting}[caption = {Example of a Metric Definition}, label = {lis:metric_definition_example}, style = kit-cm, language=]
+Name: Service A Memory Usage
+
+Purpose:
+Capture the amount of main memory being used by Service A
+to identify memory leaks in the service's implementation.
+
+Type: Elemental, Technical
+
+Values:
+- Service A: currently used main memory in bytes.
+
+Visual Representation:
+- Option A: Line Graph with time as the x-axis and the current metric value as the y-axis.
+- Option B: Gauge with different colors for the different ranges of the metric.
+
+Ranges:
+- Ok: Value < 100 MB
+- Warning: 100 MB < Value < 500 MB
+- Critical: Value > 500 MB
+\end{lstlisting}
+\end{figure}
+
+The next adaptation of the UME approach is in the Software Architecture Design.
+The main artifact of the Software Architecture Design is the Software Architecture Diagram.
+The C\&M research group uses SPS (SystemPlusSoftware) diagrams for this purpose.
+Based on the metrics defined during the Monitoring Requirements Analysis,
+microservices within the Software Architecture Diagram are optionally marked as monitoring targets.
+A monitoring target is a microservice that can provide values that are listed in a metric's definition.
+% TODO: es sollte da durch klar sein wo daten her kommen können während dem design
+% Based on the capabilities defined in the Application Requirements Analysis
+% and the External System Documentation from the External System Requirements Analysis,
+
+The next change to the UME approach is the extension of the API specifications created during the
+API Design and API Specification step. Microservices that have been marked as monitoring targets
+during the Software Architecture Design need to include monitoring endpoints in their API
+through which the data that is being collected by the microservice can be collected by the monitoring system.
+Because the assumption was made the monitoring system is chosen in advance,
+the monitoring endpoint in the API specification can be designed to fit the monitoring system.
+
+The last change to the UME approach is the addition of a new artifact to the Operations step.
+The new artifact is the data that is being collected by the monitoring system from the application
+and is called monitoring data. The monitoring data includes both the raw values being collected
+from the application as well as the values of the metrics that have been defined.
+
+% TODO: wieso passt das zu DevOps?
+% - everything can be adapted on the fly
