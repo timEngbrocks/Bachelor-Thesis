@@ -2,8 +2,8 @@
 \label{cha:first_solution}
 
 This chapter applies the extended UME approach from Chapter \ref{cha:concept}
-to the BestRentalPoC by extending its story that requires the integration of
-monitoring. The name of the developed monitoring software is SPMonitor. The
+to the BestRentalPoC by extending its story. This answers the second research question.
+The name of the developed monitoring software is SPMonitor. The
 chapter is oriented along the different phases of software development. First,
 Section \ref{sec:story} extends the story of BestRentalPoC. Then follow
 the analysis of SPMonitor in Section \ref{sec:analysis}, the design in Section
@@ -57,7 +57,7 @@ to the collected data. The relation of these use cases can be seen in Figure
 
 \begin{figure}[tb]
   \centering
-  \includegraphics[width=\textwidth]{figures/2.1_use_case_spmonitor.png}
+  \includegraphics[width=\textwidth]{figures/6.1_use_case_spmonitor.png}
   \caption{Use Case Diagram: SPMonitor}
   \label{fig:use_case_diagram_spmonitor}
 \end{figure}
@@ -152,40 +152,9 @@ Flow:
 
 \subsection{Metrics Definition}
 
-In this section, the two metrics numDDL and memUse will be defined.
+In this section, the two metrics MemUse and numDDL will be defined.
 The definitions of these two metrics will use the Metric Definition artifact
 from the extended UME approach developed in Chapter \ref{cha:concept}.
-The definition of the numDDL metric in the form of a
-Metric Definition can be seen in Listing \ref{lis:metric_definition_numDDL}.
-As the story in Section \ref{sec:story} stated, the purpose of the numDDL is to capture how many
-digital driving licenses were issued by the DLAKaApp so that DLAKa can evaluate
-the success of the DLAKaApp. Because the numDDL metric only uses a single value,
-the number of issued digital driving licenses, it is an elementary metric.
-Additionally, the numDDL metric does not capture the state of the DLAKaApp
-but instead is used to measure the business performance of the DLAKaApp.
-This makes the numDDL metric an elementary business metric.
-The numDDL metric will be presented in a simple line graph that visualizes
-the historic development of the metric. This kind of visual representation
-aligns well with the metric's purpose.
-
-\begin{figure}[tb]
-\begin{lstlisting}[caption = {Metric Definition: numDDL}, label = {lis:metric_definition_numDDL}, style = kit-cm, language=]
-Name: numDDL
-
-Purpose:
-Capture the number of issued digital driving licenses to
-evaluate the success of the DLAKaApp.
-
-Type: Elemental, Business
-
-Values:
-  - number of issued digital driving licenses
-
-Visual Representation:
-Line Graph with time as the x-axis and the current metric value as the y-axis.
-\end{lstlisting}
-\end{figure}
-
 The definition of the MemUse metric in the form of a
 Metric Definition can be seen in Listing \ref{lis:metric_definition_memUse}.
 As the story in Section \ref{sec:story} stated, the purpose of the MemUse metric
@@ -231,22 +200,40 @@ Ranges:
 \end{lstlisting}
 \end{figure}
 
-\subsection{Capabilities and Requirements}
+The definition of the numDDL metric in the form of a
+Metric Definition can be seen in Listing \ref{lis:metric_definition_numDDL}.
+As the story in Section \ref{sec:story} stated, the purpose of the numDDL is to capture how many
+digital driving licenses were issued by the DLAKaApp so that DLAKa can evaluate
+the success of the DLAKaApp. Because the numDDL metric only uses a single value,
+the number of issued digital driving licenses, it is an elementary metric.
+Additionally, the numDDL metric does not capture the state of the DLAKaApp
+but instead is used to measure the business performance of the DLAKaApp.
+This makes the numDDL metric an elementary business metric.
+The numDDL metric will be presented in a simple line graph that visualizes
+the historic development of the metric. This kind of visual representation
+aligns well with the metric's purpose.
 
-\begin{table}[]
-  \centering
-  \begin{tabular}{l}
-    Requirements                                                           \\
-    \hline
-    R1: User Interface, Data Source and Data Sink                          \\
-    R2: User Accounts and Role-Based Access Control                        \\
-    R3: Support Metric Collection from Kubernetes and Golang microservices \\
-    R4: Support Kubernetes as a Runtime                                    \\
-    R5: Permissive Licenses                                                \\
-  \end{tabular}
-  \caption{Requirements for SPMonitor}
-  \label{tab:spmonitor_requirements}
-\end{table}
+\begin{figure}[tb]
+\begin{lstlisting}[caption = {Metric Definition: numDDL}, label = {lis:metric_definition_numDDL}, style = kit-cm, language=]
+Name: numDDL
+
+Purpose:
+Capture the number of issued digital driving licenses to
+evaluate the success of the DLAKaApp.
+
+Type: Elemental, Business
+
+Values:
+  - number of issued digital driving licenses
+
+Visual Representation:
+Line Graph with time as the x-axis and the current metric value as the y-axis.
+\end{lstlisting}
+\end{figure}
+
+
+
+\subsection{Capabilities and Requirements}
 
 From the use cases, the capabilities and requirements for SPMonitor can be
 derived, starting with the capabilities. SPMonitor needs to be able to collect metrics
@@ -268,6 +255,21 @@ SPMonitor should be able to run inside the Kubernetes cluster DLAKaCluster as th
 is the deployment environment provided by the C\&M research group.
 Second, all tools required by SPMonitor to operate should have a license that
 allows free usage and is open source because this thesis was written without funding.
+
+\begin{table}[]
+  \centering
+  \begin{tabular}{l}
+    Requirements                                                           \\
+    \hline
+    R1: User Interface, Data Source and Data Sink                          \\
+    R2: User Accounts and Role-Based Access Control                        \\
+    R3: Support Metric Collection from Kubernetes and Golang microservices \\
+    R4: Support Kubernetes as a Runtime                                    \\
+    R5: Permissive Licenses                                                \\
+  \end{tabular}
+  \caption{Requirements for SPMonitor}
+  \label{tab:spmonitor_requirements}
+\end{table}
 
 \subsection{Integration with DLAKaApp}
 
@@ -303,7 +305,7 @@ With the tools selected, the concrete software architecture of SPMonitor is then
 
 \begin{figure}[tb]
   \centering
-  \includegraphics[width=\textwidth]{figures/abstract_sps_spmonitor.png}
+  \includegraphics[width=\textwidth]{figures/6.2_abstract_sps_spmonitor.png}
   \caption{Abstract SystemPlusSoftware Architecture for SPMonitor}
   \label{fig:abstract_sps_spmonitor}
 \end{figure}
@@ -419,7 +421,7 @@ course thesis \cite{Am23}.
 
 \begin{figure}[tb]
   \centering
-  \includegraphics[width=\textwidth]{figures/api_diagram_drivinglicensemanagement.png}
+  \includegraphics[width=\textwidth]{figures/6.3_api_diagram_drivinglicensemanagement.png}
   \caption{API Diagram Application Microservice DrivingLicenseManagement}
   \label{fig:api_diagram_drivinglicensemanagement}
 \end{figure}
@@ -510,7 +512,7 @@ and the combination of Mimir and MinIO represents the microservice AM-MetricStor
 
 \begin{figure}[tb]
   \centering
-  \includegraphics[width=\textwidth]{figures/sps_spmonitor.png}
+  \includegraphics[width=\textwidth]{figures/6.4_sps_spmonitor.png}
   \caption{SystemPlusSoftware for SPMonitor}
   \label{fig:sps_spmonitor}
 \end{figure}
@@ -718,14 +720,14 @@ and the dashboard for SP in Figure \ref{fig:spmonitor_sp_dashboard}.
 
 \begin{figure}[tb]
   \centering
-  \includegraphics[width=0.4\textwidth]{figures/spmonitor_dlaka_dashboard.png}
+  \includegraphics[width=0.6\textwidth]{figures/6.5_spmonitor_dlaka_dashboard.png}
   \caption{SPMonitor Dashboard for DLAKa}
   \label{fig:spmonitor_dlaka_dashboard}
 \end{figure}
 
 \begin{figure}[tb]
   \centering
-  \includegraphics[width=0.7\textwidth]{figures/spmonitor_sp_dashboard.png}
+  \includegraphics[width=0.7\textwidth]{figures/6.6_spmonitor_sp_dashboard.png}
   \caption{SPMonitor Dashboard for SP}
   \label{fig:spmonitor_sp_dashboard}
 \end{figure}
@@ -931,7 +933,7 @@ The Ingress routes requests that reach the cluster to the different services of 
 
 \begin{figure}[tb]
   \centering
-  \includegraphics[width=0.7\textwidth]{figures/spmonitor_resources.png}
+  \includegraphics[width=0.7\textwidth]{figures/6.7_spmonitor_resources.png}
   \caption{SPMonitor Deployment Resources}
   \label{fig:spmonitor_resources}
 \end{figure}

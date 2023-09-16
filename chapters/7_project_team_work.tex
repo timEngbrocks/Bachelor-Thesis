@@ -13,7 +13,7 @@ The contributions of the author to the practical course and the work of the proj
 
 \begin{figure}[tb]
 	\centering
-	\includegraphics[width=0.5\textwidth]{figures/practical_course_roles.png}
+	\includegraphics[width=0.7\textwidth]{figures/7.1_practical_course_roles.png}
 	\caption{WASA2 Practical Course Supervision Hierarchy \cite{CM-W-INT}}
 	\label{fig:practical_course_roles}
 \end{figure}
@@ -98,7 +98,7 @@ The second group, called Monitoring, focused on assisting the author of this the
 
 \begin{figure}[tb]
 	\centering
-	\includegraphics[width=\textwidth]{figures/api_diagram_drivinglicensemanagement.png}
+	\includegraphics[width=\textwidth]{figures/7.2_api_diagram_drivinglicensemanagement.png}
 	\caption{API Diagram Application Microservice DrivingLicenseManagement}
 	\label{fig:api_diagram_drivinglicensemanagement_p3}
 \end{figure}
@@ -135,6 +135,14 @@ that can either be IssuanceCreated, IssuanceProcessing, IssuanceSuccessful, or I
 During the handling of the callback request, the function shown in Listing \ref{lis:am_dlm_num_ddl} is called.
 If the request status of the issuance is IssuanceSuccessful in line 3, the numDDL metric is incremented in line 4.
 
+After the SPMonitor Library was integrated into AM-DrivingLicenseManagement,
+the groups of the project team P3 combined into one group again for the third phase of unsupervised work
+and solely focused on the provisioning of resources for BestRentalPoC.
+The author of this thesis did not supervise this part of the practical
+course except for reviews and feedback for the practical course thesis' of the team. The remaining
+tasks, as well as the tasks of the Provisioning group, can be read in the master's thesis of the student
+who supervised this part of the practical course \cite{Go23}.
+
 \begin{lstlisting}[caption = {Usage of the SPMonitor Library in AM-DrivingLicenseManagement}, label = {lis:am_dlm_num_ddl}, style = kit-cm, language=Go]
 func (ops *IssuanceOperations) SetStatus(requestStatus string) {
 	ops.issuance.Status = mappers.MapIssuanceStatus(requestStatus)
@@ -144,11 +152,3 @@ func (ops *IssuanceOperations) SetStatus(requestStatus string) {
 	// ...
 }
 \end{lstlisting}
-
-After the SPMonitor Library was integrated into AM-DrivingLicenseManagement,
-the groups of the project team P3 combined into one group again for the third phase of unsupervised work
-and solely focused on the provisioning of resources for BestRentalPoC.
-The author of this thesis did not supervise this part of the practical
-course except for reviews and feedback for the practical course thesis' of the team. The remaining
-tasks, as well as the tasks of the Provisioning group, can be read in the master's thesis of the student
-who supervised this part of the practical course \cite{Go23}.

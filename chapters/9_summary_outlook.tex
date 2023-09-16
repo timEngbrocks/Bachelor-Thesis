@@ -1,13 +1,70 @@
 \chapter{Summary and Outlook}
 \label{cha:outlook}
 
-% TODO: Chapter intro
+This chapter provides a summary of this thesis in Section \ref{sec:summary}.
+The summary recaps the concepts developed in this thesis and the work
+done by the author. Section \ref{sec:outlook} provides an outlook
+on future research direction and extensions of the work done in this thesis.
 
 \section{Summary}
+\label{sec:summary}
 
-% TODO: Do
+This thesis investigated the two research questions posed in Chapter \ref{cha:introduction}.
+The first research question asked how monitoring can be integrated into the
+UME (Unified Microservice Engineering) approach. This question was answered in Chapter \ref{cha:concept}.
+Chapter \ref{cha:concept} developed a monitoring concept for the UME approach that was
+based on the DevOps principle of feedback.
+The second research question related to the verification of the first research question
+by asking how the extended UME approach can be used to monitor the BestRentalPoC.
+Chapter \ref{cha:first_solution} answered this question through the development
+of the monitoring solution SPMonitor that was used to monitor the DLAKaApp within the BestRentalPoC.
+The development of SPMonitor extended the story of the BestRentalPoC and used the extended
+UME approach.
+
+Chapter \ref{cha:projektteam-arbeiten} described the author's contributions to the
+practical course of WASA2 in the summer semester of 2023. During the practical course,
+the project team, which was supervised by the author of this thesis, helped with the development
+of the SPMonitor Library. The project team then also integrated the SPMonitor Library
+into the microservice AM-DrivingLicenseManagement by the project team.
+
+Chapter \ref{cha:m2go} described the author's contribution to the preparation
+of the M2Go (Microservice2Go) practical course for the winter semester of 2023/2024.
+The contributions of the author to M2Go consisted of adapting the microservice
+DM-Car to utilize a PostgreSQL database as its storage and creating exercises
+for the third part, Microservice Engineering, of the practical course.
+The author developed exercises and their solutions for the implementation
+of the microservice DM-Car.
 
 \section{Outlook}
+\label{sec:outlook}
 
-% TODO: Do
+The most important result of this thesis is the extension of the UME (Unified Microservice Engineering)
+approach with a monitoring concept. This integrates the DevOps principle of feedback
+into the UME approach. Further work is required in validating the developed concept.
+This can be done by applying the concept to the development of more applications
+and by qualitatively comparing it to other monitoring concepts for DevOps-based
+software development processes. Additionally, the assumptions made by the monitoring concept
+should be further investigated. The concept relies on the assumptions that a viable monitoring
+solution already exists prior to the development of the application
+and that the monitoring solution collects metrics from the application by pulling new data
+through monitoring endpoints on the application. These assumptions can be investigated by
+using the concept with different monitoring solutions and also testing push-based monitoring solutions
+as opposed to pull-based solutions.
 
+This thesis developed the monitoring solution SPMonitor
+for the DLAKaApp. There are four ways in which SPMonitor
+can be extended in the future. Firstly, SPMonitor could be configured
+to capture more metrics from DLAKaApp, especially technical metrics.
+Currently, SPMonitor only captures the memory usage of the DLAKaApp through the
+MemUse metric. Additional technical metrics that might be of interest
+to the DLAKaApp in the future are the CPU and storage usage as well as the
+four golden signals that were defined in Chapter \ref{cha:foundations}.
+Secondly, SPMonitor could be integrated into the BestRentalApp to monitor
+the complete BestRentalPoC.
+Thirdly, SPMonitor could be extended to a complete observability system
+that also captures the missing two pillars of observability logs and traces.
+Fourthly, SPMonitor could be used for researching business processes within
+the DLAKaApp by integrating features like alerting. Alerting sends out
+automated notifications when metrics exceed pre-configured values.
+This can be used in conjunction with DevOps to, for example,
+automate the horizontal scaling of the DLAKaApp based on metrics captured by SPMonitor.
